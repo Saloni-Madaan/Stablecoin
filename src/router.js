@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import { Redirect } from "react-router";
 import LoginSignup from "./Login/loginSignup";
 import Signup from "./Login/signup";
 import Dashboard from "./Homepage/dashboard";
@@ -15,18 +14,32 @@ const AllRouterPath = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" element={<LoginSignup />} />
-        <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path="/dashboard/funds" element={<Funds />} />
-        <Route exact path="/dashboard/cart" element={<Cart />} />
-        <Route exact path="/dashboard/portfolio" element={<Portfolio />} />
-        <Route
-          exact
-          path="/dashboard/transactions"
-          element={<Transactions />}
-        />
-        <Route exact path="/dashboard/paymentpage" element={<PaymentPage />} />
+        <Route exact path="/">
+          <LoginSignup />
+        </Route>
+        <Route exact path="/signup">
+          <Signup />
+        </Route>
+        <Route exact path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route exact path="/dashboard/funds">
+          <Funds />
+        </Route>
+        <Route exact path="/dashboard/cart">
+          <Cart />
+        </Route>
+        <Route exact path="/dashboard/portfolio">
+          <Portfolio />
+        </Route>
+
+        <Route exact path="/dashboard/transactions">
+          <Transactions />
+        </Route>
+
+        <Route exact path="/dashboard/paymentpage">
+          <PaymentPage />
+        </Route>
       </Switch>
     </Router>
   );
