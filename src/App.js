@@ -1,9 +1,10 @@
 import "./index.css";
-import LoginSignup from "./Login/loginSignup";
+import AllRouterPath from "./router";
+
 function App() {
   return (
     <div>
-      <LoginSignup />
+      <AllRouterPath />
     </div>
   );
 }
