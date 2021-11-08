@@ -22,6 +22,12 @@ const Navbar = () => {
             cart
           </Link>
         </li>
+        <li>
+          {" "}
+          <Link rel="stylesheet" to="/dashboard/transactions">
+            Transaction
+          </Link>
+        </li>
       </ul>
     </div>
   );
