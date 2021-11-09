@@ -378,14 +378,35 @@ const abi = [
     type: "function",
   },
 ];
+let responseData = {
+  blockHash: "",
+  blockNumber: "",
+  contractAddress: null,
+  cumulativeGasUsed: "",
+  effectiveGasPrice: "",
+  from: "",
+  gasUsed: "",
+  logs: [
+    {
+      address: "",
+      blockHash: "",
+      blockNumber: "",
+      data: "",
+      logIndex: "",
+      transactionHash: "",
+      id: "log_6520c149",
+    },
+  ],
+  status: true,
+  to: "",
+  transactionHash: "",
+};
+let tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
+
 const Cart = () => {
   const web3 = new Web3(window.web3.currentProvider);
-  const contractInstance = new web3.eth.Contract(
-    abi,
-    "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe"
-  );
+  const contractInstance = new web3.eth.Contract(abi, tokenAddress);
   const amount = 10;
-  console.log("Ethe : ", window.ethereum);
 
   window.addEventListener("load", async () => {
     if (window.web3) {
@@ -394,10 +415,13 @@ const Cart = () => {
       console.log("No Metamask (or other Web3 Provider) installed");
     }
   });
-
-  const initPayButton = () => {
-    // paymentAddress is where funds will be send toS
+  const initPayButton = async () => {
     let paymentAddress = window.ethereum.selectedAddress;
+
+    const tokenInst = new web3.eth.Contract(abi, tokenAddress);
+    const balance = await tokenInst.methods.balanceOf(paymentAddress).call();
+    const data = web3.utils.fromWei(balance, "ether");
+    console.log("balance USDT: ", data);
     const tx = {
       from: paymentAddress,
       to: contractInstance._address,
@@ -411,6 +435,7 @@ const Cart = () => {
     web3.eth
       .sendTransaction(tx)
       .then((res) => {
+        responseData = res;
         console.log("response  : ", res);
       })
       .catch((err) => {
