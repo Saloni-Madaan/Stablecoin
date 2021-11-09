@@ -1,4 +1,3 @@
-var Tx = require("ethereumjs-tx").Transaction;
 const Web3 = require("web3");
 const abi = [
   {
@@ -401,17 +400,17 @@ let responseData = {
   to: "",
   transactionHash: "",
 };
-let money=0;
+let money = 0;
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let paymentAddress = window.ethereum.selectedAddress;
 const web3 = new Web3(window.web3.currentProvider);
 const tokenInst = new web3.eth.Contract(abi, tokenAddress);
-const balance =  tokenInst.methods.balanceOf(paymentAddress).call();
-balance.then((value) => {money=value;});
-// let dat = web3.utils.fromWei(balance.toString(), "ether");
-// console.log("balance USDT: ", dat);
+const balance = tokenInst.methods.balanceOf(paymentAddress).call();
+balance.then((value) => {
+  money = value;
+});
+
 const Cart = () => {
-  
   const contractInstance = new web3.eth.Contract(abi, tokenAddress);
   const amount = 10;
 
@@ -423,8 +422,6 @@ const Cart = () => {
     }
   });
   const initPayButton = async () => {
-    
-
     const tx = {
       from: paymentAddress,
       to: contractInstance._address,
