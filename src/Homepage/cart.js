@@ -401,15 +401,17 @@ let responseData = {
   to: "",
   transactionHash: "",
 };
+let money=0;
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
-
-// const tokenInst = new web3.eth.Contract(abi, tokenAddress);
-// const balance = await tokenInst.methods.balanceOf(paymentAddress).call();
-// const data = web3.utils.fromWei(balance, "ether");
-// console.log("balance USDT: ", data);
-let data=0;
+let paymentAddress = window.ethereum.selectedAddress;
+const web3 = new Web3(window.web3.currentProvider);
+const tokenInst = new web3.eth.Contract(abi, tokenAddress);
+const balance =  tokenInst.methods.balanceOf(paymentAddress).call();
+balance.then((value) => {money=value;});
+// let dat = web3.utils.fromWei(balance.toString(), "ether");
+// console.log("balance USDT: ", dat);
 const Cart = () => {
-  const web3 = new Web3(window.web3.currentProvider);
+  
   const contractInstance = new web3.eth.Contract(abi, tokenAddress);
   const amount = 10;
 
@@ -421,7 +423,7 @@ const Cart = () => {
     }
   });
   const initPayButton = async () => {
-    let paymentAddress = window.ethereum.selectedAddress;
+    
 
     const tx = {
       from: paymentAddress,
@@ -463,7 +465,7 @@ const Cart = () => {
           >
             pay
           </button>
-          <h2>{data}</h2>
+          <h2>{money}</h2>
         </div>
       </body>
     </>
