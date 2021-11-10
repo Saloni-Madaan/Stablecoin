@@ -60,7 +60,7 @@ const Signup = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://images.axios.com/ItBbpwq5J37YrPJQNzPCQ3D5iAw=/1920x1080/smart/2017/12/15/1513304125245.jpg)',
+            backgroundImage: 'url(https://www.mobliciti.com/wp-content/uploads/2020/02/Fidelity-Mobliciti-Airtime-header-case-study-2.png)',
             backgroundRepeat: 'repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
