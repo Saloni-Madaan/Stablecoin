@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import data from "./data";
+// import { createContext, useContext, useReducer } from "react";
 
+// const Cart = createContext();    
 const Funds = () => {
+
+  // const [state, dispatch] = useReducer(cartReducer, {   ///// 
+  //   products: data,
+  //   cart: [],
+  // });                                          /////
   return (
     <div className="funds align-middle">
       <h1>
@@ -17,6 +24,12 @@ const Funds = () => {
               <p>{date}</p>
               <p>{value}</p>
             </div>
+            
+            {/* <Cart.Provider value={[data]}>   
+              <Cart/>           
+            </Cart.Provider> */}
+
+
             <button className="container bg-green-light">add</button>
           </div>
         );
@@ -25,3 +38,7 @@ const Funds = () => {
   );
 };
 export default Funds;
+
+// export const CartState = () => {       
+//   return useContext(Cart);               
+// };
