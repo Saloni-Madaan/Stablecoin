@@ -1,5 +1,7 @@
-var Tx = require("ethereumjs-tx").Transaction;
+import { React, useEffect, useState } from "react";
+import axios from "axios";
 const Web3 = require("web3");
+
 const abi = [
   {
     inputs: [],
@@ -401,12 +403,26 @@ let responseData = {
   to: "",
   transactionHash: "",
 };
-let tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
+
+const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
+let paymentAddress;
+const web3 = new Web3(window.web3.currentProvider);
+const contractInstance = new web3.eth.Contract(abi, tokenAddress);
+const amount = 2;
+const apiKey = "IG353536346StblC345";
+
+//-----------------------------------------------------------------------------------------------------------------//
 
 const Cart = () => {
-  const web3 = new Web3(window.web3.currentProvider);
-  const contractInstance = new web3.eth.Contract(abi, tokenAddress);
-  const amount = 10;
+  let [balance, setbalance] = useState(0);
+  let [paymentStatus, setPaymentStatus] = useState(false);
+  const [disable, setDisable] = useState(false);
+
+  useEffect(() => {
+    paymentAddress = window.ethereum.selectedAddress;
+
+    userBalance();
+  });
 
   window.addEventListener("load", async () => {
     if (window.web3) {
@@ -415,55 +431,113 @@ const Cart = () => {
       console.log("No Metamask (or other Web3 Provider) installed");
     }
   });
-  const initPayButton = async () => {
-    let paymentAddress = window.ethereum.selectedAddress;
 
-    const tokenInst = new web3.eth.Contract(abi, tokenAddress);
-    const balance = await tokenInst.methods.balanceOf(paymentAddress).call();
-    const data = web3.utils.fromWei(balance, "ether");
-    console.log("balance USDT: ", data);
-    const tx = {
-      from: paymentAddress,
-      to: contractInstance._address,
-      data: contractInstance.methods
-        .transfer(
-          "0xa26C1600AC48d7D29b0570422b14Ee99ca355Dfc",
-          web3.utils.toWei(amount.toString())
-        )
-        .encodeABI(),
-    };
-    web3.eth
-      .sendTransaction(tx)
-      .then((res) => {
-        responseData = res;
-        console.log("response  : ", res);
-      })
-      .catch((err) => {
-        console.log("error : ", err);
-      });
+  const userBalance = async () => {
+    const balanceWie = await contractInstance.methods
+      .balanceOf(paymentAddress)
+      .call();
+    balance = web3.utils.fromWei(balanceWie, "ether");
+    console.log("balance USDT: ", balance);
+    setbalance(balance);
   };
 
+  let itemsInCart = {
+    apiKey: apiKey,
+    currency: "USDT",
+    items: [
+      {
+        description: "Fund1",
+        amount: 1,
+      },
+      {
+        description: "Fund2",
+        amount: 1,
+      },
+    ],
+  };
+
+  const initPayButton = async () => {
+    let invoiceId;
+    axios
+      .post("/api/v1/invoice", itemsInCart)
+      .then((response) => {
+        invoiceId = response.data.invoiceId;
+        console.log("Step 1: invoice id : ", invoiceId);
+        return invoiceId;
+      })
+      .then((invoiceId) => {
+        axios
+          .get(`/api/v1/invoice/${invoiceId}`)
+          .then((response) => {
+            const invoiceData = response.data;
+            console.log("Step 2  invoiceData : ", invoiceData);
+            return invoiceData;
+          })
+          .then((invoiceData) => {
+            console.log("Step 3: ");
+            const walletId = invoiceData.wallet.address;
+            const tx = {
+              from: paymentAddress,
+              to: contractInstance._address,
+              data: contractInstance.methods
+                .transfer(walletId, web3.utils.toWei(amount.toString()))
+                .encodeABI(),
+            };
+            web3.eth
+              .sendTransaction(tx)
+              .then(async (res) => {
+                responseData = await res;
+                console.log(
+                  "Step 4 : response of transaction form metamask : ",
+                  res
+                );
+              })
+              .then(() => {
+                let transactionData = {
+                  invoiceData: invoiceData,
+                  invoiceId: invoiceId,
+                };
+                axios
+                  .post("http://localhost:5000/transaction", transactionData)
+                  .then((response) => {
+                    console.log(
+                      "Step 5: check if payment successfull : ",
+                      response.data
+                    );
+                  })
+                  .catch((error) => {
+                    console.log("Step 5: Some error occur : ", error);
+                  });
+              })
+              .catch((err) => {
+                console.log("Step 4 : error from metamask : ", err);
+                return;
+              });
+          });
+      });
+  };
   return (
     <>
-      <head>
-        <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-        {/* <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script> */}
+      <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+      {/* <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script> */}
 
-        <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
-      </head>
-      <body>
-        <div className="bg-orange">
-          <h1>Cart</h1>
-          <button
-            onClick={() => {
-              initPayButton();
-            }}
-          >
-            pay
-          </button>
-        </div>
-      </body>
+      <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+      <div className="bg-orange">
+        <h1>Cart</h1>
+        <button
+          id="pay"
+          disabled={disable}
+          onClick={() => {
+            // setDisable(true);
+            initPayButton();
+          }}
+        >
+          pay
+        </button>
+
+        <h2>Balance USDT : {balance}</h2>
+      </div>
     </>
   );
 };
