@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
 const Web3 = require("web3");
+
 const abi = [
   {
     inputs: [],
@@ -407,14 +408,19 @@ const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let paymentAddress;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
-const amount = 10;
+const amount = 2;
 const apiKey = "IG353536346StblC345";
+
+//-----------------------------------------------------------------------------------------------------------------//
+
 const Cart = () => {
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
+  const [disable, setDisable] = useState(false);
+
   useEffect(() => {
     paymentAddress = window.ethereum.selectedAddress;
-    
+
     userBalance();
   });
 
@@ -451,36 +457,62 @@ const Cart = () => {
   };
 
   const initPayButton = async () => {
+    let invoiceId;
     axios
       .post("/api/v1/invoice", itemsInCart)
       .then((response) => {
-        const invoceId = response.data.invoiceId;
-        return invoceId;
+        invoiceId = response.data.invoiceId;
+        console.log("Step 1: invoice id : ", invoiceId);
+        return invoiceId;
       })
       .then((invoiceId) => {
-        axios.get(`/api/v1/invoice/${invoiceId}`).then((response) => {
-          const invoiceData = response.data;
-          const walletId = invoiceData.wallet.address;
-          console.log("invoiceData : ", invoiceData, " wallet id : ", walletId);
-          return walletId;
-        });
-      })
-      .then((walletId) => {
-        const tx = {
-          from: paymentAddress,
-          to: contractInstance._address,
-          data: contractInstance.methods
-            .transfer(walletId, web3.utils.toWei(amount.toString()))
-            .encodeABI(),
-        };
-        web3.eth
-          .sendTransaction(tx)
-          .then((res) => {
-            responseData = res;
-            console.log("response  : ", res);
+        axios
+          .get(`/api/v1/invoice/${invoiceId}`)
+          .then((response) => {
+            const invoiceData = response.data;
+            console.log("Step 2  invoiceData : ", invoiceData);
+            return invoiceData;
           })
-          .catch((err) => {
-            console.log("error : ", err);
+          .then((invoiceData) => {
+            console.log("Step 3: ");
+            const walletId = invoiceData.wallet.address;
+            const tx = {
+              from: paymentAddress,
+              to: contractInstance._address,
+              data: contractInstance.methods
+                .transfer(walletId, web3.utils.toWei(amount.toString()))
+                .encodeABI(),
+            };
+            web3.eth
+              .sendTransaction(tx)
+              .then(async (res) => {
+                responseData = await res;
+                console.log(
+                  "Step 4 : response of transaction form metamask : ",
+                  res
+                );
+              })
+              .then(() => {
+                let transactionData = {
+                  invoiceData: invoiceData,
+                  invoiceId: invoiceId,
+                };
+                axios
+                  .post("http://localhost:5000/transaction", transactionData)
+                  .then((response) => {
+                    console.log(
+                      "Step 5: check if payment successfull : ",
+                      response.data
+                    );
+                  })
+                  .catch((error) => {
+                    console.log("Step 5: Some error occur : ", error);
+                  });
+              })
+              .catch((err) => {
+                console.log("Step 4 : error from metamask : ", err);
+                return;
+              });
           });
       });
   };
@@ -495,12 +527,16 @@ const Cart = () => {
       <div className="bg-orange">
         <h1>Cart</h1>
         <button
+          id="pay"
+          disabled={disable}
           onClick={() => {
+            // setDisable(true);
             initPayButton();
           }}
         >
           pay
         </button>
+
         <h2>Balance USDT : {balance}</h2>
       </div>
     </>
