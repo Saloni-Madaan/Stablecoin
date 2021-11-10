@@ -34,21 +34,22 @@ const Signup = () => {
   let history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
     axios
-      .post("http://localhost:5000/login", {
+      .post("http://localhost:5001/signup", {
         userName: userName,
-         email: email,
-         password: password,
+        email: email,
+        password: password,
       })
       .then((res) => {
-        if (res.data.success) {
-          localStorage.setItem("token", res.data.token);
-          history.push("/dashboard");
-        } else {
-          alert("Wrong email or password");
+        console.log(res);
+        history.push("/");
+      })
+      .catch((err) => {
+        if (err.response.status === 422) {
+          alert("User already registered");
         }
       });
+    console.log(email, password);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -123,6 +124,7 @@ const Signup = () => {
                 label="Remember me"
               />
               <Button
+              onClick={handleSubmit}
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -145,7 +147,7 @@ const Signup = () => {
 //   const handleFormSubmit = (e) => {
 //     e.preventDefault();
 //     axios
-//       .post("http://localhost:5000/signup", {
+//       .post("http://localhost:5001/signup", {
 //         userName: userName,
 //         email: email,
 //         password: password,
