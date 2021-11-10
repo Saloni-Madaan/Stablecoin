@@ -424,7 +424,7 @@ const Cart = () => {
   };
   //*--------------------------------------------------------------------------------------------*
 
-  let itemsInCart = { 
+  let itemsInCart = {
     apiKey: apiKey,
     currency: "USDT",
     items: [
@@ -487,7 +487,7 @@ const Cart = () => {
                   res: res,
                 };
                 axios
-                  .post("http://localhost:5000/transaction", transactionData)
+                  .post("http://localhost:5001/transaction", transactionData)
                   .then((response) => {
                     console.log(
                       "Step 5: check if payment successfull : ",
