@@ -441,7 +441,7 @@ const Cart = () => {
     setbalance(balance);
   };
 
-  let itemsInCart = {
+  let itemsInCart = { 
     apiKey: apiKey,
     currency: "USDT",
     items: [
@@ -521,7 +521,7 @@ const Cart = () => {
     <>
       <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-      {/* <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script> */}
+      <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
 
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
       <div className="bg-orange">
