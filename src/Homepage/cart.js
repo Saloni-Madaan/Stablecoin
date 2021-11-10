@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 const Web3 = require("web3");
+//*--------------------------------------------------------------------------------------------*
 
 const abi = [
   {
@@ -380,29 +381,8 @@ const abi = [
     type: "function",
   },
 ];
-let responseData = {
-  blockHash: "",
-  blockNumber: "",
-  contractAddress: null,
-  cumulativeGasUsed: "",
-  effectiveGasPrice: "",
-  from: "",
-  gasUsed: "",
-  logs: [
-    {
-      address: "",
-      blockHash: "",
-      blockNumber: "",
-      data: "",
-      logIndex: "",
-      transactionHash: "",
-      id: "log_6520c149",
-    },
-  ],
-  status: true,
-  to: "",
-  transactionHash: "",
-};
+
+//*--------------------------------------------------------------------------------------------*
 
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let paymentAddress;
@@ -416,11 +396,12 @@ const apiKey = "IG353536346StblC345";
 const Cart = () => {
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
+  let [paymentText, setPaymentText] = useState("");
   const [disable, setDisable] = useState(false);
+  //*--------------------------------------------------------------------------------------------*
 
   useEffect(() => {
     paymentAddress = window.ethereum.selectedAddress;
-
     userBalance();
   });
 
@@ -432,6 +413,7 @@ const Cart = () => {
     }
   });
 
+  //*--------------------------------------------------------------------------------------------*
   const userBalance = async () => {
     const balanceWie = await contractInstance.methods
       .balanceOf(paymentAddress)
@@ -440,8 +422,9 @@ const Cart = () => {
     console.log("balance USDT: ", balance);
     setbalance(balance);
   };
+  //*--------------------------------------------------------------------------------------------*
 
-  let itemsInCart = { 
+  let itemsInCart = {
     apiKey: apiKey,
     currency: "USDT",
     items: [
@@ -455,6 +438,7 @@ const Cart = () => {
       },
     ],
   };
+  //*--------------------------------------------------------------------------------------------*
 
   const initPayButton = async () => {
     let invoiceId;
@@ -471,6 +455,8 @@ const Cart = () => {
           .then((response) => {
             const invoiceData = response.data;
             console.log("Step 2  invoiceData : ", invoiceData);
+            setPaymentStatus(true);
+            setPaymentText("Payment Pending to be confirmed");
             return invoiceData;
           })
           .then((invoiceData) => {
@@ -483,39 +469,60 @@ const Cart = () => {
                 .transfer(walletId, web3.utils.toWei(amount.toString()))
                 .encodeABI(),
             };
+
             web3.eth
               .sendTransaction(tx)
               .then(async (res) => {
-                responseData = await res;
+                await res;
                 console.log(
                   "Step 4 : response of transaction form metamask : ",
                   res
                 );
+                return res;
               })
-              .then(() => {
+              .then((res) => {
                 let transactionData = {
                   invoiceData: invoiceData,
                   invoiceId: invoiceId,
+                  res: res,
                 };
                 axios
-                  .post("http://localhost:5000/transaction", transactionData)
+                  .post("http://localhost:5001/transaction", transactionData)
                   .then((response) => {
                     console.log(
                       "Step 5: check if payment successfull : ",
                       response.data
                     );
+                    setPaymentText("Payment Successfull");
                   })
                   .catch((error) => {
+                    setPaymentText("Payment Failed");
                     console.log("Step 5: Some error occur : ", error);
                   });
               })
               .catch((err) => {
+                setPaymentText("Payment Failed");
                 console.log("Step 4 : error from metamask : ", err);
                 return;
               });
           });
       });
   };
+  //*--------------------------------------------------------------------------------------------*
+
+  const paymentStatusText = (param) => {
+    switch (param) {
+      case "Payment Successfull":
+        return <>Payment Successfull !! hurray</>;
+
+      case "Payment Failed":
+        return <>Payment Failed !!</>;
+      default:
+        return <>Payment Pending to be confirmed</>;
+    }
+  };
+  //*--------------------------------------------------------------------------------------------*
+
   return (
     <>
       <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
@@ -537,8 +544,17 @@ const Cart = () => {
         </button>
 
         <h2>Balance USDT : {balance}</h2>
+        <h2>
+          {paymentStatus ? (
+            <>Payment Status : {paymentStatusText(paymentText)}</>
+          ) : (
+            <></>
+          )}
+        </h2>
       </div>
     </>
   );
 };
+//*--------------------------------------------------------------------------------------------*
+
 export default Cart;
