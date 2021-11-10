@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let history = useHistory();
+  //*--------------------------------------------------------------------------------------------*
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +26,9 @@ const Login = () => {
         }
       });
   };
+
+  //*--------------------------------------------------------------------------------------------*
+
   return (
     <div className="h-screen flex bg-gray-bg1">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
