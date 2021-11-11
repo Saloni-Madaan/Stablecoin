@@ -1,44 +1,65 @@
 import { Link } from "react-router-dom";
 import data from "./data";
-// import { createContext, useContext, useReducer } from "react";
+import {
+  Container,
+  Paper,
+  Box,
+  Typography,
+  CssBaseline,
+  TableContainer, Table, TableBody, TableHead, TableCell
+} from "@material-ui/core";
+import Transaction from "./transactionApi.js";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { ClassNames } from "@emotion/react";
+import { TableRow } from "@mui/material";
 
-// const Cart = createContext();    
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100vw",
+    height: "100vh",
+    // backgroundColor: theme.palette.grey[300],
+    paddingTop: theme.spacing(5),
+ },
+}));
+
 const Funds = () => {
-
-  // const [state, dispatch] = useReducer(cartReducer, {   ///// 
-  //   products: data,
-  //   cart: [],
-  // });                                          /////
+  
+  const classes = useStyles();
+                                       
   return (
-    <div className="funds align-middle">
-      <h1>
-        <b className="bg-green-darker xl:visible">Funds</b>
-      </h1>
-      {data.map((item, index) => {
-        const { name, description, date, value } = item;
-        return (
-          <div className="funds-item" key={index}>
-            <div className="funds-item-content">
-              <h2>{name}</h2>
-              <p>{description}</p>
-              <p>{date}</p>
-              <p>{value}</p>
-            </div>
-            
-            {/* <Cart.Provider value={[data]}>   
-              <Cart/>           
-            </Cart.Provider> */}
-
-
-            <button className="container bg-green-light">add</button>
-          </div>
-        );
-      })}
-    </div>
+    <>
+    <Container className={classes.root}>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell><b>Name</b></TableCell>
+              <TableCell><b>Description</b></TableCell>
+              <TableCell><b>Amount</b></TableCell>
+              <TableCell><b>Currency</b></TableCell>
+              <TableCell><b>Date</b></TableCell>
+              
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody justify="center">
+            {data.map((curElem,index)=>(
+            <TableRow key={index}>
+              <TableCell><b>{curElem.name}</b></TableCell>
+              <TableCell>{curElem.description}</TableCell>
+              <TableCell>{curElem.value}</TableCell>
+              <TableCell>{curElem.currency}</TableCell>
+              <TableCell>{curElem.date}</TableCell>
+              <TableCell><button className="container bg-green-light">add</button></TableCell>
+              
+            </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
+    </>
   );
 };
 export default Funds;
-
-// export const CartState = () => {       
-//   return useContext(Cart);               
-// };
