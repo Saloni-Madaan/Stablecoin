@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     backgroundColor: theme.palette.grey[300],
     paddingTop: theme.spacing(5),
-    // backgroundImage : "https://www.google.com/search?q=fidelity+international+for+background&tbm=isch&ved=2ahUKEwj0y5GZ_Y_0AhWRW30KHWZMCbAQ2-cCegQIABAA&oq=fidelity+international+for+background&gs_lcp=CgNpbWcQAzoECAAQQzoFCAAQgAQ6BAgAEBhQjARYuyxgui5oAHAAeACAAYcCiAHTHJIBBDItMTaYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=4d-MYbTXFZG39QPmmKWACw&bih=625&biw=1366&rlz=1C1_____en-gbIN953IN953#imgrc=Qt8Au1z4-FbnyM"
   },
 }));
 

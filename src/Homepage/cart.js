@@ -51,9 +51,6 @@ const rows = [
   createData("Fund 1", 100, "This is Fund 1"),
   createData("Fund 2", 200, "This is Fund 2"),
 ];
-//*--------------------------------------------------------------------------------------------*
-
-//*--------------------------------------------------------------------------------------*
 
 //*--------------------------------------------------------------------------------------------*
 
@@ -444,17 +441,9 @@ const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
 const amount = 100;
 const apiKey = "IG353536346StblC345";
-const ethEnabled = async () => {
-  if (window.ethereum) {
-    await window.ethereum.send("eth_requestAccounts");
-    return true;
-  }
-  return false;
-};
-//-----------------------------------------------------------------------------------------------------------------//
-// const ethEnabled = async () => {
 
-// };
+//-----------------------------------------------------------------------------------------------------------------//
+
 const Cart = ({ cartItems, handleAddProduct }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -561,9 +550,10 @@ const Cart = ({ cartItems, handleAddProduct }) => {
               .then(() => {
                 let transactionData = {
                   invoiceId: invoiceId,
-                  userId: localStorage.getItem("id"),
+                  userId: localStorage.getItem("_id"),
                   userWalletAdress: userWalletAddress,
                 };
+                console.log("USer id : ", localStorage.getItem("_id")); 
                 axios
                   .post("http://localhost:5001/transaction", transactionData)
                   .then((response) => {

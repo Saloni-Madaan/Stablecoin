@@ -31,7 +31,6 @@ const Portfolio = () => {
   return (
     <div className="Portfolio">
       <Headers />
-      <h1>Portfolio</h1>
       {portfolioData.map((curElem) => {
         console.log(curElem);
         return (
