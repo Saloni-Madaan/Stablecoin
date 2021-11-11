@@ -4,7 +4,11 @@ import {
   Box,
   Typography,
   CssBaseline,
-  TableContainer, Table, TableBody, TableHead, TableCell
+  TableContainer,
+  Table,
+  TableBody,
+  TableHead,
+  TableCell,
 } from "@material-ui/core";
 import Transaction from "./transactionApi.js";
 import React, { useEffect, useState } from "react";
@@ -23,63 +27,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Transactions = () => {
-  
   const classes = useStyles();
-  const [transactionData, setTransactionData] = useState(Transaction)
+  const [transactionData, setTransactionData] = useState(Transaction);
   return (
-
     <>
-    <Container className={classes.root}>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Transaction Id</TableCell>
-              <TableCell>Items</TableCell>
-              <TableCell>Total Amount</TableCell>
-              <TableCell>Paid Amount</TableCell>
-              <TableCell>Currency</TableCell>
-              <TableCell>State</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Wallet Address</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {transactionData.map((curElem)=>(
-            <TableRow>
-              <TableCell>{curElem.transaction_id}</TableCell>
-              <TableCell>{curElem.items}</TableCell>
-              <TableCell>{curElem.totalAmount}</TableCell>
-              <TableCell>{curElem.paidAmount}</TableCell>
-              <TableCell>{curElem.currency}</TableCell>
-              <TableCell>{curElem.state}</TableCell>
-              <TableCell>{curElem.date}</TableCell>
-              <TableCell>{curElem.address}</TableCell>
-            </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+      <Container className={classes.root}>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Transaction Id</TableCell>
+                <TableCell>Items</TableCell>
+                <TableCell>Total Amount</TableCell>
+                <TableCell>Paid Amount</TableCell>
+                <TableCell>Currency</TableCell>
+                <TableCell>State</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Wallet Address</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {transactionData.map((curElem) => (
+                <TableRow>
+                  <TableCell>{curElem.transaction_id}</TableCell>
+                  <TableCell>{curElem.items}</TableCell>
+                  <TableCell>{curElem.totalAmount}</TableCell>
+                  <TableCell>{curElem.paidAmount}</TableCell>
+                  <TableCell>{curElem.currency}</TableCell>
+                  <TableCell>{curElem.state}</TableCell>
+                  <TableCell>{curElem.date}</TableCell>
+                  <TableCell>{curElem.address}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
     </>
-    // <div className="Transaction">
-    //   <h1>Transactions Page</h1>          
-    //   {transactionData.map((curElem)=>{
-    //             // console.log(curElem)
-    //             return(        
-    //              <div className="Transaction_" key={curElem.transaction_id}>
-    //                       <span className="transaction-id">{curElem.transaction_id}</span><br/>
-    //                       <span className="transaction-items">{curElem.items}</span><br/>
-    //                       <span className="transaction-totalAmount">{curElem.totalAmount}</span><br/>
-    //                       <span className="transaction-paidAmount">{curElem.paidAmount}</span><br/>
-    //                       <span className="transaction-currency">{curElem.currency}</span><br/>
-    //                       <span className="transaction-state">{curElem.state}</span><br/>
-    //                       <span className="transaction-date">{curElem.date}</span><br/><br></br>
-
-    //                   </div>
-    //             )
-    //             }) }
-    // </div>
   );
 };
 export default Transactions;
