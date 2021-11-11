@@ -8,11 +8,11 @@ import {
   TableCell,
 } from "@material-ui/core";
 import Transaction from "./transactionApi.js";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { TableRow } from "@mui/material";
 import Headers from "./headers";
-
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100vw",
@@ -25,6 +25,15 @@ const useStyles = makeStyles((theme) => ({
 const Transactions = () => {
   const classes = useStyles();
   const [transactionData, setTransactionData] = useState(Transaction);
+  const userId = localStorage.getItem("_id");
+  useEffect(() => {
+    axios
+      .post("http://localhost:5001/getTransaction", { userId })
+      .then((res) => {
+        console.log("Data recived", res.data.data);
+        setTransactionData(res.data.data);
+      });
+  }, []);
   return (
     <>
       <Headers />
@@ -44,7 +53,7 @@ const Transactions = () => {
                 <TableCell>Currency</TableCell>
                 <TableCell>State</TableCell>
                 <TableCell>Date</TableCell>
-                <TableCell>Wallet Address</TableCell>
+                {/* <TableCell>Wallet Address</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody justify="center">
@@ -63,8 +72,8 @@ const Transactions = () => {
                   <TableCell>{curElem.paidAmount}</TableCell>
                   <TableCell>{curElem.currency}</TableCell>
                   <TableCell>{curElem.state}</TableCell>
-                  <TableCell>{curElem.date}</TableCell>
-                  <TableCell>{curElem.address}</TableCell>
+                  <TableCell>{curElem.createdAt}</TableCell>
+                  {/* <TableCell>{curElem.address}</TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
