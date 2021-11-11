@@ -1,23 +1,13 @@
-import Navbar from "./navbar";
 import Funds from "./funds";
 import Transactions from "./transactions";
-import Headers from "./headers";
 import Portfolio from "./portfolio";
-const sections = [
-  { title: "Technology", url: "#" },
-  { title: "Design", url: "#" },
-  { title: "Culture", url: "#" },
-  { title: "Business", url: "#" },
-  { title: "Politics", url: "#" },
-];
+import Headers from "./headers";
+
 const Dashboard = () => {
   return (
     <div>
       <div>
-        <Headers title="header" sections={sections} />
-      </div>
-      <div>
-        <Navbar />
+        <Headers />
       </div>
       <div>
         <Funds />
@@ -27,3 +17,13 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+{
+  /* <Typography
+  component="h2"
+  variant="body2"
+  color="inherit"
+  align="center"
+  noWrap
+  sx={{ flex: 1 }}
+></Typography>; */
+}

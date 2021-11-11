@@ -1,9 +1,8 @@
-import { React, useEffect, useState, useContext } from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
-import { Carttt } from "./funds";
 import data from "./data";
-import { cartItems } from "./funds";
 const Web3 = require("web3");
+import Headers from "./headers";
 
 //*--------------------------------------------------------------------------------------*
 
@@ -549,6 +548,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
 
   return (
     <>
+      <Headers />
       <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
       <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>

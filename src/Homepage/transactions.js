@@ -1,9 +1,6 @@
 import {
   Container,
   Paper,
-  Box,
-  Typography,
-  CssBaseline,
   TableContainer,
   Table,
   TableBody,
@@ -11,10 +8,10 @@ import {
   TableCell,
 } from "@material-ui/core";
 import Transaction from "./transactionApi.js";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { ClassNames } from "@emotion/react";
 import { TableRow } from "@mui/material";
+import Headers from "./headers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,13 +28,18 @@ const Transactions = () => {
   const [transactionData, setTransactionData] = useState(Transaction);
   return (
     <>
+      <Headers />
       <Container className={classes.root}>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>Transaction Id</TableCell>
-                <TableCell>Items</TableCell>
+                {/* <TableCell>Items</TableCell> */}
+                <TableRow>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Amount</TableCell>
+                </TableRow>
                 <TableCell>Total Amount</TableCell>
                 <TableCell>Paid Amount</TableCell>
                 <TableCell>Currency</TableCell>
@@ -46,11 +48,18 @@ const Transactions = () => {
                 <TableCell>Wallet Address</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody justify="center">
               {transactionData.map((curElem) => (
                 <TableRow>
                   <TableCell>{curElem.transaction_id}</TableCell>
-                  <TableCell>{curElem.items}</TableCell>
+                  <TableCell>
+                    {curElem.items.map((Elem) => (
+                      <TableRow>
+                        <TableCell>{Elem.description}</TableCell>
+                        <TableCell>{Elem.amount}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableCell>
                   <TableCell>{curElem.totalAmount}</TableCell>
                   <TableCell>{curElem.paidAmount}</TableCell>
                   <TableCell>{curElem.currency}</TableCell>

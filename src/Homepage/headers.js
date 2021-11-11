@@ -1,186 +1,70 @@
-// // const Headers = () => {
-// //   return (
-// //     <div className="headers">
-// //       <h1>
-// //         <b>Headers</b>
-// //       </h1>
-// //     </div>
-// //   );
-// // };
-// // export default Headers;
-
-// // *-----------------------------
-
-// import {
-//   alpha,
-//   AppBar,
-//   Avatar,
-//   Badge,
-//   InputBase,
-//   makeStyles,
-//   Toolbar,
-//   Typography,
-// } from "@material-ui/core";
-// import { Cancel, Mail, Notifications, Search,Help } from "@material-ui/icons";
-// import { useState } from "react";
-
-// const useStyles = makeStyles((theme) => ({
-//   toolbar: {
-//     display: "flex",
-//     justifyContent: "space-between",
-//     backgroundColor: '#414956'
-//   },
-//   logoLg: {
-//     display: "none",
-//     [theme.breakpoints.up("sm")]: {
-//       display: "block",
-//     },
-//   },
-//   logoSm: {
-//     display: "block",
-//     [theme.breakpoints.up("sm")]: {
-//       display: "none",
-//     },
-//   },
-
-//   Help:{
-//     display: "flex",
-//     alignItems: "center",
-//   },
-
-//   icons: {
-//     alignItems: "center",
-//     display: (props) => (props.open ? "none" : "flex"),
-//   },
-//   badge: {
-//     marginRight: theme.spacing(2),
-//   },
-//   links:{
-//     contrastText: "white",
-//     // marginCenter: theme.spacing(10),
-//     alignItems: "center",
-
-//   }
-// }));
-
-// const Navbar = () => {
-//   const [open, setOpen] = useState(false);
-//   const classes = useStyles({ open });
-//   return (
-//     <AppBar position="fixed" >
-//       <Toolbar className={classes.toolbar}>
-//         <Typography variant="h6" className={classes.logoLg}>
-//           Personal investing
-//         </Typography>
-//         <Typography variant="h6" className={classes.logoSm}>
-//           FIL
-//         </Typography>
-//           {/* <div className={classes.search}>
-//             <Search />
-//             <InputBase placeholder="Search..." className={classes.input} />
-//             <Cancel className={classes.cancel} onClick={() => setOpen(false)} />
-//           </div>
-//           <div className={classes.icons}>
-//             <Search
-//               className={classes.searchButton}
-//               onClick={() => setOpen(true)}
-//             /> */}
-//           {/* <Badge badgeContent={4} color="secondary" className={classes.badge}>
-//             <Mail />
-//           </Badge>
-//           <Badge badgeContent={2} color="secondary" className={classes.badge}>
-//             <Notifications />
-//           </Badge> */}
-
-//           {/* <Avatar
-//             alt="Remy Sharp"
-//             src="https://images.pexels.com/photos/8647814/pexels-photo-8647814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-//           /> */}
-//         {/* </div> */}
-
-// <div className= {classes.icons}>
-
-//       {/* <a href ="https://www.fidelity.com/customer-service/phone-numbers/international" class="mr-5 hover:text-gray-900" >Help & support</a> */}
-//        <a  className={classes.Help}>Help & support  <Help/></a>
-//       <a >What's new  </a>
-//       {/* <a href=" https://www.fidelityinternational.com/" class="mr-5 hover:text-gray-900">Back to fidelity</a> */}
-
-//       <a >Back to fidelity  </a>
-
-//       {/* <Typography variant="h6" >
-//       Help & support
-//         </Typography>
-//         <Typography variant="h6" >
-//         What's new
-//         </Typography>
-//         <Typography variant="h6" >
-//         Back to fidelity
-//         </Typography> */}
-
-//     <button class="inline-flex items-center bg-red text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Logout
-
-//     </button>
-//     </div>
-//       </Toolbar>
-//     </AppBar>
-//   );
-// };
-
-// export default Navbar;
 import * as React from "react";
 import PropTypes from "prop-types";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
-function Header(props) {
-  const { sections, title } = props;
-
+const sections = [
+  { title: "Portfolio", url: "/dashboard/portfolio" },
+  { title: "Cart", url: "/dashboard/cart" },
+  { title: "Transaction", url: "/dashboard/transactions" },
+  { title: "Home", url: "/dashboard" },
+];
+const Header = () => {
   return (
     <React.Fragment>
       <Toolbar
         component="nav"
         variant="dense"
-        sx={{ justifyContent: "space-between", overflowX: "auto" }}
+        sx={{
+          flexDirection: "row-reverse",
+          overflowX: "auto",
+        }}
+      >
+        <Link size="small" color="inherit" href="/" noWrap variant="body2">
+          Logout
+        </Link>
+
+        <Typography
+          variant="body2"
+          color="inherit"
+          align="left"
+          noWrap
+          sx={{ flex: 1 }}
+        >
+          Contact
+        </Typography>
+      </Toolbar>
+      <Toolbar
+        sx={{
+          borderBottom: 1,
+          borderColor: "text-gray-900",
+          flexDirection: "row-reverse",
+          overflowX: "auto",
+        }}
       >
         {sections.map((section) => (
           <Link
             color="inherit"
             noWrap
             key={section.title}
-            variant="body2"
             href={section.url}
             sx={{ p: 1, flexShrink: 0 }}
           >
             {section.title}
           </Link>
         ))}
-      </Toolbar>
-      <Toolbar
-        sx={{
-          borderBottom: 1,
-          borderColor: "text-gray-900",
-          bgcolor: "text-gray-900",
-        }}
-      >
-        <Button size="small">Subscribe</Button>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          sx={{ flex: 1 }}
-        ></Typography>
-        <Button variant="outlined" size="small">
-          Sign up
-        </Button>
+        <Link></Link>
+        <img
+          src="https://findlogovector.com/wp-content/uploads/2019/11/fidelity-international-logo-vector.png"
+          width="100"
+          height="50"
+          style={{ marginRight: "auto" }}
+        ></img>
       </Toolbar>
     </React.Fragment>
   );
-}
+};
 
 Header.propTypes = {
   sections: PropTypes.arrayOf(
