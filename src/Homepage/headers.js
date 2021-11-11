@@ -9,8 +9,7 @@
 // };
 // export default Headers;
 
-// *-----------------------------
-
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 import {
   alpha,
@@ -22,7 +21,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { Cancel, Mail, Notifications, Search,Help } from "@material-ui/icons";
+import { Cancel, Mail, Notifications, Search } from "@material-ui/icons";
 import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,18 +36,41 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
-  logoSm: {
-    display: "block",
+  // logoSm: {
+  //   display: "block",
+  //   [theme.breakpoints.up("sm")]: {
+  //     display: "none",
+  //   },
+  // },
+  search: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    borderRadius: theme.shape.borderRadius,
+    width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      display: (props) => (props.open ? "flex" : "none"),
+      width: "70%",
+    },
+  },
+  input: {
+    color: "white",
+    marginLeft: theme.spacing(1),
+  },
+  cancel: {
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
   },
- 
-  Help:{
-    display: "flex",
-    alignItems: "center",
+  searchButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
   },
-  
   icons: {
     alignItems: "center",
     display: (props) => (props.open ? "none" : "flex"),
@@ -56,12 +78,6 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     marginRight: theme.spacing(2),
   },
-  links:{
-    contrastText: "white",
-    // marginCenter: theme.spacing(10),
-    alignItems: "center",
-
-  }
 }));
 
 const Navbar = () => {
@@ -73,9 +89,9 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.logoLg}>
           Personal investing
         </Typography>
-        <Typography variant="h6" className={classes.logoSm}>
+        {/* <Typography variant="h6" className={classes.logoSm}>
           FIL
-        </Typography>
+        </Typography> */}
           {/* <div className={classes.search}>
             <Search />
             <InputBase placeholder="Search..." className={classes.input} />
@@ -86,44 +102,17 @@ const Navbar = () => {
               className={classes.searchButton}
               onClick={() => setOpen(true)}
             /> */}
-          {/* <Badge badgeContent={4} color="secondary" className={classes.badge}>
+          <Badge badgeContent={4} color="secondary" className={classes.badge}>
             <Mail />
           </Badge>
           <Badge badgeContent={2} color="secondary" className={classes.badge}>
             <Notifications />
-          </Badge> */}
-
-
-          {/* <Avatar
+          </Badge>
+          <Avatar
             alt="Remy Sharp"
             src="https://images.pexels.com/photos/8647814/pexels-photo-8647814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-          /> */}
+          />
         {/* </div> */}
-
-<div className= {classes.icons}>
-        
-      {/* <a href ="https://www.fidelity.com/customer-service/phone-numbers/international" class="mr-5 hover:text-gray-900" >Help & support</a> */}
-       <a  className={classes.Help}>Help & support  <Help/></a>
-      <a >What's new  </a>
-      {/* <a href=" https://www.fidelityinternational.com/" class="mr-5 hover:text-gray-900">Back to fidelity</a> */}
-      
-      <a >Back to fidelity  </a>
-
-      {/* <Typography variant="h6" >
-      Help & support
-        </Typography>
-        <Typography variant="h6" >
-        What's new
-        </Typography>
-        <Typography variant="h6" >
-        Back to fidelity
-        </Typography> */}
-      
-  
-    <button class="inline-flex items-center bg-red text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Logout
-      
-    </button>
-    </div>
       </Toolbar>
     </AppBar>
   );

@@ -1,33 +1,15 @@
 import { Link } from "react-router-dom";
 import { createContext, useContext, useReducer } from "react";  //
 import data from "./data";
-import { useState } from "react";
-import { ComC} from "./cart"
+// import { createContext, useContext, useReducer } from "react";
 
-// const Carttt = createContext();
-// const Funds = ({handleAddProduct}) => {
-  const Funds = () => {
+// const Cart = createContext();    
+const Funds = () => {
 
-  const [cartItems, setCartItems] = useState([])
-
-
-  const handleAddProduct = (data) => {
-    console.log(data)
-    // const ProductExist = cartItems.find((item) => item.id === data.id);
-    setCartItems([...cartItems, data]);
-    // arr.push(data.id)
-
-    console.log(cartItems)
-    
-  }
-
-  // const[cart, setCart] = useState ([])
-  // const addToCart = (data) => {
-  //   console.log("we are in add to cart")
-  //   setCart([...cart, data]);
-  // };
-
-  
+  // const [state, dispatch] = useReducer(cartReducer, {   ///// 
+  //   products: data,
+  //   cart: [],
+  // });                                          /////
   return (
     <div className="funds align-middle">
       <h1>
@@ -43,8 +25,13 @@ import { ComC} from "./cart"
               <p>{date}</p>
               <p>{value}</p>
             </div>
-            <button className="container bg-green-light" onClick={()=>handleAddProduct(item)}>add</button>
-          
+            
+            {/* <Cart.Provider value={[data]}>   
+              <Cart/>           
+            </Cart.Provider> */}
+
+
+            <button className="container bg-green-light">add</button>
           </div>
         );
 
@@ -60,4 +47,7 @@ import { ComC} from "./cart"
   );
 };
 export default Funds;
-// export {Carttt}
+
+// export const CartState = () => {       
+//   return useContext(Cart);               
+// };
