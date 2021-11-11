@@ -601,5 +601,5 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   );
 };
 //*--------------------------------------------------------------------------------------------*
-
+//npx nodemon index.js to run the server
 export default Cart;
