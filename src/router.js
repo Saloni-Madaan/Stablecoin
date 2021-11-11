@@ -5,12 +5,26 @@ import Dashboard from "./Homepage/dashboard";
 import Funds from "./Homepage/funds";
 import Portfolio from "./Homepage/portfolio";
 import Cart from "./Homepage/cart";
+import data from "./Homepage/data";
 import Transactions from "./Homepage/transactions";
 import PaymentPage from "./Homepage/paymnetPage";
+import { useState } from "react";
 
 //*--------------------------------------------------------------------------------------------*
 
 const AllRouterPath = () => {
+
+  const {datas } = data;
+  const [cartItems, setCartItems] = useState([])
+  function handleAddProduct  (data)  {
+    console.log(data)
+    // const ProductExist = cartItems.find((item) => item.id === data.id);
+    setCartItems([...cartItems, data]);
+
+    console.log(cartItems.length)
+  }
+
+
   return (
     <Router>
       <Switch>
@@ -24,10 +38,10 @@ const AllRouterPath = () => {
           <Dashboard />
         </Route>
         <Route exact path="/dashboard/funds">
-          <Funds />
+          <Funds data={datas} cartItems={cartItems} handleAddProduct={handleAddProduct}/>                             
         </Route>
         <Route exact path="/dashboard/cart">
-          <Cart />
+          <Cart cartItems={cartItems} handleAddProduct={handleAddProduct}/>
         </Route>
         <Route exact path="/dashboard/portfolio">
           <Portfolio />

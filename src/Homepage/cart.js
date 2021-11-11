@@ -1,6 +1,23 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import axios from "axios";
+import {Carttt} from "./funds"
+import data from "./data";
+import {cartItems} from "./funds";
 const Web3 = require("web3");
+
+
+
+
+//*--------------------------------------------------------------------------------------*
+
+
+
+// const ComC = ( ) => {
+//   const fund = useContext(Carttt)
+//   return <div>{[fund]} </div>
+// }
+// export {ComC}
+
 //*--------------------------------------------------------------------------------------------*
 
 const abi = [
@@ -393,7 +410,7 @@ const apiKey = "IG353536346StblC345";
 
 //-----------------------------------------------------------------------------------------------------------------//
 
-const Cart = () => {
+const Cart = ({cartItems, handleAddProduct}) => {
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("");
@@ -551,6 +568,21 @@ const Cart = () => {
             <></>
           )}
         </h2>
+
+        <div className="cart-items">
+          {cartItems.length===0 &&(
+          <div className="cart-items-empty">no items are added</div>)}
+        
+        <div>
+          {cartItems.map((item) => (
+            <div key={item.name} className="cart-item-list">  
+            <h3>{data.name}</h3>
+              </div>
+          ))}
+        </div>
+          
+          
+        </div>
       </div>
     </>
   );
