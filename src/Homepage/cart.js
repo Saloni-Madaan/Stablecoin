@@ -1,3 +1,8 @@
+import Navbar from "./navbar";
+import Funds from "./funds";
+import Transactions from "./transactions";
+import Headers from "./headers";
+import Portfolio from "./portfolio";
 import { React, useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Carttt } from "./funds";
@@ -615,8 +620,17 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   };
   //*--------------------------------------------------------------------------------------------*
 
-  return (
-    <>
+  return (<>
+    <div>
+      <div>
+        <Headers />
+      </div>
+      <div>
+        <Navbar />
+      </div>
+      <div></div>
+      </div>
+    
       <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
       <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
