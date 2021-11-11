@@ -397,7 +397,7 @@ const abi = [
 //*--------------------------------------------------------------------------------------------*
 
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
-let paymentAddress;
+let userWalletAddress;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
 const amount = 2;
@@ -417,7 +417,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   useEffect(async () => {
     if (window.ethereum) {
       await window.ethereum.send("eth_requestAccounts");
-      paymentAddress = window.ethereum.selectedAddress;
+      userWalletAddress = window.ethereum.selectedAddress;
       userBalance();
       return true;
     }
@@ -435,7 +435,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   //*--------------------------------------------------------------------------------------------*
   const userBalance = async () => {
     const balanceWie = await contractInstance.methods
-      .balanceOf(paymentAddress)
+      .balanceOf(userWalletAddress)
       .call();
     balance = web3.utils.fromWei(balanceWie, "ether");
     console.log("balance USDT: ", balance);
@@ -461,6 +461,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
 
   const initPayButton = async () => {
     setDisable(true);
+
     let invoiceId;
     axios
       .post("/api/v1/invoice", itemsInCart)
@@ -483,7 +484,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
             console.log("Step 3: ");
             const walletId = invoiceData.wallet.address;
             const tx = {
-              from: paymentAddress,
+              from: userWalletAddress,
               to: contractInstance._address,
               data: contractInstance.methods
                 .transfer(walletId, web3.utils.toWei(amount.toString()))
@@ -500,11 +501,11 @@ const Cart = ({ cartItems, handleAddProduct }) => {
                 );
                 return res;
               })
-              .then((res) => {
+              .then(() => {
                 let transactionData = {
-                  invoiceData: invoiceData,
                   invoiceId: invoiceId,
-                  res: res,
+                  userId: localStorage.getItem("id"),
+                  userWalletAdress: userWalletAddress,
                 };
                 axios
                   .post("http://localhost:5001/transaction", transactionData)
@@ -519,11 +520,13 @@ const Cart = ({ cartItems, handleAddProduct }) => {
                   .catch((error) => {
                     setPaymentText("Payment Failed");
                     console.log("Step 5: Some error occur : ", error);
+                    setDisable(false);
                   });
               })
               .catch((err) => {
                 setPaymentText("Payment Failed");
                 console.log("Step 4 : error from metamask : ", err);
+                setDisable(false);
                 return;
               });
           });
