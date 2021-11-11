@@ -6,7 +6,8 @@ const Transaction = [
         currency : "USDT",
         paidAmount: 50,
         state: "success",
-        date: "11-09-2021"
+        date: "11-09-2021",
+        address : "0x63f32ab904f3DA35d9922Bf3763318bfC13EcA46"
 
     },
     {
@@ -16,7 +17,8 @@ const Transaction = [
         currency : "USDT",
         paidAmount:150,
         state: "pending",
-        date: "11-09-2021"
+        date: "11-09-2021",
+        address : "0x63f32ab904f3DA35d7652Bf3763318bfC13EcA46"
     },
 
 ]
