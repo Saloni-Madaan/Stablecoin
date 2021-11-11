@@ -458,6 +458,7 @@ const Cart = ({cartItems, handleAddProduct}) => {
   //*--------------------------------------------------------------------------------------------*
 
   const initPayButton = async () => {
+    setDisable(true);
     let invoiceId;
     axios
       .post("/api/v1/invoice", itemsInCart)
@@ -511,6 +512,7 @@ const Cart = ({cartItems, handleAddProduct}) => {
                       response.data
                     );
                     setPaymentText("Payment Successfull");
+                    setDisable(false);
                   })
                   .catch((error) => {
                     setPaymentText("Payment Failed");
