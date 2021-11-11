@@ -3,6 +3,56 @@ import axios from "axios";
 import { Carttt } from "./funds";
 import data from "./data";
 import { cartItems } from "./funds";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Grid from '@mui/material/Grid';
+import { makeStyles } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
+import { styled } from '@mui/material/styles';
+
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(1),
+}));
+
+const useStyles = makeStyles(theme => ({
+  marginAutoContainer: {
+    width: 500,
+    height: 80,
+    display: 'flex',
+    backgroundColor: 'gold',
+  },
+  marginAutoItem: {
+    margin: 'auto'
+  },
+  alignItemsAndJustifyContent: {
+    width: 500,
+    height: 80,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'pink',
+  },
+}))
+
+function createData(name, price, description) {
+  return { name, price, description };
+}
+
+const rows = [
+  createData("Fund 1", 100, "This is Fund 1"),
+  createData("Fund 2", 200, "This is Fund 2")
+];
 const Web3 = require("web3");
 //*--------------------------------------------------------------------------------------------*
 
@@ -415,6 +465,15 @@ const ethEnabled = async () => {
 
 // };
 const Cart = ({ cartItems, handleAddProduct }) => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("");
@@ -540,6 +599,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   //*--------------------------------------------------------------------------------------------*
 
   const paymentStatusText = (param) => {
+
     switch (param) {
       case "Payment Successfull":
         return <>Payment Successfull !! hurray</>;
@@ -559,7 +619,84 @@ const Cart = ({ cartItems, handleAddProduct }) => {
       <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
 
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
-      <div className="bg-orange">
+      
+      < Paper component={Stack} direction="column" justifyContent="center">
+      <div div style={{ width: '100%' }}>
+      <TableContainer component={Paper}>
+        <Table style={{ width: 400, margin: 'auto' }} sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Fund Name</TableCell>
+              <TableCell align="right">Price</TableCell>
+              <TableCell align="right">Description</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.price}</TableCell>
+                <TableCell align="right">{row.fat}</TableCell>
+                <TableCell align="left">{row.description}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      </div>
+      <Grid container justifyContent="flex-end">
+        <Div>Total Amount: {amount}</Div>
+        </Grid>
+      <Grid container justifyContent="flex-end">
+        <Div>Current Balance: {balance}</Div>
+        </Grid>
+        
+      <Grid container justifyContent="flex-end">
+        {/* <Button variant="outlined">Outlined</Button>
+      <Button variant="text">Text</Button> */}
+        <Button
+          variant="contained"
+          id="pay"
+          aria-controls="basic-menu"
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          Checkout
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "pay"
+          }}
+        >
+          <MenuItem onClick={handleClose}>Card</MenuItem>
+          <MenuItem disabled={disable}
+          onClick={() => {
+             setDisable(true);
+            initPayButton();
+          }}>USDT</MenuItem>
+          <MenuItem onClick={handleClose}>Cheque</MenuItem>
+        </Menu>
+      </Grid>
+      <Grid container justifyContent="flex-end">
+        <Div>{paymentStatus ? (
+            <>Payment Status : {paymentStatusText(paymentText)}</>
+          ) : (
+            <></>
+          )}</Div>
+        </Grid>
+      </Paper>
+      
+      {/* <div className="bg-orange">
         <h1>Cart</h1>
         <h1>Item Added: Fund 1</h1>
         <h1>Price: 100</h1>
@@ -581,7 +718,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
           ) : (
             <></>
           )}
-        </h2>
+        </h2> */}
 
         {/* <div className="cart-items">
           {cartItems.length === 0 && (
@@ -595,7 +732,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
               </div>
             ))}
           </div> */}
-        </div>
+        {/* </div> */}
       {/* </div> */}
     </>
   );
