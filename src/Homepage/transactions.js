@@ -35,7 +35,11 @@ const Transactions = () => {
           <TableHead>
             <TableRow>
               <TableCell>Transaction Id</TableCell>
-              <TableCell>Items</TableCell>
+              {/* <TableCell>Items</TableCell> */}
+              <TableRow> 
+                <TableCell>Description</TableCell>
+                <TableCell>Amount</TableCell>
+              </TableRow>
               <TableCell>Total Amount</TableCell>
               <TableCell>Paid Amount</TableCell>
               <TableCell>Currency</TableCell>
@@ -44,11 +48,22 @@ const Transactions = () => {
               <TableCell>Wallet Address</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody justify="center">
             {transactionData.map((curElem)=>(
             <TableRow>
               <TableCell>{curElem.transaction_id}</TableCell>
-              <TableCell>{curElem.items}</TableCell>
+              <TableCell>{curElem.items.map((Elem) => (
+                <TableRow>
+                  <TableCell>{Elem.description}</TableCell>
+                  <TableCell>{Elem.amount}
+
+                  </TableCell>
+
+                </TableRow>
+
+              )
+              )}
+              </TableCell>
               <TableCell>{curElem.totalAmount}</TableCell>
               <TableCell>{curElem.paidAmount}</TableCell>
               <TableCell>{curElem.currency}</TableCell>

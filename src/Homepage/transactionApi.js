@@ -1,7 +1,16 @@
 const Transaction = [
     {
         transaction_id: 1,
-        items : "transaction 1",
+        "items": [
+            {
+              "description": "Fund1",
+              "amount": 1
+            },
+            {
+              "description": "Fund2",
+              "amount": 1
+            }
+          ],
         totalAmount: 100,
         currency : "USDT",
         paidAmount: 50,
@@ -12,7 +21,16 @@ const Transaction = [
     },
     {
         transaction_id: 2,
-        items : "transaction 2",
+        "items": [
+            {
+              "description": "Fund3",
+              "amount": 1
+            },
+            {
+              "description": "Fund2",
+              "amount": 1
+            }
+          ],
         totalAmount: 200,
         currency : "USDT",
         paidAmount:150,
