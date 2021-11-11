@@ -388,18 +388,15 @@ const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let paymentAddress;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
-const amount = 2;
+const amount = 100;
 const apiKey = "IG353536346StblC345";
 const ethEnabled = async () => {
   if (window.ethereum) {
-    await window.ethereum.send('eth_requestAccounts');
-    window.web3 = new Web3(window.ethereum);
-    
+    await window.ethereum.send('eth_requestAccounts');    
     return true;
   }
   return false;
 }
-ethEnabled();
 //-----------------------------------------------------------------------------------------------------------------//
 
 const Cart = () => {
@@ -412,7 +409,7 @@ const Cart = () => {
   useEffect(() => {
       paymentAddress = window.ethereum.selectedAddress;
     
-    userBalance();
+   // userBalance();
   });
 
   window.addEventListener("load", async () => {
@@ -452,6 +449,8 @@ const Cart = () => {
   //*--------------------------------------------------------------------------------------------*
 
   const initPayButton = async () => {
+    ethEnabled();
+
     let invoiceId;
     axios
       .post("/api/v1/invoice", itemsInCart)
@@ -543,6 +542,8 @@ const Cart = () => {
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
       <div className="bg-orange">
         <h1>Cart</h1>
+        <h1>Item Added: Item 1</h1>
+        <h1>Price: Item 2</h1>
         <button
           id="pay"
           disabled={disable}
