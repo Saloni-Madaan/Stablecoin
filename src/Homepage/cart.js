@@ -649,14 +649,14 @@ const Cart = ({ cartItems, handleAddProduct }) => {
         </Table>
       </TableContainer>
       </div>
-      <Grid container justifyContent="flex-end">
+      <Grid container justifyContent="center">
         <Div>Total Amount: {amount}</Div>
         </Grid>
-      <Grid container justifyContent="flex-end">
+      <Grid container justifyContent="center">
         <Div>Current Balance: {balance}</Div>
         </Grid>
         
-      <Grid container justifyContent="flex-end">
+      <Grid container justifyContent="center">
         {/* <Button variant="outlined">Outlined</Button>
       <Button variant="text">Text</Button> */}
         <Button
@@ -687,7 +687,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
           <MenuItem onClick={handleClose}>Cheque</MenuItem>
         </Menu>
       </Grid>
-      <Grid container justifyContent="flex-end">
+      <Grid container justifyContent="center">
         <Div>{paymentStatus ? (
             <>Payment Status : {paymentStatusText(paymentText)}</>
           ) : (
