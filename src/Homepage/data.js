@@ -1,5 +1,6 @@
  const data = [
     {
+        "id" : 1,
         "name" : "Fund 1",
         "value" : "100",
         "currency" : "USD",
@@ -8,6 +9,7 @@
     
     },
    {
+    "id" : 2,
         "name" : "Fund 2",
         "value" : "200",
         "currency" : "USD",
@@ -16,6 +18,7 @@
     
     },
   {
+    "id" : 3,
         "name" : "Fund 3",
         "value" : "300",
         "currency" : "USD",
@@ -25,7 +28,8 @@
     
     },
 {
-        "name" : "Fund 4",
+    "id" : 4,    
+    "name" : "Fund 4",
         "value" : "400",
         "currency" : "USD",
         "date" : "01/01/2019",

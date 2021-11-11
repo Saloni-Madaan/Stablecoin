@@ -1,27 +1,30 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 //*--------------------------------------------------------------------------------------------*
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      {' '}
-      {new Date().getFullYear()}
-      {'.'}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "} {new Date().getFullYear()}
+      {"."}
     </Typography>
   );
 }
@@ -30,8 +33,10 @@ const theme = createTheme();
 
 const Login = () => {
   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
-   let history = useHistory();
+  const [password, setPassword] = useState("");
+  let history = useHistory();
+  //*--------------------------------------------------------------------------------------------*
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email, password);
@@ -49,9 +54,12 @@ const Login = () => {
         }
       });
   };
+
+  //*--------------------------------------------------------------------------------------------*
+
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           item
@@ -59,12 +67,15 @@ const Login = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://www.mobliciti.com/wp-content/uploads/2020/02/Fidelity-Mobliciti-Airtime-header-case-study-2.png)',
-            backgroundRepeat: 'no-repeat',
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80)",
+            backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -72,20 +83,23 @@ const Login = () => {
             sx={{
               my: 8,
               mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              
-            </Avatar>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
+            >
               <TextField
-              onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 margin="normal"
                 required
                 fullWidth
@@ -96,7 +110,7 @@ const Login = () => {
                 autoFocus
               />
               <TextField
-              onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 margin="normal"
                 required
                 fullWidth
@@ -125,7 +139,7 @@ const Login = () => {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link   href='/signup' variant="body2">
+                  <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
@@ -137,9 +151,7 @@ const Login = () => {
       </Grid>
     </ThemeProvider>
   );
-}
-
-
+};
 
 // const Login = () => {
 //   const [email, setEmail] = useState("");

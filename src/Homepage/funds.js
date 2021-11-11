@@ -1,7 +1,33 @@
 import { Link } from "react-router-dom";
+import { createContext, useContext, useReducer } from "react";  //
 import data from "./data";
+import { useState } from "react";
+import { ComC} from "./cart"
 
-const Funds = () => {
+// const Carttt = createContext();
+// const Funds = ({handleAddProduct}) => {
+  const Funds = () => {
+
+  const [cartItems, setCartItems] = useState([])
+
+
+  const handleAddProduct = (data) => {
+    console.log(data)
+    // const ProductExist = cartItems.find((item) => item.id === data.id);
+    setCartItems([...cartItems, data]);
+    // arr.push(data.id)
+
+    console.log(cartItems)
+    
+  }
+
+  // const[cart, setCart] = useState ([])
+  // const addToCart = (data) => {
+  //   console.log("we are in add to cart")
+  //   setCart([...cart, data]);
+  // };
+
+  
   return (
     <div className="funds align-middle">
       <h1>
@@ -17,11 +43,21 @@ const Funds = () => {
               <p>{date}</p>
               <p>{value}</p>
             </div>
-            <button className="container bg-green-light">add</button>
+            <button className="container bg-green-light" onClick={()=>handleAddProduct(item)}>add</button>
+          
           </div>
         );
+
+
+        
       })}
+        {/* <footer>
+              <button>({cart.length})</button>
+            </footer> */}
+
+     
     </div>
   );
 };
 export default Funds;
+// export {Carttt}

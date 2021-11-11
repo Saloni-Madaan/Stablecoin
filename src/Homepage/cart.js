@@ -1,6 +1,19 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { Carttt } from "./funds";
+import data from "./data";
+import { cartItems } from "./funds";
 const Web3 = require("web3");
+//*--------------------------------------------------------------------------------------------*
+
+//*--------------------------------------------------------------------------------------*
+
+// const ComC = ( ) => {
+//   const fund = useContext(Carttt)
+//   return <div>{[fund]} </div>
+// }
+// export {ComC}
+
 //*--------------------------------------------------------------------------------------------*
 
 const abi = [
@@ -398,18 +411,24 @@ const ethEnabled = async () => {
   return false;
 }
 //-----------------------------------------------------------------------------------------------------------------//
+// const ethEnabled = async () => {
 
-const Cart = () => {
+// };
+const Cart = ({ cartItems, handleAddProduct }) => {
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("");
   const [disable, setDisable] = useState(false);
   //*--------------------------------------------------------------------------------------------*
-  
-  useEffect(() => {
+
+  useEffect(async () => {
+    if (window.ethereum) {
+      await window.ethereum.send("eth_requestAccounts");
       paymentAddress = window.ethereum.selectedAddress;
-    
-   // userBalance();
+      userBalance();
+      return true;
+    }
+    return false;
   });
 
   window.addEventListener("load", async () => {
@@ -449,8 +468,7 @@ const Cart = () => {
   //*--------------------------------------------------------------------------------------------*
 
   const initPayButton = async () => {
-    ethEnabled();
-
+    setDisable(true);
     let invoiceId;
     axios
       .post("/api/v1/invoice", itemsInCart)
@@ -504,6 +522,7 @@ const Cart = () => {
                       response.data
                     );
                     setPaymentText("Payment Successfull");
+                    setDisable(false);
                   })
                   .catch((error) => {
                     setPaymentText("Payment Failed");
@@ -542,8 +561,8 @@ const Cart = () => {
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
       <div className="bg-orange">
         <h1>Cart</h1>
-        <h1>Item Added: Item 1</h1>
-        <h1>Price: Item 2</h1>
+        <h1>Item Added: Fund 1</h1>
+        <h1>Price: 100</h1>
         <button
           id="pay"
           disabled={disable}
@@ -563,7 +582,21 @@ const Cart = () => {
             <></>
           )}
         </h2>
-      </div>
+
+        {/* <div className="cart-items">
+          {cartItems.length === 0 && (
+            <div className="cart-items-empty">no items are added</div>
+          )}
+
+          <div>
+            {cartItems.map((item) => (
+              <div key={item.name} className="cart-item-list">
+                <h3>{data.name}</h3>
+              </div>
+            ))}
+          </div> */}
+        </div>
+      {/* </div> */}
     </>
   );
 };
