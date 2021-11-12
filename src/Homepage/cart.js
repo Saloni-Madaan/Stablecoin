@@ -612,7 +612,14 @@ const Cart = ({ cartItems, handleAddProduct }) => {
       <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
 
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
-
+    {/* <Grid
+  container
+  spacing={0}
+  direction="column"
+  alignItems="center"
+  justifyContent="center"
+  style={{ minHeight: '100vh' }}
+> */}
       <Paper component={Stack} direction="column" justifyContent="center">
         <div div style={{ width: "100%" }}>
           <TableContainer component={Paper}>
@@ -698,7 +705,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
           </Div>
         </Grid>
       </Paper>
-
+      {/* </Grid> */}
       {/* <div className="bg-orange">
         <h1>Cart</h1>
         <h1>Item Added: Fund 1</h1>
