@@ -1,3 +1,8 @@
+import * as React from "react";
+import PropTypes from "prop-types";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 import {
   alpha,
   AppBar,
@@ -5,8 +10,6 @@ import {
   Badge,
   InputBase,
   makeStyles,
-  Toolbar,
-  Typography,
 } from "@material-ui/core";
 import { Cancel, Mail, Notifications, Search,Help, Home, ArrowDownwardSharp } from "@material-ui/icons";
 import { Button } from "@mui/material";
@@ -17,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     backgroundColor: '#414956'
+    
   },
   logoLg: {
     display: "none",
@@ -45,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
   butto:{
     borderWidth:3,
-    borderColor:'#000450'
+    borderColor:'#000450',
+    color : "#FFFFFF"
 
   },
   
@@ -64,13 +69,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Navbar = () => {
+
+
+const sections = [
+  { title: "Portfolio", url: "/dashboard/portfolio" },
+  { title: "Cart", url: "/dashboard/cart" },
+  { title: "Transaction", url: "/dashboard/transactions" },
+  { title: "Home", url: "/dashboard" },
+];
+const Header = () => {
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
+
   return (
-    <AppBar position="fixed" >
-      <Toolbar className={classes.toolbar}>
-        <Typography variant="h6" className={classes.logoLg} className={classes.ArrowDownwardSharp}>
+    <React.Fragment>
+      <Toolbar className={classes.toolbar} component="nav"
+        variant="dense"
+        sx={{
+          overflowX: "auto",
+        }}>
+        <Typography variant="h6" className={classes.logoLg} className={classes.ArrowDownwardSharp}
+        style={{color:"#FFFFFF"}}
+        >
           Personal investing  <ArrowDownwardSharp/>
         </Typography>
         <Typography variant="h6" className={classes.logoSm}>
@@ -78,23 +98,66 @@ const Navbar = () => {
         </Typography>
         
     <div>
-      <Button color = "inherit" href="https://www.fidelity.com/customer-service/phone-numbers/international" style={{borderWidth:1},{borderColor:'rgb((255,255,255))'}}>
+      <Button color = "inherit" href="https://www.fidelity.com/customer-service/phone-numbers/international" 
+      style={{borderWidth:1},{borderColor:'rgb((255,255,255))'}, {color:"#FFFFFF"}}>
       Help&Support 
     </Button>
-    <Button color = "inherit" className={classes.Help, classes.butto}>
+    <Button color = "inherit" className={classes.Help, classes.butto}
+    style={{borderWidth:1},{borderColor:'rgb((255,255,255))'}, {color:"#FFFFFF"}}>
       What's new <Help/>
     </Button>
-    <Button color = "inherit" href="https://www.fidelityinternational.com/" className={classes.Home}>
+    <Button color = "inherit" href="https://www.fidelityinternational.com/" className={classes.Home}
+     style={{borderWidth:1},{borderColor:'rgb((255,255,255))'}, {color:"#FFFFFF"}}>
       Back to Fidelity <Home/>
     </Button>
-    <button class="inline-flex items-center bg-red text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Logout
+    <button  
+    class="inline-flex items-center bg-red text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+    href="/">Logout
       
     </button>
     </div>
     
       </Toolbar>
-    </AppBar>
+
+      <Toolbar
+        sx={{
+          borderBottom: 1,
+          borderColor: "text-gray-900",
+          flexDirection: "row-reverse",
+          overflowX: "auto",
+        }}
+      >
+        {sections.map((section) => (
+          <Link
+            color="inherit"
+            noWrap
+            key={section.title}
+            href={section.url}
+            sx={{ p: 1, flexShrink: 0 }}
+          >
+            {section.title}
+          </Link>
+        ))}
+        <Link></Link>
+        <img
+          src="https://findlogovector.com/wp-content/uploads/2019/11/fidelity-international-logo-vector.png"
+          width="100"
+          height="50"
+          style={{ marginRight: "auto" }}
+        ></img>
+      </Toolbar>
+    </React.Fragment>
   );
 };
 
-export default Navbar;
+Header.propTypes = {
+  sections: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
+export default Header;
