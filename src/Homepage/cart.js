@@ -457,8 +457,9 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
-  let [wallet, setWallet] = useState(true);
+  let [showEtherScan, setShowEtherScan] = useState(true);
   const [disable, setDisable] = useState(false);
+  let wallet = true;
   //*--------------------------------------------------------------------------------------------*
 
   useEffect(async () => {
@@ -566,6 +567,8 @@ const Cart = ({ cartItems, handleAddProduct }) => {
                         response.data
                       );
                       setPaymentText("Payment Successfull");
+                      setShowEtherScan(true);
+
                       setDisable(false);
                     })
                     .catch((error) => {
@@ -609,9 +612,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
       <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
       <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
-
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
-
       <Paper component={Stack} direction="column" justifyContent="center">
         <div div style={{ width: "100%" }}>
           <TableContainer component={Paper}>
@@ -651,10 +652,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
         <Grid container justifyContent="center">
           <Div>Current Balance: {balance}</Div>
         </Grid>
-
         <Grid container justifyContent="center">
-          {/* <Button variant="outlined">Outlined</Button>
-      <Button variant="text">Text</Button> */}
           <Button
             variant="contained"
             id="pay"
@@ -695,12 +693,12 @@ const Cart = ({ cartItems, handleAddProduct }) => {
                 <h4>
                   {" "}
                   {paymentStatusText(paymentText)}
-                  <a
+                  {/* <a  ----------------------------------// Link to take them to the etherscan transaction page 
                     href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
                     target="_blank"
                   >
                     Click here to see transaction details
-                  </a>
+                  </a> */}
                 </h4>
               </>
             ) : (
@@ -709,6 +707,18 @@ const Cart = ({ cartItems, handleAddProduct }) => {
           </Div>
         </Grid>
       </Paper>
+
+      {showEtherScan ? (
+        <Grid container justifyContent="center">
+          <iframe
+            src={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+            width="1000"
+            height="400"
+          />
+        </Grid>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
