@@ -56,7 +56,24 @@ const Signup = () => {
   };
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" }}
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '100vh' }}
+      sx={{
+        backgroundImage:
+          "url(https://images.unsplash.com/photo-1491591462767-3b91b2a19487?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3570&q=80)",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: (t) =>
+          t.palette.mode === "light"
+            ? t.palette.grey[50]
+            : t.palette.grey[900],
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}>
         <CssBaseline />
         <Grid
           item
@@ -75,7 +92,7 @@ const Signup = () => {
             backgroundPosition: "center",
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid align="center" item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ background: 'transparent', boxShadow: 'none'}}>
           <Box
             sx={{
               my: 8,
@@ -96,6 +113,9 @@ const Signup = () => {
               sx={{ mt: 1 }}
             >
               <TextField
+              style={{
+                backgroundColor: "white"
+            }}
                 onChange={(e) => setUserName(e.target.value)}
                 margin="normal"
                 required
@@ -107,6 +127,9 @@ const Signup = () => {
                 autoFocus
               />
               <TextField
+              style={{
+                backgroundColor: "white"
+            }}
                 onChange={(e) => setEmail(e.target.value)}
                 margin="normal"
                 required
@@ -118,6 +141,9 @@ const Signup = () => {
                 autoFocus
               />
               <TextField
+              style={{
+                backgroundColor: "white"
+            }}
                 onChange={(e) => setPassword(e.target.value)}
                 margin="normal"
                 required
@@ -133,6 +159,7 @@ const Signup = () => {
                 label="Remember me"
               />
               <Button
+              color="primary"
                 onClick={handleSubmit}
                 type="submit"
                 fullWidth
