@@ -457,7 +457,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
-  let [showEtherScan, setShowEtherScan] = useState(true);
+  let [showEtherScan, setShowEtherScan] = useState(false);
   const [disable, setDisable] = useState(false);
   let wallet = true;
   //*--------------------------------------------------------------------------------------------*
