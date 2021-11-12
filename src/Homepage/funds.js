@@ -1,63 +1,78 @@
-import { Link } from "react-router-dom";
-import { createContext, useContext, useReducer } from "react";  //
 import data from "./data";
-import { useState } from "react";
-import { ComC} from "./cart"
+import {
+  Container,
+  Paper,
+  Box,
+  Typography,
+  CssBaseline,
+  TableContainer,
+  Table,
+  TableBody,
+  TableHead,
+  TableCell,
+} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { TableRow } from "@mui/material";
 
-// const Carttt = createContext();
-// const Funds = ({handleAddProduct}) => {
-  const Funds = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100vw",
+    height: "100vh",
+    // backgroundColor: theme.palette.grey[300],
+    paddingTop: theme.spacing(5),
+  },
+}));
 
-  const [cartItems, setCartItems] = useState([])
+const Funds = () => {
+  const classes = useStyles();
 
-
-  const handleAddProduct = (data) => {
-    console.log(data)
-    // const ProductExist = cartItems.find((item) => item.id === data.id);
-    setCartItems([...cartItems, data]);
-    // arr.push(data.id)
-
-    console.log(cartItems)
-    
-  }
-
-  // const[cart, setCart] = useState ([])
-  // const addToCart = (data) => {
-  //   console.log("we are in add to cart")
-  //   setCart([...cart, data]);
-  // };
-
-  
   return (
-    <div className="funds align-middle">
-      <h1>
-        <b className="bg-green-darker xl:visible">Funds</b>
-      </h1>
-      {data.map((item, index) => {
-        const { name, description, date, value } = item;
-        return (
-          <div className="funds-item" key={index}>
-            <div className="funds-item-content">
-              <h2>{name}</h2>
-              <p>{description}</p>
-              <p>{date}</p>
-              <p>{value}</p>
-            </div>
-            <button className="container bg-green-light" onClick={()=>handleAddProduct(item)}>add</button>
-          
-          </div>
-        );
+    <>
+      <Container className={classes.root}>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <b>Name</b>
+                </TableCell>
+                <TableCell>
+                  <b>Description</b>
+                </TableCell>
+                <TableCell>
+                  <b>Amount</b>
+                </TableCell>
+                <TableCell>
+                  <b>Currency</b>
+                </TableCell>
+                <TableCell>
+                  <b>Date</b>
+                </TableCell>
 
-
-        
-      })}
-        {/* <footer>
-              <button>({cart.length})</button>
-            </footer> */}
-
-     
-    </div>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody justify="center">
+              {data.map((curElem, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <b>{curElem.name}</b>
+                  </TableCell>
+                  <TableCell>{curElem.description}</TableCell>
+                  <TableCell>{curElem.value}</TableCell>
+                  <TableCell>{curElem.currency}</TableCell>
+                  <TableCell>{curElem.date}</TableCell>
+                  <TableCell>
+                    <button className="container bg-green-light">add</button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </>
   );
 };
 export default Funds;
-// export {Carttt}

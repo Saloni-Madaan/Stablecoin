@@ -1,13 +1,6 @@
-import Navbar from "./navbar";
-import Funds from "./funds";
-import Transactions from "./transactions";
-import Headers from "./headers";
-import Portfolio from "./portfolio";
-import { React, useEffect, useState, useContext } from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
-import { Carttt } from "./funds";
-import data from "./data";
-import { cartItems } from "./funds";
+import Headers from "./headers";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -19,36 +12,36 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Grid from '@mui/material/Grid';
-import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
-import { styled } from '@mui/material/styles';
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
+const Web3 = require("web3");
 
-const Div = styled('div')(({ theme }) => ({
+const Div = styled("div")(({ theme }) => ({
   ...theme.typography.button,
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
 }));
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   marginAutoContainer: {
     width: 500,
     height: 80,
-    display: 'flex',
-    backgroundColor: 'gold',
+    display: "flex",
+    backgroundColor: "gold",
   },
   marginAutoItem: {
-    margin: 'auto'
+    margin: "auto",
   },
   alignItemsAndJustifyContent: {
     width: 500,
     height: 80,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'pink',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "pink",
   },
-}))
+}));
 
 function createData(name, price, description) {
   return { name, price, description };
@@ -56,18 +49,11 @@ function createData(name, price, description) {
 
 const rows = [
   createData("Fund 1", 100, "This is Fund 1"),
-  createData("Fund 2", 200, "This is Fund 2")
+  createData("Fund 2", 200, "This is Fund 2"),
 ];
-const Web3 = require("web3");
 //*--------------------------------------------------------------------------------------------*
 
 //*--------------------------------------------------------------------------------------*
-
-// const ComC = ( ) => {
-//   const fund = useContext(Carttt)
-//   return <div>{[fund]} </div>
-// }
-// export {ComC}
 
 //*--------------------------------------------------------------------------------------------*
 
@@ -460,11 +446,11 @@ const amount = 100;
 const apiKey = "IG353536346StblC345";
 const ethEnabled = async () => {
   if (window.ethereum) {
-    await window.ethereum.send('eth_requestAccounts');    
+    await window.ethereum.send("eth_requestAccounts");
     return true;
   }
   return false;
-}
+};
 //-----------------------------------------------------------------------------------------------------------------//
 // const ethEnabled = async () => {
 
@@ -496,7 +482,6 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   });
 
   window.addEventListener("load", async () => {
-    
     if (window.web3) {
       window.web3 = new Web3(web3.currentProvider);
     } else {
@@ -607,7 +592,6 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   //*--------------------------------------------------------------------------------------------*
 
   const paymentStatusText = (param) => {
-
     switch (param) {
       case "Payment Successfull":
         return <>Payment Successfull !! hurray</>;
@@ -620,99 +604,101 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   };
   //*--------------------------------------------------------------------------------------------*
 
-  return (<>
-    <div>
-      <div>
-        <Headers />
-      </div>
-      <div>
-        <Navbar />
-      </div>
-      <div></div>
-      </div>
-    
+  return (
+    <>
+      <Headers />
       <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
       <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
 
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
-      
-      < Paper component={Stack} direction="column" justifyContent="center">
-      <div div style={{ width: '100%' }}>
-      <TableContainer component={Paper}>
-        <Table style={{ width: 400, margin: 'auto' }} sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Fund Name</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Description</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.price}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="left">{row.description}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      </div>
-      <Grid container justifyContent="center">
-        <Div>Total Amount: {amount}</Div>
+
+      <Paper component={Stack} direction="column" justifyContent="center">
+        <div div style={{ width: "100%" }}>
+          <TableContainer component={Paper}>
+            <Table
+              style={{ width: 400, margin: "auto" }}
+              sx={{ minWidth: 650 }}
+              aria-label="simple table"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>Fund Name</TableCell>
+                  <TableCell align="right">Price</TableCell>
+                  <TableCell align="right">Description</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.fat}</TableCell>
+                    <TableCell align="left">{row.description}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+        <Grid container justifyContent="center">
+          <Div>Total Amount: {amount}</Div>
         </Grid>
-      <Grid container justifyContent="center">
-        <Div>Current Balance: {balance}</Div>
+        <Grid container justifyContent="center">
+          <Div>Current Balance: {balance}</Div>
         </Grid>
-        
-      <Grid container justifyContent="center">
-        {/* <Button variant="outlined">Outlined</Button>
+
+        <Grid container justifyContent="center">
+          {/* <Button variant="outlined">Outlined</Button>
       <Button variant="text">Text</Button> */}
-        <Button
-          variant="contained"
-          id="pay"
-          aria-controls="basic-menu"
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-        >
-          Checkout
-        </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "pay"
-          }}
-        >
-          <MenuItem onClick={handleClose}>Card</MenuItem>
-          <MenuItem disabled={disable}
-          onClick={() => {
-             setDisable(true);
-            initPayButton();
-          }}>USDT</MenuItem>
-          <MenuItem onClick={handleClose}>Cheque</MenuItem>
-        </Menu>
-      </Grid>
-      <Grid container justifyContent="center">
-        <Div>{paymentStatus ? (
-            <>Payment Status : {paymentStatusText(paymentText)}</>
-          ) : (
-            <></>
-          )}</Div>
+          <Button
+            variant="contained"
+            id="pay"
+            aria-controls="basic-menu"
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            Checkout
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "pay",
+            }}
+          >
+            <MenuItem onClick={handleClose}>Card</MenuItem>
+            <MenuItem
+              disabled={disable}
+              onClick={() => {
+                setDisable(true);
+                initPayButton();
+              }}
+            >
+              USDT
+            </MenuItem>
+            <MenuItem onClick={handleClose}>Cheque</MenuItem>
+          </Menu>
+        </Grid>
+        <Grid container justifyContent="center">
+          <Div>
+            {paymentStatus ? (
+              <>Payment Status : {paymentStatusText(paymentText)}</>
+            ) : (
+              <></>
+            )}
+          </Div>
         </Grid>
       </Paper>
-      
+
       {/* <div className="bg-orange">
         <h1>Cart</h1>
         <h1>Item Added: Fund 1</h1>
@@ -727,7 +713,6 @@ const Cart = ({ cartItems, handleAddProduct }) => {
         >
           pay
         </button>
-
         <h2>Balance USDT : {balance}</h2>
         <h2>
           {paymentStatus ? (
@@ -737,11 +722,10 @@ const Cart = ({ cartItems, handleAddProduct }) => {
           )}
         </h2> */}
 
-        {/* <div className="cart-items">
+      {/* <div className="cart-items">
           {cartItems.length === 0 && (
             <div className="cart-items-empty">no items are added</div>
           )}
-
           <div>
             {cartItems.map((item) => (
               <div key={item.name} className="cart-item-list">
@@ -749,7 +733,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
               </div>
             ))}
           </div> */}
-        {/* </div> */}
+      {/* </div> */}
       {/* </div> */}
     </>
   );
