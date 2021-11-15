@@ -1,4 +1,5 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, Component } from "react";
+import {useLocation} from "react-router-dom";
 import axios from "axios";
 import Headers from "./headers";
 import Stack from "@mui/material/Stack";
@@ -15,6 +16,8 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
+import Funds from "./funds";
+import data from "./data";
 const Web3 = require("web3");
 
 const Div = styled("div")(({ theme }) => ({
@@ -47,10 +50,10 @@ function createData(name, price, description) {
   return { name, price, description };
 }
 
-const rows = [
-  createData("Fund 1", 100, "This is Fund 1"),
-  createData("Fund 2", 200, "This is Fund 2"),
-];
+// const rows = [
+//   createData("Fund 1", 100, "This is Fund 1"),
+//   createData("Fund 2", 200, "This is Fund 2"),
+// ];
 
 //*--------------------------------------------------------------------------------------------*
 
@@ -445,8 +448,12 @@ const apiKey = "IG353536346StblC345";
 
 //-----------------------------------------------------------------------------------------------------------------//
 
-const Cart = ({ cartItems, handleAddProduct }) => {
-  console.log("Cart items",cartItems);
+const Cart = ( cartItems ) => {
+  const location = useLocation();
+  console.log(data[location.state]);
+  const rows=[createData(data[location.state]['name'],data[location.state]['value'],data[location.state]['description'])]
+ // console.log("Cart items",cartItems.location.aboutProps);
+  //console.log("product props is", this.props.location.productdetailProps);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
