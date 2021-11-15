@@ -48,7 +48,7 @@ const Login = () => {
       })
       .then((res) => {
         if (res.data.success) {
-          localStorage.setItem("-id", res.data.id);
+          localStorage.setItem("_id", res.data.id);
           history.push("/dashboard");
         } else {
           alert("Wrong email or password");

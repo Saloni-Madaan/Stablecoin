@@ -51,9 +51,6 @@ const rows = [
   createData("Fund 1", 100, "This is Fund 1"),
   createData("Fund 2", 200, "This is Fund 2"),
 ];
-//*--------------------------------------------------------------------------------------------*
-
-//*--------------------------------------------------------------------------------------*
 
 //*--------------------------------------------------------------------------------------------*
 
@@ -440,23 +437,16 @@ const abi = [
 
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let userWalletAddress;
+let blockHash;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
 const amount = 100;
 const apiKey = "IG353536346StblC345";
-const ethEnabled = async () => {
-  if (window.ethereum) {
-    await window.ethereum.send("eth_requestAccounts");
-    return true;
-  }
-  return false;
-};
-//-----------------------------------------------------------------------------------------------------------------//
-// const ethEnabled = async () => {
 
-// };
+//-----------------------------------------------------------------------------------------------------------------//
+
 const Cart = ({ cartItems, handleAddProduct }) => {
-  const classes = useStyles();
+  console.log("Cart items",cartItems);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -467,8 +457,10 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   };
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
-  let [paymentText, setPaymentText] = useState("");
+  let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
+  let [showEtherScan, setShowEtherScan] = useState(false);
   const [disable, setDisable] = useState(false);
+  let wallet = true;
   //*--------------------------------------------------------------------------------------------*
 
   useEffect(async () => {
@@ -479,7 +471,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
       return true;
     }
     return false;
-  });
+  }, []);
 
   window.addEventListener("load", async () => {
     if (window.web3) {
@@ -505,11 +497,13 @@ const Cart = ({ cartItems, handleAddProduct }) => {
     currency: "USDT",
     items: [
       {
-        description: "Fund1",
+        description: "desc of fund 1",
+        name: "Fund1",
         amount: 1,
       },
       {
-        description: "Fund2",
+        description: "desc of fund 2",
+        name: "Fund2",
         amount: 1,
       },
     ],
@@ -517,77 +511,86 @@ const Cart = ({ cartItems, handleAddProduct }) => {
   //*--------------------------------------------------------------------------------------------*
 
   const initPayButton = async () => {
-    setDisable(true);
-
     let invoiceId;
-    axios
-      .post("/api/v1/invoice", itemsInCart)
-      .then((response) => {
-        invoiceId = response.data.invoiceId;
-        console.log("Step 1: invoice id : ", invoiceId);
-        return invoiceId;
-      })
-      .then((invoiceId) => {
-        axios
-          .get(`/api/v1/invoice/${invoiceId}`)
-          .then((response) => {
-            const invoiceData = response.data;
-            console.log("Step 2  invoiceData : ", invoiceData);
-            setPaymentStatus(true);
-            setPaymentText("Payment Pending to be confirmed");
-            return invoiceData;
-          })
-          .then((invoiceData) => {
-            console.log("Step 3: ");
-            const walletId = invoiceData.wallet.address;
-            const tx = {
-              from: userWalletAddress,
-              to: contractInstance._address,
-              data: contractInstance.methods
-                .transfer(walletId, web3.utils.toWei(amount.toString()))
-                .encodeABI(),
-            };
+    if (wallet) {
+      setDisable(true);
+      axios
+        .post("/api/v1/invoice", itemsInCart)
+        .then((response) => {
+          invoiceId = response.data.invoiceId;
+          console.log("Step 1: invoice id : ", invoiceId);
+          return invoiceId;
+        })
+        .then((invoiceId) => {
+          axios
+            .get(`/api/v1/invoice/${invoiceId}`)
+            .then((response) => {
+              const invoiceData = response.data;
+              console.log("Step 2  invoiceData : ", invoiceData);
+              return invoiceData;
+            })
+            .then((invoiceData) => {
+              console.log("Step 3: ");
+              const walletId = invoiceData.wallet.address;
+              const tx = {
+                from: userWalletAddress,
+                to: contractInstance._address,
+                data: contractInstance.methods
+                  .transfer(walletId, web3.utils.toWei(amount.toString()))
+                  .encodeABI(),
+              };
 
-            web3.eth
-              .sendTransaction(tx)
-              .then(async (res) => {
-                await res;
-                console.log(
-                  "Step 4 : response of transaction form metamask : ",
-                  res
-                );
-                return res;
-              })
-              .then(() => {
-                let transactionData = {
-                  invoiceId: invoiceId,
-                  userId: localStorage.getItem("id"),
-                  userWalletAdress: userWalletAddress,
-                };
-                axios
-                  .post("http://localhost:5001/transaction", transactionData)
-                  .then((response) => {
-                    console.log(
-                      "Step 5: check if payment successfull : ",
-                      response.data
-                    );
-                    setPaymentText("Payment Successfull");
-                    setDisable(false);
-                  })
-                  .catch((error) => {
-                    setPaymentText("Payment Failed");
-                    console.log("Step 5: Some error occur : ", error);
-                    setDisable(false);
-                  });
-              })
-              .catch((err) => {
-                setPaymentText("Payment Failed");
-                console.log("Step 4 : error from metamask : ", err);
-                setDisable(false);
-                return;
-              });
-          });
-      });
+              web3.eth
+                .sendTransaction(tx)
+                .then(async (res) => {
+                  setPaymentStatus(true);
+                  setPaymentText("Payment Pending to be confirmed");
+                  await res;
+                  blockHash = res.transactionHash;
+                  console.log(
+                    "Step 4 : response of transaction form metamask : ",
+                    res
+                  );
+                  return res;
+                })
+                .then(() => {
+                  let transactionData = {
+                    invoiceId: invoiceId,
+                    userId: localStorage.getItem("_id"),
+                    blockHash: blockHash,
+                  };
+                  console.log("USer id : ", localStorage.getItem("_id"));
+                  axios
+                    .post("http://localhost:5001/transaction", transactionData)
+                    .then((response) => {
+                      console.log(
+                        "Step 5: check if payment successfull : ",
+                        response.data
+                      );
+                      setPaymentText("Payment Successfull");
+                      setShowEtherScan(true);
+
+                      setDisable(false);
+                    })
+                    .catch((error) => {
+                      setPaymentText("Payment Failed");
+                      console.log("Step 5: Some error occur : ", error);
+                      setDisable(false);
+                    });
+                })
+                .catch((err) => {
+                  setPaymentText("Payment Failed");
+                  console.log("Step 4 : error from metamask : ", err);
+                  setDisable(false);
+                  return;
+                });
+            });
+        })
+        .catch((e) => {
+          setDisable(false);
+          console.log("error : ", e);
+        });
+    }
   };
   //*--------------------------------------------------------------------------------------------*
 
@@ -610,16 +613,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
       <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
       <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
-
       <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
-    {/* <Grid
-  container
-  spacing={0}
-  direction="column"
-  alignItems="center"
-  justifyContent="center"
-  style={{ minHeight: '100vh' }}
-> */}
       <Paper component={Stack} direction="column" justifyContent="center">
         <div div style={{ width: "100%" }}>
           <TableContainer component={Paper}>
@@ -659,10 +653,7 @@ const Cart = ({ cartItems, handleAddProduct }) => {
         <Grid container justifyContent="center">
           <Div>Current Balance: {balance}</Div>
         </Grid>
-
         <Grid container justifyContent="center">
-          {/* <Button variant="outlined">Outlined</Button>
-      <Button variant="text">Text</Button> */}
           <Button
             variant="contained"
             id="pay"
@@ -698,53 +689,39 @@ const Cart = ({ cartItems, handleAddProduct }) => {
         <Grid container justifyContent="center">
           <Div>
             {paymentStatus ? (
-              <>Payment Status : {paymentStatusText(paymentText)}</>
+              <>
+                Payment Status :{" "}
+                <h4>
+                  {" "}
+                  {paymentStatusText(paymentText)}
+                  {/* <a  ----------------------------------// Link to take them to the etherscan transaction page 
+                    href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+                    target="_blank"
+                  >
+                    Click here to see transaction details
+                  </a> */}
+                </h4>
+              </>
             ) : (
               <></>
             )}
           </Div>
         </Grid>
       </Paper>
-      {/* </Grid> */}
-      {/* <div className="bg-orange">
-        <h1>Cart</h1>
-        <h1>Item Added: Fund 1</h1>
-        <h1>Price: 100</h1>
-        <button
-          id="pay"
-          disabled={disable}
-          onClick={() => {
-            // setDisable(true);
-            initPayButton();
-          }}
-        >
-          pay
-        </button>
-        <h2>Balance USDT : {balance}</h2>
-        <h2>
-          {paymentStatus ? (
-            <>Payment Status : {paymentStatusText(paymentText)}</>
-          ) : (
-            <></>
-          )}
-        </h2> */}
 
-      {/* <div className="cart-items">
-          {cartItems.length === 0 && (
-            <div className="cart-items-empty">no items are added</div>
-          )}
-          <div>
-            {cartItems.map((item) => (
-              <div key={item.name} className="cart-item-list">
-                <h3>{data.name}</h3>
-              </div>
-            ))}
-          </div> */}
-      {/* </div> */}
-      {/* </div> */}
+      {showEtherScan ? (
+        <Grid container justifyContent="center">
+          <iframe
+            src={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+            width="1000"
+            height="400"
+          />
+        </Grid>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
 //*--------------------------------------------------------------------------------------------*
-//npx nodemon index.js to run the server
 export default Cart;
