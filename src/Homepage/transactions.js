@@ -37,6 +37,12 @@ const Transactions = () => {
   return (
     <>
       <Headers />
+
+      <div style={{textAlign:"center"}}>
+    <h3> Transactions </h3>
+</div>
+
+
       <Container className={classes.root}>
         <TableContainer component={Paper}>
           <Table>

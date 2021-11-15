@@ -1,4 +1,4 @@
- const data = [
+ const Data = [
     {
         "id" : 1,
         "name" : "Fund 1",
@@ -38,4 +38,4 @@
     
     },
 ]
-export default data;
+export default Data;
