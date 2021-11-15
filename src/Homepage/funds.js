@@ -1,4 +1,7 @@
 import data from "./data";
+import Cart from "./cart";
+//import ReactDOM from "react-dom";
+import { useHistory , Link} from "react-router-dom";
 import {
   Container,
   Paper,
@@ -24,11 +27,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Funds = () => {
-  const classes = useStyles();
 
+const Funds = () => {
+  const [dat, setData] = useState('');
+  
+  // const ret=()=>{
+  //   return(
+  //    <> <Link to={{pathname: "/dashboard/cart",state:"hello",}}/></>
+  //   )
+  // }
+  const classes = useStyles();
+// let car=()=>{
+//   return(
+//       <Cart cartItems={nm=[1,2,3]}/>
+//   )
+// }
   return (
     <>
+    {/* <><Cart parentToChild={dat}/></> */}
       <Container className={classes.root}>
         <TableContainer component={Paper}>
           <Table>
@@ -64,7 +80,7 @@ const Funds = () => {
                   <TableCell>{curElem.currency}</TableCell>
                   <TableCell>{curElem.date}</TableCell>
                   <TableCell>
-                    <button className="container bg-green-light">add</button>
+                  <Link to={{pathname: "/dashboard/cart",state:index,}}>Add</Link>
                   </TableCell>
                 </TableRow>
               ))}
