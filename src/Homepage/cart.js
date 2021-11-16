@@ -450,8 +450,11 @@ const apiKey = "IG353536346StblC345";
 
 const Cart = ( cartItems ) => {
   const location = useLocation();
-  console.log(data[location.state]);
-  const rows=[createData(data[location.state]['name'],data[location.state]['value'],data[location.state]['description'])]
+  console.log("location state",location.state)
+  const dat=[0,0];
+  console.log("dat is ",dat)
+  //console.log(data[location.state]);
+  const rows=[createData(data[dat[0]][dat[1]]['name'],data[dat[0]][dat[1]]['value'],data[dat[0]][dat[1]]['description'])]
  // console.log("Cart items",cartItems.location.aboutProps);
   //console.log("product props is", this.props.location.productdetailProps);
   const [anchorEl, setAnchorEl] = useState(null);
