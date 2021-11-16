@@ -80,7 +80,8 @@ const Funds = () => {
                   <TableCell>{curElem.currency}</TableCell>
                   <TableCell>{curElem.date}</TableCell>
                   <TableCell>
-                  <Link to={{pathname: "/dashboard/cart",state:index,}}>Add</Link>
+                  {/* <Link to={{pathname: "/dashboard/cart",state:index,}}>Add</Link> */}
+                  <Link to={{pathname: "/dashboard/deal",state:index,}}>Add</Link>
                   </TableCell>
                 </TableRow>
               ))}
