@@ -8,8 +8,8 @@ import Cart from "./Homepage/cart";
 import data from "./Homepage/data";
 import Transactions from "./Homepage/transactions";
 import PaymentPage from "./Homepage/paymnetPage";
+import Deal from "./Homepage/deal_page";
 import { useState } from "react";
-
 //*--------------------------------------------------------------------------------------------*
 
 const AllRouterPath = () => {
@@ -22,6 +22,7 @@ const AllRouterPath = () => {
     setCartItems([...cartItems, data]);
 
     console.log(cartItems.length)
+    
   }
 
 
@@ -40,8 +41,11 @@ const AllRouterPath = () => {
         <Route exact path="/dashboard/funds">
           <Funds data={datas} cartItems={cartItems} handleAddProduct={handleAddProduct}/>                             
         </Route>
-        <Route exact path="/dashboard/cart">
-          <Cart cartItems={cartItems} handleAddProduct={handleAddProduct}/>
+        <Route exact path="/dashboard/cart" component={cartItems} >
+          <Cart cartItems={cartItems} />
+        </Route>
+        <Route exact path="/dashboard/deal"  >
+          <Deal />
         </Route>
         <Route exact path="/dashboard/portfolio">
           <Portfolio />
