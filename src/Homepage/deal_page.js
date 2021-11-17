@@ -3,6 +3,8 @@ import Headers from "./headers";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
+import {Container} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -418,6 +420,23 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
     margin: theme.spacing(0, 2)
   }
 }));
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // width: "100vw",
+    // height: "100vh",
+    // backgroundColor: theme.palette.grey[300],
+    paddingTop: theme.spacing(5),
+    borderCollapse: 'separate',
+    borderSpacing: '0px 4px',
+    
+  },
+  td : {
+    width: "100px",
+    textAlign: "center",
+    // border: "1px solid black",
+    padding: "3px",
+  },
+}));
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -469,7 +488,7 @@ function priceRow(qty, unit) {
 }
 
 export default function Deal(items) {
- 
+  const classes = useStyles();
   let [balance, setbalance] = React.useState(0);
   let [paymentStatus, setPaymentStatus] = React.useState(false);
   let [paymentText, setPaymentText] = React.useState("Wallet Not Found !!");
@@ -589,7 +608,7 @@ export default function Deal(items) {
   return (
     <>
     <Headers />
-   
+    <Container className={classes.root}>
       <TableContainer component={Paper} sx={{paddingTop: 10,paddingBottom: 4,paddingLeft:15 }} >
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
@@ -621,7 +640,7 @@ export default function Deal(items) {
               <TableCell align="right">{"    "}</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody justify="center" className={classes.td}>
             {rows.map((row) => (
               <TableRow key={row.name}>
                 <TableCell>{row.name}</TableCell>
@@ -646,7 +665,7 @@ export default function Deal(items) {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody justify="center" className={classes.td}>
             <TableRow key={"row.name"}>
               <TableCell
                 component="th"
@@ -683,6 +702,7 @@ export default function Deal(items) {
           </TableBody>
         </Table>
       </TableContainer>
+      </Container>
       <>
         <Grid container sx={{ padding: 10 }} variant="contained">
           <Grid item xs textAlign="right">
@@ -705,25 +725,6 @@ export default function Deal(items) {
         </Grid>
       </>
     </>
-    // <TableContainer>
-    // <Table>
-    // <TableBody>
-    //         <TableRow>
-    //           <TableCell rowSpan={2} />
-    //           <TableCell colSpan={3}>Subtotal</TableCell>
-    //           <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
-    //         </TableRow>
-    //         <TableRow>
-    //           <TableCell>Tax</TableCell>
-    //           <TableCell align="right">{` %`}</TableCell>
-    //           <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
-    //         </TableRow>
-    //         <TableRow>
-    //           <TableCell colSpan={2}>Total</TableCell>
-    //           <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
-    //         </TableRow>
-    //       </TableBody>
-    //     </Table>
-    //   </TableContainer>
+    
   );
 }
