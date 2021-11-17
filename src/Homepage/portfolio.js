@@ -28,13 +28,14 @@ const useStyles = makeStyles((theme) => ({
 const Portfolio = () => {
   const classes = useStyles();
   const [portfolioData, setPortfolioData] = useState(Portfolios);
+  
   return (
     <div className="Portfolio">
       <Headers />
-      {portfolioData.map((curElem) => {
-        console.log(curElem);
-        return (
-          <>
+      <div style={{textAlign:"center"}}>
+    <h3> Portfolio </h3>
+</div>
+    
             <Container className={classes.root}>
               <TableContainer component={Paper}>
                 <Table>
@@ -44,34 +45,30 @@ const Portfolio = () => {
                       <TableCell>Currency</TableCell>
                       <TableCell>Current Investment</TableCell>
                       <TableCell>Return</TableCell>
-                      <TableCell>Date</TableCell>
+                      {/* <TableCell>Date</TableCell> */}
                       <TableCell>Descripton</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {portfolioData.map((curElem) => (
+                    {portfolioData.map((curElem, index) => (
                       <TableRow>
-                        <TableCell>{curElem.name}</TableCell>
-                        <TableCell>{curElem.currency}</TableCell>
-                        <TableCell>{curElem.value}</TableCell>
-                        <TableCell>{curElem.return}</TableCell>
-                        <TableCell>{curElem.date}</TableCell>
                         <TableCell>{curElem.description}</TableCell>
+                        <TableCell>USD</TableCell>
+                        <TableCell>{curElem.amount}</TableCell>
+                        <TableCell>{  Math.floor(parseInt(parseInt(curElem.amount) + parseInt(Math.random()*5)))}</TableCell>
+                        {/* <TableCell>{curElem.date}</TableCell> */}
+                        <TableCell>This is a description for fund {index+1}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
               </TableContainer>
             </Container>
-          </>
+    
 
-          //  <div className="portfolio" key={curElem.id}>
-          //           <span className="tportfolio-id">{curElem.id}</span><br/>
-          //           <span className="portfolio-name">{curElem.name}</span><br/><br/>
-
-          //       </div>
+        
         );
-      })}
+     
     </div>
   );
 };
