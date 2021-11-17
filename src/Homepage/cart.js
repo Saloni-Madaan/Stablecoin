@@ -454,7 +454,7 @@ const Cart = ( cartItems ) => {
   const dat=[0,0];
   console.log("dat is ",dat)
   //console.log(data[location.state]);
-  const rows=[createData(data[dat[0]][dat[1]]['name'],data[dat[0]][dat[1]]['value'],data[dat[0]][dat[1]]['description'])]
+  const rows=[data[dat[0]]["stocks"][0]]
  // console.log("Cart items",cartItems.location.aboutProps);
   //console.log("product props is", this.props.location.productdetailProps);
   const [anchorEl, setAnchorEl] = useState(null);
