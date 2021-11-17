@@ -18,10 +18,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "200vw",
+    width: "150vw",
   
     // backgroundColor: theme.palette.grey[300],
-    paddingTop: theme.spacing(5),
+    paddingTop: theme.spacing(3),
   },
 }));
 const MyAccordian = ({ name, description, value, currency }) => {
@@ -37,8 +37,13 @@ const MyAccordian = ({ name, description, value, currency }) => {
           // style={{ border: "0.5px solid black " }}
           >
             <div>
-              <TableCell style={{ marginLeft: 1000}}>   {name} </TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{ marginLeft: 1000}}>
+                <b>Fidlity Personal Investing accounts</b> <br></br>
+                 <h2 style={{font: "10"},{color:"#006193"}}>  {name} </h2> 
+                AN123456789
+                   </TableCell>
+              <TableCell>{value}<br></br>
+              Investments + total cash & coins</TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
