@@ -566,19 +566,19 @@ export default function Deal(items) {
   }
   const location = useLocation();
 //console.log(data[location.state]);
-  let rows=[];
-  if(location.state==0){
-     rows = [
-      createRow(data[0][0]["name"], data[0][0]["latest"], data[0][0]["quantity"], "439/400", data[0][0]["gl"]),
-      createRow(data[0][1]["name"], data[0][1]["latest"], data[0][1]["quantity"], "439/400", data[0][1]["gl"]),
-    ];
-  }
-  else if(location.state==1){
-     rows = [
-      createRow(data[1][2]["name"], data[1][2]["latest"], data[1][2]["quantity"], "439/400", data[1][2]["gl"]),
-      createRow(data[1][3]["name"], data[1][3]["latest"], data[1][3]["quantity"], "439/400", data[1][3]["gl"]),
-    ];
-  }
+  let rows=data[location.state]["stocks"];
+  // if(location.state==0){
+  //    rows = [
+  //     createRow(data[0][0]["name"], data[0][0]["latest"], data[0][0]["quantity"], "439/400", data[0][0]["gl"]),
+  //     createRow(data[0][1]["name"], data[0][1]["latest"], data[0][1]["quantity"], "439/400", data[0][1]["gl"]),
+  //   ];
+  // }
+  // else if(location.state==1){
+  //    rows = [
+  //     createRow(data[1][2]["name"], data[1][2]["latest"], data[1][2]["quantity"], "439/400", data[1][2]["gl"]),
+  //     createRow(data[1][3]["name"], data[1][3]["latest"], data[1][3]["quantity"], "439/400", data[1][3]["gl"]),
+  //   ];
+  // }
 
   const invoiceSubtotal = subtotal(rows);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
@@ -629,7 +629,7 @@ export default function Deal(items) {
                 <TableCell align="right">{row.quantity}</TableCell>
                 <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                 <TableCell align="right">{row.gl}</TableCell>
-                <TableCell sx={{paddingLeft:8}} align="left">{row.funbun("Deal",[0,0])}</TableCell>
+                <TableCell sx={{paddingLeft:8}} align="left">{funbun("Deal",[0,0])}</TableCell>
               </TableRow>
             ))}
           </TableBody>
