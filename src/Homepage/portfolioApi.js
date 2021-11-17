@@ -1,20 +1,20 @@
 const Portfolios = [
     {
-        "name" : "Fund 1",
-        "value" : "100",
-        "return" : "110",
-        "currency" : "USD",
-        "date" : "01/01/2019",
-        "description" : "This is a description for fund 1"
+        "description" : "Fund 1",
+        "amount" : "100",
+        // "return" : "110",          // amount + some random
+        // "currency" : "USD",        // fixed
+        // "date" : "01/01/2019",     // remove
+        // "descript" : "This is a description for  "    // print ID
 
     },
     {
-        "name" : "Fund 3",
-        "value" : "300",
-        "return" : "295",
-        "currency" : "USD",
-        "date" : "01/01/2019",
-        "description" : "This is a description for fund 3"
+        "description" : "Fund 3",
+        "amount" : "300",
+        // "return" : "295",
+        // "currency" : "USD",
+        // "date" : "01/01/2019",
+        // "descript" : "This is a description for "
 
     },
     
