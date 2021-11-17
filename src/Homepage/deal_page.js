@@ -4,14 +4,17 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import {Container} from "@material-ui/core";
+import HeightIcon from '@mui/icons-material/Height';
 import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@mui/material/TableContainer";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Tooltip from "@mui/material/Tooltip";
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -26,6 +29,7 @@ import SellSharpIcon from "@mui/icons-material/SellSharp";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MuiGrid from "@mui/material/Grid";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {useLocation,Link} from "react-router-dom";
 import data from "./data";
 const Web3 = require("web3");
@@ -569,7 +573,7 @@ export default function Deal(items) {
           </MenuItem>
           <Divider sx={{ my: 0.5 }} />
           <MenuItem onClick={handleClose} disableRipple>
-            <SwitchLeftIcon />
+            <SwapHorizIcon />
             Switch
           </MenuItem>
         </StyledMenu>
@@ -609,7 +613,7 @@ export default function Deal(items) {
     <>
     <Headers />
     <Container className={classes.root}>
-      <TableContainer component={Paper} sx={{paddingTop: 10,paddingBottom: 4,paddingLeft:15 }} >
+      <TableContainer component={Paper}  >
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
             <TableRow>
@@ -632,29 +636,34 @@ export default function Deal(items) {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Latest Price</TableCell>
-              <TableCell align="right">Value</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-              <TableCell align="right">Gain/Loss</TableCell>
+              <TableCell>Name <ArrowUpwardIcon fontSize="small"/></TableCell>
+              <TableCell align="right">Latest Price <InfoOutlinedIcon fontSize="small" color="primary"/><HeightIcon fontSize="small" color="secondary"/></TableCell>
+              <TableCell align="right">Quantity <InfoOutlinedIcon fontSize="small" color="primary"/><HeightIcon fontSize="small" color="secondary"/></TableCell>
+              <TableCell align="right">Value <InfoOutlinedIcon fontSize="small" color="primary"/><HeightIcon fontSize="small" color="secondary"/></TableCell>
+              
+              <TableCell align="right">Gain/Loss <InfoOutlinedIcon fontSize="small" color="primary"/><HeightIcon fontSize="small" color="secondary"/></TableCell>
               <TableCell align="right">{"    "}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody justify="center" className={classes.td}>
             {rows.map((row) => (
               <TableRow key={row.name}>
-                <TableCell>{row.name}</TableCell>
+                <TableCell><Typography style={{color:"#0000ff"}}  variant="h10" >{row.name}</Typography></TableCell>
                 <TableCell align="right">{row.label} p</TableCell>
-                <TableCell align="right">{row.quantity}</TableCell>
                 <TableCell align="right">{ccyFormat(row.price)}</TableCell>
-                <TableCell align="right">{row.gl}</TableCell>
+                <TableCell align="right">{row.quantity}</TableCell>
+                <TableCell align="right">{row.gl[0]}<br/><Typography style={{color:"#ff0000"}}  variant="h10" >{row.gl[1]}</Typography></TableCell>
                 <TableCell sx={{paddingLeft:8}} align="left">{funbun("Deal",[0,0])}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        </TableContainer>
+      </Container>
         {/* *........................................................* */}
         {/* This is the second table */}
+        <Container className={classes.root}>
+      <TableContainer component={Paper}  >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -677,7 +686,7 @@ export default function Deal(items) {
               <TableCell align="right" style={{ borderBottom: "none" }}>
                 1421.83
               </TableCell>
-              <TableCell sx={{paddingLeft:8}}  align="center" style={{ borderBottom: "none" }}>
+              <TableCell   align="center" style={{ borderBottom: "none" }}>
                 {funbun("Manage")}
               </TableCell>
             </TableRow>
@@ -697,7 +706,7 @@ export default function Deal(items) {
                 Total Coins
               </TableCell>
               <TableCell align="right">{balance}</TableCell>
-              <TableCell sx={{paddingLeft:8}}  align="center">{funbun("Manage")}</TableCell>
+              <TableCell  align="center">{funbun("Manage")}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
