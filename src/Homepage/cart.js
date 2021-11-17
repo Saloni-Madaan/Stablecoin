@@ -1,5 +1,5 @@
-import { React, useEffect, useState, Component } from "react";
-import {useLocation} from "react-router-dom";
+import { React, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Headers from "./headers";
 import Stack from "@mui/material/Stack";
@@ -16,8 +16,10 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
-import Funds from "./funds";
 import data from "./data";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const Web3 = require("web3");
 
 const Div = styled("div")(({ theme }) => ({
@@ -25,35 +27,6 @@ const Div = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
 }));
-
-const useStyles = makeStyles((theme) => ({
-  marginAutoContainer: {
-    width: 500,
-    height: 80,
-    display: "flex",
-    backgroundColor: "gold",
-  },
-  marginAutoItem: {
-    margin: "auto",
-  },
-  alignItemsAndJustifyContent: {
-    width: 500,
-    height: 80,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "pink",
-  },
-}));
-
-function createData(name, price, description) {
-  return { name, price, description };
-}
-
-// const rows = [
-//   createData("Fund 1", 100, "This is Fund 1"),
-//   createData("Fund 2", 200, "This is Fund 2"),
-// ];
 
 //*--------------------------------------------------------------------------------------------*
 
@@ -439,7 +412,7 @@ const abi = [
 //*--------------------------------------------------------------------------------------------*
 
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
-let userWalletAddress;
+let userWalletAddress, walletId;
 let blockHash;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
@@ -448,23 +421,28 @@ const apiKey = "IG353536346StblC345";
 
 //-----------------------------------------------------------------------------------------------------------------//
 
-const Cart = ( cartItems ) => {
+const Cart = () => {
   const location = useLocation();
-  console.log("location state",location.state)
-  const dat=[0,0];
-  console.log("dat is ",dat)
+  console.log("location state", location.state);
+  const dat = [0, 0];
+  console.log("dat is ", dat);
   //console.log(data[location.state]);
-  const rows=[data[dat[0]]["stocks"][0]]
- // console.log("Cart items",cartItems.location.aboutProps);
+  const rows = [data[dat[0]]["stocks"][0]];
+  // console.log("Cart items",cartItems.location.aboutProps);
   //console.log("product props is", this.props.location.productdetailProps);
   const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
+
+  const [openLoder, setOpen] = useState(false);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   let [balance, setbalance] = useState(0);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
@@ -475,14 +453,13 @@ const Cart = ( cartItems ) => {
 
   useEffect(async () => {
     if (window.ethereum) {
-      await window.ethereum.send("eth_requestAccounts");
-      userWalletAddress = window.ethereum.selectedAddress;
+      const resultMetamsk = await window.ethereum.send("eth_requestAccounts");
+      userWalletAddress = resultMetamsk.result[0];
       userBalance();
       return true;
     }
     return false;
   }, []);
-
   window.addEventListener("load", async () => {
     if (window.web3) {
       window.web3 = new Web3(web3.currentProvider);
@@ -529,6 +506,9 @@ const Cart = ( cartItems ) => {
         .then((response) => {
           invoiceId = response.data.invoiceId;
           console.log("Step 1: invoice id : ", invoiceId);
+          setPaymentStatus(true);
+          setPaymentText("Payment Pending to be confirmed");
+          setOpen(true);
           return invoiceId;
         })
         .then((invoiceId) => {
@@ -541,7 +521,7 @@ const Cart = ( cartItems ) => {
             })
             .then((invoiceData) => {
               console.log("Step 3: ");
-              const walletId = invoiceData.wallet.address;
+              walletId = invoiceData.wallet.address;
               const tx = {
                 from: userWalletAddress,
                 to: contractInstance._address,
@@ -553,8 +533,6 @@ const Cart = ( cartItems ) => {
               web3.eth
                 .sendTransaction(tx)
                 .then(async (res) => {
-                  setPaymentStatus(true);
-                  setPaymentText("Payment Pending to be confirmed");
                   await res;
                   blockHash = res.transactionHash;
                   console.log(
@@ -568,6 +546,7 @@ const Cart = ( cartItems ) => {
                     invoiceId: invoiceId,
                     userId: localStorage.getItem("_id"),
                     blockHash: blockHash,
+                    userWalletAddress: userWalletAddress,
                   };
                   console.log("USer id : ", localStorage.getItem("_id"));
                   axios
@@ -578,8 +557,8 @@ const Cart = ( cartItems ) => {
                         response.data
                       );
                       setPaymentText("Payment Successfull");
+                      setOpen(false);
                       setShowEtherScan(true);
-
                       setDisable(false);
                     })
                     .catch((error) => {
@@ -718,7 +697,19 @@ const Cart = ( cartItems ) => {
           </Div>
         </Grid>
       </Paper>
-
+      {openLoder ? (
+        <div>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={openLoder}
+            onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </div>
+      ) : (
+        <></>
+      )}
       {showEtherScan ? (
         <Grid container justifyContent="center">
           <iframe

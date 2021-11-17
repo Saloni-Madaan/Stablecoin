@@ -14,17 +14,13 @@ import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import EditIcon from "@mui/icons-material/Edit";
 import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
 import Divider from "@mui/material/Divider";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import SellSharpIcon from "@mui/icons-material/SellSharp";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MuiGrid from "@mui/material/Grid";
-import {useLocation,Link} from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import data from "./data";
 const Web3 = require("web3");
 const abi = [
@@ -407,7 +403,6 @@ const abi = [
 ];
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let userWalletAddress;
-let blockHash;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
 const TAX_RATE = 0.07;
@@ -415,19 +410,19 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
   width: "100%",
   ...theme.typography.body2,
   '& [role="separator"]': {
-    margin: theme.spacing(0, 2)
-  }
+    margin: theme.spacing(0, 2),
+  },
 }));
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
     anchorOrigin={{
       vertical: "bottom",
-      horizontal: "right"
+      horizontal: "right",
     }}
     transformOrigin={{
       vertical: "top",
-      horizontal: "right"
+      horizontal: "right",
     }}
     {...props}
   />
@@ -443,39 +438,29 @@ const StyledMenu = styled((props) => (
     boxShadow:
       "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     "& .MuiMenu-list": {
-      padding: "4px 0"
+      padding: "4px 0",
     },
     "& .MuiMenuItem-root": {
       "& .MuiSvgIcon-root": {
         fontSize: 18,
         color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5)
+        marginRight: theme.spacing(1.5),
       },
       "&:active": {
         backgroundColor: alpha(
           theme.palette.primary.main,
           theme.palette.action.selectedOpacity
-        )
-      }
-    }
-  }
+        ),
+      },
+    },
+  },
 }));
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
 }
 
-function priceRow(qty, unit) {
-  return qty * unit;
-}
-
 export default function Deal(items) {
- 
   let [balance, setbalance] = React.useState(0);
-  let [paymentStatus, setPaymentStatus] = React.useState(false);
-  let [paymentText, setPaymentText] = React.useState("Wallet Not Found !!");
-  let [showEtherScan, setShowEtherScan] = React.useState(false);
-  const [disable, setDisable] = React.useState(false);
-  let wallet = true;
 
   React.useEffect(async () => {
     if (window.ethereum) {
@@ -512,10 +497,9 @@ export default function Deal(items) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const funbun = (insert,index) => {
+  const funbun = (insert, index) => {
     return (
       <>
-
         <Button
           id="demo-customized-button"
           aria-controls="demo-customized-menu"
@@ -531,17 +515,20 @@ export default function Deal(items) {
         <StyledMenu
           id="demo-customized-menu"
           MenuListProps={{
-            "aria-labelledby": "demo-customized-button"
+            "aria-labelledby": "demo-customized-button",
           }}
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
         >
-          <Link style={{ textDecoration: 'none' }} to={{pathname: "/dashboard/cart",state:[index],}}>
-          <MenuItem onClick={handleClose} disableRipple>
-            <MonetizationOnIcon />
-            Buy
-          </MenuItem>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={{ pathname: "/dashboard/cart", state: [index] }}
+          >
+            <MenuItem onClick={handleClose} disableRipple>
+              <MonetizationOnIcon />
+              Buy
+            </MenuItem>
           </Link>
           <Divider sx={{ my: 0.5 }} />
           <MenuItem onClick={handleClose} disableRipple>
@@ -565,32 +552,19 @@ export default function Deal(items) {
     return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
   }
   const location = useLocation();
-//console.log(data[location.state]);
-  let rows=data[location.state]["stocks"];
-  // if(location.state==0){
-  //    rows = [
-  //     createRow(data[0][0]["name"], data[0][0]["latest"], data[0][0]["quantity"], "439/400", data[0][0]["gl"]),
-  //     createRow(data[0][1]["name"], data[0][1]["latest"], data[0][1]["quantity"], "439/400", data[0][1]["gl"]),
-  //   ];
-  // }
-  // else if(location.state==1){
-  //    rows = [
-  //     createRow(data[1][2]["name"], data[1][2]["latest"], data[1][2]["quantity"], "439/400", data[1][2]["gl"]),
-  //     createRow(data[1][3]["name"], data[1][3]["latest"], data[1][3]["quantity"], "439/400", data[1][3]["gl"]),
-  //   ];
-  // }
+  //console.log(data[location.state]);
+  let rows = data[location.state]["stocks"];
 
   const invoiceSubtotal = subtotal(rows);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-  const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-  
-  
-  console.log(rows);
   return (
     <>
-    <Headers />
-   
-      <TableContainer component={Paper} sx={{paddingTop: 10,paddingBottom: 4,paddingLeft:15 }} >
+      <Headers />
+
+      <TableContainer
+        component={Paper}
+        sx={{ paddingTop: 10, paddingBottom: 4, paddingLeft: 15 }}
+      >
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
             <TableRow>
@@ -603,7 +577,7 @@ export default function Deal(items) {
                   Investments
                 </Typography>
               </TableCell>
-              <TableCell align="right"  style={{ borderBottom: "none" }}>
+              <TableCell align="right" style={{ borderBottom: "none" }}>
                 <Tooltip title="Custom View">
                   <Typography variant="h7" gutterBottom component="div">
                     Custom View{" "}
@@ -629,7 +603,9 @@ export default function Deal(items) {
                 <TableCell align="right">{row.quantity}</TableCell>
                 <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                 <TableCell align="right">{row.gl}</TableCell>
-                <TableCell sx={{paddingLeft:8}} align="left">{funbun("Deal",[0,0])}</TableCell>
+                <TableCell sx={{ paddingLeft: 8 }} align="left">
+                  {funbun("Deal", [0, 0])}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -639,7 +615,7 @@ export default function Deal(items) {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell colSpan={3} sx={{padding: 3}}>
+              <TableCell colSpan={3} sx={{ padding: 3 }}>
                 <Typography variant="h4" gutterBottom component="div">
                   Cash & Coins
                 </Typography>
@@ -658,7 +634,11 @@ export default function Deal(items) {
               <TableCell align="right" style={{ borderBottom: "none" }}>
                 1421.83
               </TableCell>
-              <TableCell sx={{paddingLeft:8}}  align="center" style={{ borderBottom: "none" }}>
+              <TableCell
+                sx={{ paddingLeft: 8 }}
+                align="center"
+                style={{ borderBottom: "none" }}
+              >
                 {funbun("Manage")}
               </TableCell>
             </TableRow>
@@ -678,7 +658,9 @@ export default function Deal(items) {
                 Total Coins
               </TableCell>
               <TableCell align="right">{balance}</TableCell>
-              <TableCell sx={{paddingLeft:8}}  align="center">{funbun("Manage")}</TableCell>
+              <TableCell sx={{ paddingLeft: 8 }} align="center">
+                {funbun("Manage")}
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -705,25 +687,5 @@ export default function Deal(items) {
         </Grid>
       </>
     </>
-    // <TableContainer>
-    // <Table>
-    // <TableBody>
-    //         <TableRow>
-    //           <TableCell rowSpan={2} />
-    //           <TableCell colSpan={3}>Subtotal</TableCell>
-    //           <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
-    //         </TableRow>
-    //         <TableRow>
-    //           <TableCell>Tax</TableCell>
-    //           <TableCell align="right">{` %`}</TableCell>
-    //           <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
-    //         </TableRow>
-    //         <TableRow>
-    //           <TableCell colSpan={2}>Total</TableCell>
-    //           <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
-    //         </TableRow>
-    //       </TableBody>
-    //     </Table>
-    //   </TableContainer>
   );
 }
