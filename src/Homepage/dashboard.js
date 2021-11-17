@@ -1,6 +1,4 @@
 import Funds from "./funds";
-import Transactions from "./transactions";
-import Portfolio from "./portfolio";
 import Headers from "./headers";
 
 const Dashboard = () => {
@@ -17,13 +15,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-{
-  /* <Typography
-  component="h2"
-  variant="body2"
-  color="inherit"
-  align="center"
-  noWrap
-  sx={{ flex: 1 }}
-></Typography>; */
-}
