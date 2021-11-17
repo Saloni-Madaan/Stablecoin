@@ -10,16 +10,16 @@ const Data = [
             name: 'Schroder Uk',
             label: 35,
             price: 1330,
-            quantity: '439/400',
-            gl: 809.9,
+            quantity: '$439/T400',
+            gl: ["809.9","-64.81"],
             description: 'This is a description for fund 1',
           },
           {
             name: 'TM Stockage',
             label: 1371,
             price: 72.39,
-            quantity: '439/400',
-            gl: 809.9,
+            quantity: '$439/T400',
+            gl: ["809.9","-64.81"],
             description: 'This is a description for fund 1',
           }
         ]
@@ -37,14 +37,14 @@ const Data = [
             label: 35,
             price: 1330,
             quantity: '439/400',
-            gl: 809.9
+            gl: ["809.9","-64.81"],
           },
           {
             name: 'PM Stockage',
             label: 1371,
             price: 72.39,
             quantity: '439/400',
-            gl: 809.9
+            gl: ["809.9","-64.81"],
           }
         ]
     
@@ -61,14 +61,14 @@ const Data = [
             label: 35,
             price: 1330,
             quantity: '439/400',
-            gl: 809.9
+            gl: ["809.9","-64.81"],
           },
           {
             name: 'TM Stockage',
             label: 1371,
             price: 72.39,
             quantity: '439/400',
-            gl: 809.9
+            gl: ["809.9","-64.81"],
           }
         ]
     
@@ -86,14 +86,14 @@ const Data = [
             label: 35,
             price: 1330,
             quantity: '439/400',
-            gl: 809.9
+            gl: ["809.9","-64.81"],
           },
           {
             name: 'TM Stockage',
             label: 1371,
             price: 72.39,
             quantity: '439/400',
-            gl: 809.9
+            gl: ["809.9","-64.81"],
           }
         ]
     
