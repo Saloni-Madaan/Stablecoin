@@ -1,27 +1,27 @@
  const Data = [
     {
         "id" : 1,
-        "name" : "Fund 1",
-        "value" : "100",
-        "currency" : "USD",
+        "name" : "Cash Management Account",
+        "value" : "231.87 USD",
+        "currency" : "21.87 USD",
         "date" : "01/01/2019",
         "description" : "This is a description for fund 1"
     
     },
    {
     "id" : 2,
-        "name" : "Fund 2",
-        "value" : "200",
-        "currency" : "USD",
+        "name" : "Investment ISA",
+        "value" : "11,593.61 USD",
+        "currency" : "1,093 USD",
         "date" : "01/01/2019",
         "description" : "This is a description for fund 2"
     
     },
   {
     "id" : 3,
-        "name" : "Fund 3",
-        "value" : "300",
-        "currency" : "USD",
+        "name" : "SIPP - Pension Saving Account",
+        "value" : "104,342.45 USD",
+        "currency" : "9,842.45 USD",
         "date" : "01/01/2019",
         "description" : "This is a description for fund 3"
     
@@ -29,9 +29,9 @@
     },
 {
     "id" : 4,    
-    "name" : "Fund 4",
-        "value" : "400",
-        "currency" : "USD",
+    "name" : "Junior ISA",
+        "value" : "3,478.00 USD",
+        "currency" : "328.08 USD",
         "date" : "01/01/2019",
         "description" : "This is a description for fund 4"
     
