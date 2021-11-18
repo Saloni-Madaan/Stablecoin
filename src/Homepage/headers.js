@@ -5,18 +5,11 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
-
-import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import Link from "@mui/material/Link";
 import {
-  alpha,
-  AppBar,
-  Avatar,
-  Badge,
-  InputBase,
   makeStyles,
 } from "@material-ui/core";
-import { Cancel, Mail, Notifications, Search,Help, Home, ArrowDownwardSharp } from "@material-ui/icons";
+import {Home, ArrowDownwardSharp } from "@material-ui/icons";
 import { Button } from "@mui/material";
 import { useState } from "react";
 const Web3 = require("web3");
@@ -456,12 +449,10 @@ const abi = [
 //*--------------------------------------------------------------------------------------------*
 
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
-let userWalletAddress, walletId;
-let blockHash;
+let userWalletAddress;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
-const amount = 100;
-const apiKey = "IG353536346StblC345";
+
 
 
 
@@ -477,14 +468,13 @@ const sections = [
 ];
 const Header = () => {
   let [balance, setbalance] = useState(0);
-  let [paymentStatus, setPaymentStatus] = useState(false);
-  let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
-  let [showEtherScan, setShowEtherScan] = useState(false);
-  const [disable, setDisable] = useState(false);
-  let wallet = true;
+  // let [paymentStatus, setPaymentStatus] = useState(false);
+  // let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
+  // let [showEtherScan, setShowEtherScan] = useState(false);
+  // const [disable, setDisable] = useState(false);
+  // let wallet = true;
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
-  const totalBalance = 1000;
 React.useEffect(async () => {
     if (window.ethereum) {
       const resultMetamsk = await window.ethereum.send("eth_requestAccounts");
