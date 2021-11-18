@@ -18,7 +18,7 @@ const Data = [
             name: 'TM Stockage',
             label: 1371,
             price: 72.39,
-            quantity: '$439/T400',
+            quantity: '$439/T400',  
             gl: ["809.9","-64.81"],
             description: 'This is a description for fund 1',
           }
