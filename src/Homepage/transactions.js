@@ -110,11 +110,13 @@ const Transactions = () => {
             <TableBody justify="center">
               {transactionData.map((curElem) => (
 
+                console.log(curElem),
+
                
                   <ExpandableTableRow
                     key={curElem.transaction_id}
                     expandComponent={<TableCell colSpan="5">
-                     User wallet address:  {curElem.userWalletAddress}, <br /> Total  {curElem.wallet}
+                     User wallet address:  {curElem.blockHash}, <br /> Total  {curElem.totalAmount}
                     </TableCell>}
                   >
                     <TableCell>{curElem.transaction_id}</TableCell>
