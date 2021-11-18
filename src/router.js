@@ -9,6 +9,7 @@ import data from "./Homepage/data";
 import Transactions from "./Homepage/transactions";
 import PaymentPage from "./Homepage/paymnetPage";
 import Deal from "./Homepage/deal_page";
+import Checkout from "./Homepage/checkout";
 import { useState } from "react";
 //*--------------------------------------------------------------------------------------------*
 
@@ -43,6 +44,9 @@ const AllRouterPath = () => {
         </Route>
         <Route exact path="/dashboard/cart" component={cartItems} >
           <Cart cartItems={cartItems} />
+        </Route>
+        <Route exact path="/dashboard/checkout"  >
+          <Checkout/>
         </Route>
         <Route exact path="/dashboard/deal"  >
           <Deal />
