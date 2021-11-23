@@ -84,17 +84,16 @@ const Transactions = () => {
       {transactionData ? (
         <Container className={classes.root}>
           <TableContainer component={Paper}>
-            <Table>
+            <Table colSpan={4}>
               <TableHead>
                 <TableRow>
                   <TableCell />
-                  <TableCell>Transaction Id</TableCell>
+                  <TableCell style={{ width: 50 }} >Link</TableCell>
                   {/* <TableCell>Items</TableCell> */}
                   <TableRow>
                     <TableCell>Description</TableCell>
                     <TableCell>Amount</TableCell>
                   </TableRow>
-                  <TableCell>Total Amount</TableCell>
                   <TableCell>Paid Amount</TableCell>
                   <TableCell>Currency</TableCell>
                   <TableCell>State</TableCell>
@@ -104,15 +103,28 @@ const Transactions = () => {
               <TableBody justify="center">
                 {transactionData.map((curElem) => (
                   <ExpandableTableRow
-                    key={curElem.transaction_id}
+                    key={curElem.blockHash}
                     expandComponent={
-                      <TableCell colSpan="5">
-                        User wallet address: {curElem.userWalletAddress}, <br />{" "}
-                        Total {curElem.wallet}
+                      <TableCell >
+
+                        Total Amount {" "}: {curElem.totalAmount} <br/>
+                        
+                        Wallet Id: {curElem.wallet._id}<br />
+                        Wallet Key: {curElem.wallet.key}<br />
+                        Wallet Created: {curElem.wallet.created}<br />
+                        Expires: {curElem.expires}, <br /> {" "}
+                        Created: {curElem.created},<br />
+                        state: {curElem.state},<br />
+                        confirmBlock: {curElem.confirmBlock},<br />
+                        _id: {curElem._id},<br />
+                        _rev: {curElem._rev},<br />
+                       
                       </TableCell>
                     }
                   >
-                    <TableCell>
+
+                    
+                    <TableCell style={{ width: 50 }}>
                       <a
                         href={`https://rinkeby.etherscan.io/tx/${curElem.blockHash}`}
                         target="_blank"
@@ -128,7 +140,7 @@ const Transactions = () => {
                         </TableRow>
                       ))}
                     </TableCell>
-                    <TableCell>{curElem.totalAmount}</TableCell>
+                    
                     <TableCell>{curElem.paidAmount}</TableCell>
                     <TableCell>{curElem.currency}</TableCell>
                     <TableCell>{curElem.state}</TableCell>
