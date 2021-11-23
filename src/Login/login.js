@@ -14,6 +14,7 @@ import Grid from "@mui/material/Grid";
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Backdrop from '@mui/material/Backdrop';
 //*--------------------------------------------------------------------------------------------*
 function Copyright(props) {
   return (
@@ -59,27 +60,36 @@ const Login = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" }}
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '100vh' }}
+      sx={{
+        backgroundImage:
+          "url(https://images.unsplash.com/photo-1491591462767-3b91b2a19487?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3570&q=80)",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: (t) =>
+          t.palette.mode === "light"
+            ? t.palette.grey[50]
+            : t.palette.grey[900],
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}>
         <CssBaseline />
         <Grid
           item
           xs={false}
           sm={4}
           md={7}
-          sx={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid align="center" item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ background: 'transparent', boxShadow: 'none'}}>
+        
           <Box
+          
             sx={{
               my: 8,
               mx: 4,
@@ -98,6 +108,9 @@ const Login = () => {
               sx={{ mt: 1 }}
             >
               <TextField
+              style={{
+                backgroundColor: "white"
+            }}
                 onChange={(e) => setEmail(e.target.value)}
                 margin="normal"
                 required
@@ -109,6 +122,9 @@ const Login = () => {
                 autoFocus
               />
               <TextField
+              style={{
+                backgroundColor: "white"
+            }}
                 onChange={(e) => setPassword(e.target.value)}
                 margin="normal"
                 required
@@ -133,12 +149,18 @@ const Login = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="#" variant="body2" variant="body2" type="submit"
+                fullWidth
+                variant="contained"
+                >
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/signup" variant="body2">
+                  <Link href="/signup" variant="body2" type="submit"
+                fullWidth
+                variant="contained"
+                >
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

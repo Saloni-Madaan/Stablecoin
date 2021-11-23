@@ -1,4 +1,6 @@
 import data from "./data";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import {useLocation,Link} from "react-router-dom";
 import {
   Container,
   Paper,
@@ -58,7 +60,6 @@ const Funds = () => {
                 <TableCell>
                   <b>Date</b>
                 </TableCell>
-
                 <TableCell></TableCell>
               </TableRow>
             </TableHead> */}
@@ -88,7 +89,7 @@ const Funds = () => {
                     <h3  style={{
                       flexDirection: "row",
                       justifyContent: "flex-end"
-                    }}> > </h3>
+                    }}><Link  style={{ textDecoration: 'none' }} to={{pathname:"dashboard/deal",state:index}}><ArrowForwardIosIcon fontSize="large" color="primary"/></Link>  </h3>
                   </TableCell>
                 
                   {/* <TableCell>
