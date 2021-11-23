@@ -42,7 +42,7 @@ const Funds = () => {
     <>
       <Container className={classes.root}>
         <TableContainer component={Paper}>
-          <Table>
+          <Table sx={{borderTop: '1px solid red'}}>
             {/* <TableHead>
               <TableRow>
                 <TableCell>
@@ -65,7 +65,7 @@ const Funds = () => {
             </TableHead> */}
             <TableBody justify="center" className={classes.td}>
               {data.map((curElem, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} sx={{borderTop: 0 , borderRight: 0, borderBottom: 0, borderColor: '#000000',borderLeftWidth: "10px"}}>
                   {/* <TableCell>
                     <b>{curElem.name}</b>
                   </TableCell>
