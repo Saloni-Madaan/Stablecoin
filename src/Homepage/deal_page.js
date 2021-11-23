@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@mui/material/TableContainer";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import TableHead from "@mui/material/TableHead";
+import KeyboardBackspaceSharpIcon from '@mui/icons-material/KeyboardBackspaceSharp';
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -19,7 +20,6 @@ import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
 import Divider from "@mui/material/Divider";
 import SellSharpIcon from "@mui/icons-material/SellSharp";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -584,7 +584,9 @@ export default function Deal(items) {
   return (
     <>
     <Headers />
+    
     <Container className={classes.root}>
+    <Button variant="text" href="http://localhost:3000/dashboard/"> <KeyboardBackspaceSharpIcon fontSize="small"/><Typography variant="body2" gutterBottom><u>Back to Summary</u></Typography></Button>
       <TableContainer component={Paper}  >
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
