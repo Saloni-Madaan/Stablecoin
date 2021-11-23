@@ -586,7 +586,7 @@ export default function Deal(items) {
     <Headers />
     
     <Container className={classes.root}>
-    <Button variant="text" href="http://localhost:3000/dashboard/"> <KeyboardBackspaceSharpIcon fontSize="small"/><Typography variant="body2" gutterBottom><u>Back to Summary</u></Typography></Button>
+    <Link  style={{ textDecoration: 'none' }} to={{pathname:"/dashboard"}}><Typography variant="body2" gutterBottom><u><KeyboardBackspaceSharpIcon fontSize="small"/>Back to Summary</u></Typography></Link> 
       <TableContainer component={Paper}  >
         <Table sx={{ minWidth: 700 }} aria-label="spanning table">
           <TableHead>
