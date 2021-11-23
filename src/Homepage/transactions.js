@@ -109,9 +109,9 @@ const Transactions = () => {
 
                         Total Amount {" "}: {curElem.totalAmount} <br/>
                         
-                        Wallet Id: {curElem.wallet._id}<br />
+                        {/* Wallet Id: {curElem.wallet._id}<br />
                         Wallet Key: {curElem.wallet.key}<br />
-                        Wallet Created: {curElem.wallet.created}<br />
+                        Wallet Created: {curElem.wallet.created}<br /> */}
                         Expires: {curElem.expires}, <br /> {" "}
                         Created: {curElem.created},<br />
                         state: {curElem.state},<br />
