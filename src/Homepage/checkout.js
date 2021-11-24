@@ -317,7 +317,7 @@ export default function Checkout() {
       <Grid1 item xs>
       
       <Card sx={{border: 2,backgroundColor: "#F7F7F7",display: 'block',borderRadius: 1,borderColor: 'primary.main',
-      borderBottomWidth: 4,borderTopWidth: 4,
+      borderBottomWidth: 4,borderTopWidth: 2,
     width: '14vw',
     height: '8vw'}}>
       
@@ -331,7 +331,7 @@ export default function Checkout() {
       <Grid1 item xs>
       
       <Card sx={{border: 2,backgroundColor: "#F7F7F7",display: 'block',borderRadius: 1,borderColor: 'primary.main',
-      borderBottomWidth: 4,borderTopWidth: 4,
+      borderBottomWidth: 4,borderTopWidth: 2,
     width: '14vw',
     height: '8vw'}}>
       
