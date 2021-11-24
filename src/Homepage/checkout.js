@@ -134,7 +134,7 @@ export default function Checkout() {
       style={{ minHeight: '100vh' }}
       sx={{
         backgroundImage:
-          "url(https://images.unsplash.com/photo-1491591462767-3b91b2a19487?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3570&q=80)",
+          "url(https://images.unsplash.com/photo-1611185876407-2471258a3f07?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3569&q=80)",
         backgroundRepeat: "no-repeat",
         backgroundColor: (t) =>
           t.palette.mode === "light"
