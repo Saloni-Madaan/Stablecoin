@@ -1,30 +1,28 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Toolbar from "@mui/material/Toolbar";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
+import KeyboardArrowDownTwoToneIcon from "@mui/icons-material/KeyboardArrowDownTwoTone";
 import Link from "@mui/material/Link";
-import {
-  makeStyles,
-} from "@material-ui/core";
-import {Home, ArrowDownwardSharp } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core";
+import { Home, ArrowDownwardSharp } from "@material-ui/icons";
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { styled } from '@mui/material/styles';
-import MuiGrid from '@mui/material/Grid';
+import { styled } from "@mui/material/styles";
+import MuiGrid from "@mui/material/Grid";
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
-  width: '60%',
+  width: "60%",
   ...theme.typography.body2,
   '& [role="separator"]': {
     margin: theme.spacing(0, 0),
   },
 }));
 const Grid1 = styled(MuiGrid)(({ theme }) => ({
-  width: '50%',
+  width: "50%",
   ...theme.typography.body2,
   '& [role="separator"]': {
     margin: theme.spacing(0, 0),
@@ -35,12 +33,11 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: '#414956'
-    
+    backgroundColor: "#414956",
   },
   logoLg: {
     display: "none",
-    flexGrow : 1,
+    flexGrow: 1,
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
@@ -51,25 +48,23 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
- 
-  Help:{
+
+  Help: {
     display: "flex",
     alignItems: "center",
   },
 
-  ArrowDownwardSharp:{
+  ArrowDownwardSharp: {
     display: "flex",
     alignItems: "center",
-
   },
 
-  butto:{
-    borderWidth:3,
-    borderColor:'#000450',
-    color : "#FFFFFF"
-
+  butto: {
+    borderWidth: 3,
+    borderColor: "#000450",
+    color: "#FFFFFF",
   },
-  
+
   icons: {
     alignItems: "center",
     display: (props) => (props.open ? "none" : "flex"),
@@ -77,12 +72,11 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     marginRight: theme.spacing(2),
   },
-  links:{
+  links: {
     contrastText: "white",
     // marginCenter: theme.spacing(10),
     alignItems: "center",
-
-  }
+  },
 }));
 
 const abi = [
@@ -471,31 +465,22 @@ let userWalletAddress;
 const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
 
-
-
-
 const sections = [
   { title: "Profile", url: "/dashboard/portfolio" },
-  { title: "Cart", url: "/dashboard/cart" },
-  { title: "Watchlist", url: "/" },
-  { title: "Documents & Messages", url: "/" },
+  { title: "Watchlist", url: "" },
+  { title: "Documents & Messages", url: "" },
   { title: "Transaction History & Reports", url: "/dashboard/transactions" },
-  {title: "Manage Investments", url: "/" },
+  { title: "Manage Investments", url: "" },
   { title: "Summary", url: "/dashboard" },
-  
 ];
 const Header = () => {
-  let date=new Date().toLocaleString().split(',')[0];
-  let time=new Date().toLocaleString().split(', ')[1];
+  let date = new Date().toLocaleString().split(",")[0];
+  let time = new Date().toLocaleString().split(", ")[1];
   let [balance, setbalance] = useState(0);
-  // let [paymentStatus, setPaymentStatus] = useState(false);
-  // let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
-  // let [showEtherScan, setShowEtherScan] = useState(false);
-  // const [disable, setDisable] = useState(false);
-  // let wallet = true;
+
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
-React.useEffect(async () => {
+  React.useEffect(async () => {
     if (window.ethereum) {
       const resultMetamsk = await window.ethereum.send("eth_requestAccounts");
       userWalletAddress = resultMetamsk.result[0];
@@ -514,61 +499,94 @@ React.useEffect(async () => {
   };
   return (
     <React.Fragment>
-      <Toolbar className={classes.toolbar} component="nav"
+      <Toolbar
+        className={classes.toolbar}
+        component="nav"
         variant="dense"
         sx={{
           overflowX: "auto",
-        }}>
-        <Typography variant="h8" className={classes.logoLg} className={classes.ArrowDownwardSharp}
-        style={{color:"#FFFFFF"}}
+        }}
+      >
+        <Typography
+          variant="h8"
+          className={classes.logoLg}
+          className={classes.ArrowDownwardSharp}
+          style={{ color: "#FFFFFF" }}
         >
-          Personal investing  <ArrowDownwardSharp/>
+          Personal investing <ArrowDownwardSharp />
         </Typography>
         <Typography variant="h8" className={classes.logoSm}>
           FIL
         </Typography>
-        
-    <div>
-    <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          width: 'fit-content',
-          border: (theme) => `1px solid ${theme.palette.divider}`,
-          borderRadius: 1,
-          bgcolor: '#414956',
-          color: 'text.secondary',
-          '& svg': {
-            m: 1.5,
-          },
-          '& hr': {
-            mx: 0.5,
-          },
-        }}
-      >
-      <Button color = "inherit" href="https://www.fidelity.com/customer-service/phone-numbers/international" 
-      style={{borderWidth:1},{borderColor:'rgb((255,255,255))'}, {color:"#FFFFFF"}}>
-      Help&Support 
-    </Button>
-    <Divider orientation="vertical" flexItem />
-    <Button color = "inherit" className={classes.Help, classes.butto}
-    style={{borderWidth:1},{borderColor:'rgb((255,255,255))'}, {color:"#FFFFFF"}}>
-      What's new? 
-    </Button>
-    <Divider orientation="vertical" flexItem />
-    <Button color = "inherit" href="https://www.fidelityinternational.com/" className={classes.Home}
-     style={{borderWidth:1},{borderColor:'rgb((255,255,255))'}, {color:"#FFFFFF"}}>
-     Back to Fidelity <Home/> 
-    </Button>
-    <Divider orientation="vertical" flexItem />
-    <Button  color = "primary" 
-    style={{borderWidth:1},{borderColor:'#0000FF'}, {color:"#FFFFFF"}}
-    href="/">Logout
-      
-    </Button>
-    </Box>
-    </div>
-    
+
+        <div>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              width: "fit-content",
+              border: (theme) => `1px solid ${theme.palette.divider}`,
+              borderRadius: 1,
+              bgcolor: "#414956",
+              color: "text.secondary",
+              "& svg": {
+                m: 1.5,
+              },
+              "& hr": {
+                mx: 0.5,
+              },
+            }}
+          >
+            <Button
+              color="inherit"
+              href="https://www.fidelity.com/customer-service/phone-numbers/international"
+              style={
+                ({ borderWidth: 1 },
+                { borderColor: "rgb((255,255,255))" },
+                { color: "#FFFFFF" })
+              }
+            >
+              Help&Support
+            </Button>
+            <Divider orientation="vertical" flexItem />
+            <Button
+              color="inherit"
+              className={(classes.Help, classes.butto)}
+              style={
+                ({ borderWidth: 1 },
+                { borderColor: "rgb((255,255,255))" },
+                { color: "#FFFFFF" })
+              }
+            >
+              What's new?
+            </Button>
+            <Divider orientation="vertical" flexItem />
+            <Button
+              color="inherit"
+              href="https://www.fidelityinternational.com/"
+              className={classes.Home}
+              style={
+                ({ borderWidth: 1 },
+                { borderColor: "rgb((255,255,255))" },
+                { color: "#FFFFFF" })
+              }
+            >
+              Back to Fidelity <Home />
+            </Button>
+            <Divider orientation="vertical" flexItem />
+            <Button
+              color="primary"
+              style={
+                ({ borderWidth: 1 },
+                { borderColor: "#0000FF" },
+                { color: "#FFFFFF" })
+              }
+              href="/"
+            >
+              Logout
+            </Button>
+          </Box>
+        </div>
       </Toolbar>
 
       <Toolbar
@@ -581,15 +599,14 @@ React.useEffect(async () => {
       >
         {sections.map((section) => (
           <Link
-          style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none" }}
             color="inherit"
             noWrap
             key={section.title}
             href={section.url}
             sx={{ p: 1, flexShrink: 0 }}
           >
-              {section.title} <KeyboardArrowDownTwoToneIcon fontSize="small"/>
-            
+            {section.title} <KeyboardArrowDownTwoToneIcon fontSize="small" />
           </Link>
         ))}
         <Link></Link>
@@ -601,86 +618,126 @@ React.useEffect(async () => {
         ></img>
       </Toolbar>
 
-      <Toolbar className={classes.toolbar} component="nav"
+      <Toolbar
+        className={classes.toolbar}
+        component="nav"
         variant="dense"
         sx={{
           overflowX: "auto",
-          
-        }}>
-            
-          <Typography  variant="h6" className={classes.logoLg} 
-        style={{font: "10"},{color:"#FFFFFF"}} sx={{paddingLeft: "100px"}}>
-        
+        }}
+      >
+        <Typography
+          variant="h6"
+          className={classes.logoLg}
+          style={({ font: "10" }, { color: "#FFFFFF" })}
+          sx={{ paddingLeft: "100px" }}
+        >
           <Typography variant="caption" display="block" gutterBottom>
-        Prices and valuations updated at {time} IST on {date} <InfoOutlinedIcon fontSize="small" />
-      </Typography>
-          All accounts (6) <KeyboardArrowDownTwoToneIcon fontSize="small"/> 
-          <br/>
-          <Typography sx={{paddingTop:1}} variant="h5" gutterBottom component="div">
-        $119,645.93
-        <Typography variant="caption" display="block" gutterBottom>
-        Investment+ Total Cash and Coins <InfoOutlinedIcon fontSize="small" />
-      
-      </Typography>
-      </Typography>
-           <br></br> 
-           <Grid container>
-      <Grid item xs>
-      <Typography variant="h5" gutterBottom component="div">
-      $10,000
+            Prices and valuations updated at {time} IST on {date}{" "}
+            <InfoOutlinedIcon fontSize="small" />
+          </Typography>
+          All accounts (6) <KeyboardArrowDownTwoToneIcon fontSize="small" />
+          <br />
+          <Typography
+            sx={{ paddingTop: 1 }}
+            variant="h5"
+            gutterBottom
+            component="div"
+          >
+            $119,645.93
+            <Typography variant="caption" display="block" gutterBottom>
+              Investment+ Total Cash and Coins{" "}
+              <InfoOutlinedIcon fontSize="small" />
+            </Typography>
+          </Typography>
+          <br></br>
+          <Grid container>
+            <Grid item xs>
+              <Typography variant="h5" gutterBottom component="div">
+                $10,000
               </Typography>
               <Typography variant="caption" display="block" gutterBottom>
-              Cash available to invest <InfoOutlinedIcon fontSize="small" />
-      </Typography> 
-      
-      </Grid>
-      <Grid item xs>
-      <Typography variant="h5" gutterBottom component="div">
-      T {balance}
-                    </Typography>
-                    <Typography variant="caption" display="block" gutterBottom>
-              Coins available to invest <InfoOutlinedIcon fontSize="small" />
-      </Typography>
+                Cash available to invest <InfoOutlinedIcon fontSize="small" />
+              </Typography>
             </Grid>
-    </Grid>           
-    {/* <Typography variant="h5" gutterBottom component="div">
+            <Grid item xs>
+              <Typography variant="h5" gutterBottom component="div">
+                T {balance}
+              </Typography>
+              <Typography variant="caption" display="block" gutterBottom>
+                Coins available to invest <InfoOutlinedIcon fontSize="small" />
+              </Typography>
+            </Grid>
+          </Grid>
+          {/* <Typography variant="h5" gutterBottom component="div">
            $10,000 {"     "} T {balance} 
         </Typography> */}
-{/*         
+          {/*         
         <Typography variant="caption" gutterBottom component="div">
            Cash available to invest <InfoOutlinedIcon fontSize="small" /> {"     "}
         </Typography> */}
-            
-          <br/>
+          <br />
           <Grid1 container>
-      <Grid1 item xs>
-      
-      <Button sx={{ ':hover': {
-      bgcolor: '#82C725', // theme.palette.primary.main
-      color: 'white',
-    },backgroundColor: "#82C725",borderRadius: 0,paddingTop:2,paddingBottom:2,paddingLeft:5,paddingRight:5}} variant="contained">Top Up  </Button>
-      </Grid1>
-      <Grid1 item xs>
-      <Button sx={{':hover': {
-      bgcolor: '#FFFEFF', // theme.palette.primary.main
-      color: 'black',
-    }, backgroundColor: "#FFFEFF",color:"black",borderRadius: 0,paddingTop:2,paddingBottom:2,paddingLeft:4,paddingRight:4}} variant="contained">Invest Now</Button>
+            <Grid1 item xs>
+              <Button
+                sx={{
+                  ":hover": {
+                    bgcolor: "#82C725", // theme.palette.primary.main
+                    color: "white",
+                  },
+                  backgroundColor: "#82C725",
+                  borderRadius: 0,
+                  paddingTop: 2,
+                  paddingBottom: 2,
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                }}
+                variant="contained"
+              >
+                Top Up{" "}
+              </Button>
             </Grid1>
-    </Grid1>
-    <Typography sx={{paddingTop:2}} variant="overline" display="block" gutterBottom>
-        <u>Show Customer Reference Number</u>
-      </Typography>
+            <Grid1 item xs>
+              <Button
+                sx={{
+                  ":hover": {
+                    bgcolor: "#FFFEFF", // theme.palette.primary.main
+                    color: "black",
+                  },
+                  backgroundColor: "#FFFEFF",
+                  color: "black",
+                  borderRadius: 0,
+                  paddingTop: 2,
+                  paddingBottom: 2,
+                  paddingLeft: 4,
+                  paddingRight: 4,
+                }}
+                variant="contained"
+              >
+                Invest Now
+              </Button>
+            </Grid1>
+          </Grid1>
+          <Typography
+            sx={{ paddingTop: 2 }}
+            variant="overline"
+            display="block"
+            gutterBottom
+          >
+            <u>Show Customer Reference Number</u>
+          </Typography>
           {/* <Button sx={{ backgroundColor: "#82C725",borderRadius: 1}} variant="contained">Top Up  </Button>
           <Button sx={{ backgroundColor: "#414956",color:'#414956',border:"none",outline:"none"}} variant="contained">Top Up</Button>
           <Button sx={{ backgroundColor: "#FFFEFF",color:"black",borderRadius: 1,}} variant="contained">Invest Now</Button> */}
-          </Typography>
-          <img
-           src="https://i.ibb.co/gF2MBFs/heDER.png" alt="heDER" 
+        </Typography>
+        <img
+          src="https://i.ibb.co/gF2MBFs/heDER.png"
+          alt="heDER"
           width="1000"
           height="400"
-          style={{ marginRight: "auto" ,paddingRight:18}}
+          style={{ marginRight: "auto", paddingRight: 18 }}
         ></img>
-        </Toolbar>
+      </Toolbar>
     </React.Fragment>
   );
 };

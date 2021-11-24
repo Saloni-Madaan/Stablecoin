@@ -42,7 +42,7 @@ const AllRouterPath = () => {
         <Route exact path="/dashboard/cart/id/:id/:m">
           <Cart />
         </Route>
-        <Route exact path="/dashboard/checkout">
+        <Route exact path="/dashboard/checkout/id/:id/:m">
           <Checkout />
         </Route>
         <Route exact path="/dashboard/deal">

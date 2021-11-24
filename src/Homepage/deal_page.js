@@ -523,7 +523,7 @@ export default function Deal() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const funbun = (insert, index, indexOfFund) => {
+  const funbun = (insert, index) => {
     console.log("Index ", index, " iof", indexOfFund);
 
     return (
@@ -549,18 +549,15 @@ export default function Deal() {
           open={open}
           onClose={handleClose}
         >
-          {/* <Link
+          <Link
             style={{ textDecoration: "none" }}
             to={`/dashboard/cart/id/${index}/${indexOfFund}`}
-          > */}
-          <a href="`/dashboard/cart/id/${index}/${indexOfFund}`">
-            LinkedIn handle
-          </a>
-          <MenuItem onClick={handleClose} disableRipple>
-            <MonetizationOnIcon />
-            Buy
-          </MenuItem>
-          {/* </Link> */}
+          >
+            <MenuItem onClick={handleClose} disableRipple>
+              <MonetizationOnIcon />
+              Buy
+            </MenuItem>
+          </Link>
           <Divider sx={{ my: 0.5 }} />
           <MenuItem onClick={handleClose} disableRipple>
             <SellSharpIcon />
@@ -651,28 +648,76 @@ export default function Deal() {
               </TableRow>
             </TableHead>
             <TableBody justify="center" className={classes.td}>
-              {rows.map((row, index) => (
-                <TableRow key={row.name}>
-                  <TableCell>
-                    <Typography style={{ color: "#0000ff" }} variant="h10">
-                      {row.name}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">{row.label} p</TableCell>
-                  <TableCell align="right">{ccyFormat(row.price)}</TableCell>
-                  <TableCell align="right">{row.quantity}</TableCell>
-                  <TableCell align="right">
-                    {row.gl[0]}
-                    <br />
-                    <Typography style={{ color: "#ff0000" }} variant="h10">
-                      {row.gl[1]}
-                    </Typography>
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: 8 }} align="left">
-                    {funbun("Deal", index, indexOfFund)}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {rows.map(
+                (row, index) => (
+                  console.log("Index ", index, " iof", indexOfFund),
+                  (
+                    <TableRow key={row.name}>
+                      <TableCell>
+                        <Typography style={{ color: "#0000ff" }} variant="h10">
+                          {row.name}
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="right">{row.label} p</TableCell>
+                      <TableCell align="right">
+                        {ccyFormat(row.price)}
+                      </TableCell>
+                      <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell align="right">
+                        {row.gl[0]}
+                        <br />
+                        <Typography style={{ color: "#ff0000" }} variant="h10">
+                          {row.gl[1]}
+                        </Typography>
+                      </TableCell>
+                      <TableCell sx={{ paddingLeft: 8 }} align="left">
+                        {/* {funbun("Deal", index)} */}
+                        <Button
+                          id="demo-customized-button"
+                          aria-controls="demo-customized-menu"
+                          aria-haspopup="true"
+                          aria-expanded={open ? "true" : undefined}
+                          variant="contained"
+                          disableElevation
+                          onClick={handleClick}
+                          endIcon={<KeyboardArrowDownIcon />}
+                        >
+                          Manage
+                        </Button>
+                        <StyledMenu
+                          id="demo-customized-menu"
+                          MenuListProps={{
+                            "aria-labelledby": "demo-customized-button",
+                          }}
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                        >
+                          <Link
+                            style={{ textDecoration: "none" }}
+                            to={`/dashboard/checkout/id/${index}/${indexOfFund}`}
+                          >
+                            <MenuItem onClick={handleClose} disableRipple>
+                              <MonetizationOnIcon />
+                              Buy
+                            </MenuItem>
+                          </Link>
+                          <Divider sx={{ my: 0.5 }} />
+                          <MenuItem onClick={handleClose} disableRipple>
+                            <SellSharpIcon />
+                            Sell
+                          </MenuItem>
+                          <Divider sx={{ my: 0.5 }} />
+                          <MenuItem onClick={handleClose} disableRipple>
+                            <SwapHorizIcon />
+                            Switch
+                          </MenuItem>
+                        </StyledMenu>
+                      </TableCell>
+                    </TableRow>
+                  )
+                )
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -704,7 +749,7 @@ export default function Deal() {
                   1421.83
                 </TableCell>
                 <TableCell align="center" style={{ borderBottom: "none" }}>
-                  {funbun("Manage")}
+                  {/* {funbun("Manage")} */}
                 </TableCell>
               </TableRow>
               <TableRow key={"row.name"}>
@@ -723,7 +768,7 @@ export default function Deal() {
                   Total Coins
                 </TableCell>
                 <TableCell align="right">{balance}</TableCell>
-                <TableCell align="center">{funbun("Manage")}</TableCell>
+                {/* <TableCell align="center">{funbun("Manage")}</TableCell> */}
               </TableRow>
             </TableBody>
           </Table>
