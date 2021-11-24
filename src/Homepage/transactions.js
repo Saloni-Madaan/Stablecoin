@@ -88,7 +88,7 @@ const Transactions = () => {
               <TableHead>
                 <TableRow>
                   <TableCell />
-                  <TableCell style={{ width: 50 }} >Link</TableCell>
+                  <TableCell style={{ width: 50 }}>Link</TableCell>
                   {/* <TableCell>Items</TableCell> */}
                   <TableRow>
                     <TableCell>Description</TableCell>
@@ -105,25 +105,23 @@ const Transactions = () => {
                   <ExpandableTableRow
                     key={curElem.blockHash}
                     expandComponent={
-                      <TableCell >
-
-                        Total Amount {" "}: {curElem.totalAmount} <br/>
-                        
-                        {/* Wallet Id: {curElem.wallet._id}<br />
-                        Wallet Key: {curElem.wallet.key}<br />
-                        Wallet Created: {curElem.wallet.created}<br /> */}
-                        Expires: {curElem.expires}, <br /> {" "}
-                        Created: {curElem.created},<br />
+                      <TableCell>
+                        Total Amount : {curElem.totalAmount} <br />
+                        Wallet Id: {curElem.wallet._id}
+                        <br />
+                        Wallet Key: {curElem.wallet.key}
+                        <br />
+                        Wallet Created: {curElem.wallet.created}
+                        <br />
+                        Expires: {curElem.expires}, <br /> Created:{" "}
+                        {curElem.created},<br />
                         state: {curElem.state},<br />
                         confirmBlock: {curElem.confirmBlock},<br />
                         _id: {curElem._id},<br />
                         _rev: {curElem._rev},<br />
-                       
                       </TableCell>
                     }
                   >
-
-                    
                     <TableCell style={{ width: 50 }}>
                       <a
                         href={`https://rinkeby.etherscan.io/tx/${curElem.blockHash}`}
@@ -140,7 +138,7 @@ const Transactions = () => {
                         </TableRow>
                       ))}
                     </TableCell>
-                    
+
                     <TableCell>{curElem.paidAmount}</TableCell>
                     <TableCell>{curElem.currency}</TableCell>
                     <TableCell>{curElem.state}</TableCell>
@@ -166,25 +164,3 @@ const Transactions = () => {
   );
 };
 export default Transactions;
-
-// function SimpleBackdrop() {
-//   const [open, setOpen] = React.useState(false);
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-//   const handleToggle = () => {
-//     setOpen(!open);
-//   };
-
-//   return (
-//     <div>
-//       <Backdrop
-//         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-//         open={open}
-//         onClick={handleClose}
-//       >
-//         <CircularProgress color="inherit" />
-//       </Backdrop>
-//     </div>
-//   );
-// }

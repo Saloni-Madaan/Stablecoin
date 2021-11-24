@@ -14,18 +14,15 @@ import { useState } from "react";
 //*--------------------------------------------------------------------------------------------*
 
 const AllRouterPath = () => {
-
-  const {datas } = data;
-  const [cartItems, setCartItems] = useState([])
-  function handleAddProduct  (data)  {
-    console.log(data)
+  const { datas } = data;
+  const [cartItems, setCartItems] = useState([]);
+  function handleAddProduct(data) {
+    console.log(data);
     // const ProductExist = cartItems.find((item) => item.id === data.id);
     setCartItems([...cartItems, data]);
 
-    console.log(cartItems.length)
-    
+    console.log(cartItems.length);
   }
-
 
   return (
     <Router>
@@ -40,15 +37,15 @@ const AllRouterPath = () => {
           <Dashboard />
         </Route>
         <Route exact path="/dashboard/funds">
-          <Funds data={datas} cartItems={cartItems} handleAddProduct={handleAddProduct}/>                             
+          <Funds />
         </Route>
-        <Route exact path="/dashboard/cart" component={cartItems} >
-          <Cart cartItems={cartItems} />
+        <Route exact path="/dashboard/cart/id?:index">
+          <Cart />
         </Route>
-        <Route exact path="/dashboard/checkout"  >
-          <Checkout/>
+        <Route exact path="/dashboard/checkout">
+          <Checkout />
         </Route>
-        <Route exact path="/dashboard/deal"  >
+        <Route exact path="/dashboard/deal">
           <Deal />
         </Route>
         <Route exact path="/dashboard/portfolio">

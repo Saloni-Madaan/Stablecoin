@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router";
 import axios from "axios";
 import Headers from "./headers";
 import Stack from "@mui/material/Stack";
@@ -14,7 +14,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import data from "./data";
 import Backdrop from "@mui/material/Backdrop";
@@ -422,8 +421,13 @@ const apiKey = "IG353536346StblC345";
 //-----------------------------------------------------------------------------------------------------------------//
 
 const Cart = () => {
-  const location = useLocation();
-  console.log("location state", location.state);
+  // const location = useLocation();
+  // // const { index, indexOfFunds } = location.state;
+  // console.log("location state", location.statre);
+
+  const { uid } = useParams();
+  console.log("uid", uid);
+
   const dat = [0, 0];
   console.log("dat is ", dat);
   //console.log(data[location.state]);

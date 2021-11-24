@@ -15,6 +15,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { TableRow } from "@mui/material";
 import Headers from "./headers";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,47 +29,61 @@ const useStyles = makeStyles((theme) => ({
 const Portfolio = () => {
   const classes = useStyles();
   const [portfolioData, setPortfolioData] = useState(Portfolios);
-  
+  const userId = localStorage.getItem("_id");
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:5001/getTransaction", { userId })
+      .then((res) => {
+        const data = res.data.data;
+        console.log("Data recived", data);
+        setPortfolioData(data);
+      });
+  }, []);
+
   return (
     <div className="Portfolio">
       <Headers />
-      <div style={{textAlign:"center"}}>
-    <h3> Portfolio </h3>
-</div>
-    
-            <Container className={classes.root}>
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Mutual Fund</TableCell>
-                      <TableCell>Currency</TableCell>
-                      <TableCell>Current Investment</TableCell>
-                      <TableCell>Return</TableCell>
-                      {/* <TableCell>Date</TableCell> */}
-                      <TableCell>Descripton</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {portfolioData.map((curElem, index) => (
-                      <TableRow>
-                        <TableCell>{curElem.description}</TableCell>
-                        <TableCell>USD</TableCell>
-                        <TableCell>{curElem.amount}</TableCell>
-                        <TableCell>{  Math.floor(parseInt(parseInt(curElem.amount) + parseInt(Math.random()*5)))}</TableCell>
-                        {/* <TableCell>{curElem.date}</TableCell> */}
-                        <TableCell>This is a description for fund {index+1}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Container>
-    
-
-        
-        );
-     
+      <div style={{ textAlign: "center" }}>
+        <h3> Portfolio </h3>
+      </div>
+      <Container className={classes.root}>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Mutual Fund</TableCell>
+                <TableCell>Currency</TableCell>
+                <TableCell>Current Investment</TableCell>
+                <TableCell>Return</TableCell>
+                {/* <TableCell>Date</TableCell> */}
+                <TableCell>Descripton</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {portfolioData.map((curElem, index) => (
+                <TableRow>
+                  <TableCell>{curElem.description}</TableCell>
+                  <TableCell>USD</TableCell>
+                  <TableCell>{curElem.amount}</TableCell>
+                  <TableCell>
+                    {Math.floor(
+                      parseInt(
+                        parseInt(curElem.amount) + parseInt(Math.random() * 5)
+                      )
+                    )}
+                  </TableCell>
+                  {/* <TableCell>{curElem.date}</TableCell> */}
+                  <TableCell>
+                    This is a description for fund {index + 1}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+      );
     </div>
   );
 };
