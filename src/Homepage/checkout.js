@@ -2,14 +2,17 @@ import * as React from "react";
 import {Home, ArrowDropUp, Info } from "@material-ui/icons";
 import img1 from './images/Capture2.jpg';
 import AppBar from "@mui/material/AppBar";
+import MuiGrid from '@mui/material/Grid';
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import SellSharpIcon from "@mui/icons-material/SellSharp";
-import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
+import Typography from '@mui/material/Typography';
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import MenuIcon from "@mui/icons-material/Menu";
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -39,7 +42,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // import Image from "material-ui-image";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 import { borderColor, color } from "@mui/system";
-
+{/* <img src="https://i.ibb.co/kDH7ZdB/isa.png" alt="isa" border="0"></img> */}
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
@@ -93,7 +96,14 @@ const useStyles = makeStyles((theme) => ({
 
   }
 }));
-
+const Grid1 = styled(MuiGrid)(({ theme }) => ({
+  width: '80%',
+  justifyContent: 'left',
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 30,
   borderRadius: 5,
@@ -107,11 +117,61 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 const amount = "1,371.00";
 export default function Checkout() {
+  let date=new Date().toLocaleString().split(',')[0];
+  let time=new Date().toLocaleString().split(', ')[1];
   const classes = useStyles();
+  const theme = createTheme();
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    // <body style={{backgroundColor: "#FF0000"}} >
+    // <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: "100vh" }}
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '100vh' }}
+      sx={{
+        backgroundImage:
+          "url(https://images.unsplash.com/photo-1491591462767-3b91b2a19487?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3570&q=80)",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: (t) =>
+          t.palette.mode === "light"
+            ? t.palette.grey[50]
+            : t.palette.grey[900],
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}>
+    <Box
+    // container component="main" sx={{ height: "100vh" }}
+    // container
+    // spacing={0}
+    // direction="column"
+    // alignItems="center"
+    // justifyContent="center"
+    // style={{ minHeight: '100vh' }}
+    sx={{
+      //paddingTop:"4px",
+      my: 10,
+      mx: 30,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      backgroundColor: 'white',
+    //   backgroundImage:
+    //       "url(https://images.unsplash.com/photo-1491591462767-3b91b2a19487?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3570&q=80)",
+    //     backgroundRepeat: "no-repeat",
+    //     backgroundColor: (t) =>
+    //       t.palette.mode === "light"
+    //         ? t.palette.grey[50]
+    //         : t.palette.grey[900],
+    //     backgroundSize: "cover",
+    //     backgroundPosition: "center",
+    }} 
+    >
       <div>
-        <Box
+        <Box 
           sx={{
             //flexGrow: 1,
             display: "flex",
@@ -131,11 +191,11 @@ export default function Checkout() {
           <Typography variant="h4" color="black">
             Buy, Sell, Switch
           </Typography>
-          <Typography variant="h6" color="inherit" color="white">
+          {/* <Typography variant="h6" color="inherit" color="white">
             Buy, Sell, this
-          </Typography>
-          <Typography variant="caption" color="black" alignText="right" sx={{ paddingLeft:116}}>
-            Prices and Valuations updated at 14:08 GMT on 18/11/2021 <InfoOutlinedIcon fontSize="small" sx={{ color: "#7EC8E3" }} />
+          </Typography> */}
+          <Typography variant="caption" color="black" alignText="right" sx={{ paddingLeft:80}}>
+            Prices and Valuations updated at {time} GMT on {date} <InfoOutlinedIcon fontSize="small" sx={{ color: "#7EC8E3" }} />
           </Typography>
         </Box>
       </div>
@@ -211,14 +271,20 @@ export default function Checkout() {
             </Button>
           </Typography>
           <Divider orientation="vertical" flexItem />
-          <Typography
+          <img
+           src="https://i.ibb.co/kDH7ZdB/isa.png" alt="isa" 
+          width="400"
+          height="120"
+          //style={{ marginRight: "auto" }}
+        ></img>
+          {/* <Typography
               variant="body2"
               gutterBottom
               color="black"
               textAlign="left"
             >
               Your ISA Allowance
-            </Typography>
+            </Typography> */}
             <BorderLinearProgress variant="determinate" value={20} />
         </Toolbar>
       </AppBar>
@@ -236,20 +302,9 @@ export default function Checkout() {
       <br/>
      
       {/* <Button variant='contained' style={{paddingTop:12,maxWidth: '280px', maxHeight: '180px', minWidth: '280px', minHeight: '180px'}}>BUY</Button> */}
-      <AppBar  elevation={0} position="static" sx={{elevation:0,}}>
-        <Toolbar
-          variant="dense"
-          sx={{
-            border:0,
-            paddingLeft: 4,
-		paddingRight: 4,
-            display: "flex",
-            //justifyContent: "space-between",
-            //alignSelf: 'flex-end',
-            backgroundColor: "white"
-          }}
-        >
-        <Card style={{backgroundColor: "#116394",display: 'block',borderRadius: 1,
+      <Grid1 container>
+      <Grid1 item xs>
+      <Card style={{backgroundColor: "#116394",display: 'block',borderRadius: 1,
     width: '14vw',
     height: '8vw'}}>
           <CardContent textAlign="center" sx={{paddingLeft:13,paddingTop:5}}>
@@ -257,22 +312,12 @@ export default function Checkout() {
             <Typography variant="h6" color="white" gutterBottom>BUY</Typography>
             </CardContent>
         </Card>
-
-
-        {/* This is here for space only */}
-
-
-        <Card elevation={0} style={{backgroundColor: "white",display: 'block',borderRadius: 0,border:0,
-    width: '10vw',
-    height: '8vw'}}>
-          <CardContent textAlign="center" sx={{paddingLeft:13,paddingTop:5}}>
-           
-            <Typography variant="h6" color="white" gutterBottom>BUY</Typography>
-            </CardContent>
-        </Card>
-        {/* The Space Ends Here */}
-
-        <Card sx={{border: 2,backgroundColor: "#F7F7F7",display: 'block',borderRadius: 1,borderColor: 'primary.main',
+      
+      </Grid1>
+      <Grid1 item xs>
+      
+      <Card sx={{border: 2,backgroundColor: "#F7F7F7",display: 'block',borderRadius: 1,borderColor: 'primary.main',
+      borderBottomWidth: 4,borderTopWidth: 4,
     width: '14vw',
     height: '8vw'}}>
       
@@ -281,22 +326,12 @@ export default function Checkout() {
             <Typography sx={{flexGrow: 1,}} variant="h6" color="black" gutterBottom>Sell</Typography>
             </CardContent>
         </Card>
-
-{/* This is here for space only */}
-
-
-<Card elevation={0} style={{backgroundColor: "white",display: 'block',borderRadius: 0,border:0,
-    width: '10vw',
-    height: '8vw'}}>
-          <CardContent textAlign="center" sx={{paddingLeft:13,paddingTop:5}}>
-           
-            <Typography variant="h6" color="white" gutterBottom>BUY</Typography>
-            </CardContent>
-        </Card>
-        {/* The Space Ends Here */}
-
-
-        <Card sx={{border: 2,backgroundColor: "#F7F7F7",display: 'block',borderRadius: 1,borderColor: 'primary.main',
+      
+      </Grid1>
+      <Grid1 item xs>
+      
+      <Card sx={{border: 2,backgroundColor: "#F7F7F7",display: 'block',borderRadius: 1,borderColor: 'primary.main',
+      borderBottomWidth: 4,borderTopWidth: 4,
     width: '14vw',
     height: '8vw'}}>
       
@@ -305,8 +340,42 @@ export default function Checkout() {
             <Typography sx={{flexGrow: 1,}} variant="h6" color="black" gutterBottom>SWITCH</Typography>
             </CardContent>
         </Card>
-        </Toolbar>
-      </AppBar>
+      
+      </Grid1>
+        </Grid1>
+        
+
+
+        {/* This is here for space only */}
+
+
+        {/* <Card elevation={0} style={{backgroundColor: "white",display: 'block',borderRadius: 0,border:0,
+    width: '10vw',
+    height: '8vw'}}>
+          <CardContent textAlign="center" sx={{paddingLeft:13,paddingTop:5}}>
+           
+            <Typography variant="h6" color="white" gutterBottom>BUY</Typography>
+            </CardContent>
+        </Card> */}
+        {/* The Space Ends Here */}
+
+        
+
+{/* This is here for space only */}
+
+
+{/* <Card elevation={0} style={{backgroundColor: "white",display: 'block',borderRadius: 0,border:0,
+    width: '10vw',
+    height: '8vw'}}>
+          <CardContent textAlign="center" sx={{paddingLeft:13,paddingTop:5}}>
+           
+            <Typography variant="h6" color="white" gutterBottom>BUY</Typography>
+            </CardContent>
+        </Card> */}
+        {/* The Space Ends Here */}
+
+
+        
 
       <br/>
       <br/>
@@ -367,13 +436,18 @@ export default function Checkout() {
             
             <Button
               style={{ color: "black" }, { backgroundColor: "#FFFFFF" }}>
-              % of lump sum
+             <Typography variant="button" display="block" gutterBottom color="black">
+      % of lump sum
+      </Typography>
             </Button>
 
             <Divider orientation="vertical" flexItem />
             <Button
               style={{ borderWidth: 1 }, { color: "#000000" }, { backgroundColor: "#FFFFFF" }}>
-              Amount (USDT)
+                <Typography variant="button" display="block" gutterBottom color="black">
+                Amount (USDT)
+      </Typography>
+              
             </Button>
 
            
@@ -501,5 +575,8 @@ export default function Checkout() {
 
 
     </Box>
+    </Grid>
+     </ThemeProvider>
+    // </body>
   );
 }
