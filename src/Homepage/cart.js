@@ -706,11 +706,13 @@ const Cart = () => {
       )}
       {showEtherScan ? (
         <Grid container justifyContent="center">
-          <iframe
-            src={`https://rinkeby.etherscan.io/tx/${blockHash}`}
-            width="1000"
-            height="400"
-          />
+          <a
+            href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+            target="_blank"
+          >
+            Click here to see transaction details
+          </a>{" "}
+          */}
         </Grid>
       ) : (
         <></>
