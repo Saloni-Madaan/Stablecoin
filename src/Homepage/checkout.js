@@ -485,7 +485,7 @@ export default function Checkout() {
            </TableCell>
            <TableCell>
             <Button 
-              style={ { backgroundColor: "#00008B" }}>
+              style={ { backgroundColor: "#186AAD" }}>
               <Typography color="white">Buy</Typography>
             </Button>
             </TableCell>
