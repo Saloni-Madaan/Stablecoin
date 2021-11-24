@@ -1,6 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Toolbar from "@mui/material/Toolbar";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from "@mui/material/Typography";
@@ -12,6 +13,23 @@ import {
 import {Home, ArrowDownwardSharp } from "@material-ui/icons";
 import { Button } from "@mui/material";
 import { useState } from "react";
+import { styled } from '@mui/material/styles';
+import MuiGrid from '@mui/material/Grid';
+
+const Grid = styled(MuiGrid)(({ theme }) => ({
+  width: '60%',
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
+const Grid1 = styled(MuiGrid)(({ theme }) => ({
+  width: '50%',
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
 const Web3 = require("web3");
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -467,6 +485,8 @@ const sections = [
   
 ];
 const Header = () => {
+  let date=new Date().toLocaleString().split(',')[0];
+  let time=new Date().toLocaleString().split(', ')[1];
   let [balance, setbalance] = useState(0);
   // let [paymentStatus, setPaymentStatus] = useState(false);
   // let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
@@ -585,24 +605,80 @@ React.useEffect(async () => {
         variant="dense"
         sx={{
           overflowX: "auto",
+          
         }}>
-          <Typography variant="h6" className={classes.logoLg} 
-        style={{font: "10"},{color:"#FFFFFF"}}
-        >
-          All accounts (6) <br></br> <br></br> 
-          T      {balance} Coins<br></br> 
-          Investment + Total cash<br></br> 
-          <br></br>
-
-          $10,000  <br></br> 
-          Cash available to invest 
+            
+          <Typography  variant="h6" className={classes.logoLg} 
+        style={{font: "10"},{color:"#FFFFFF"}} sx={{paddingLeft: "100px"}}>
+        
+          <Typography variant="caption" display="block" gutterBottom>
+        Prices and valuations updated at {time} IST on {date} <InfoOutlinedIcon fontSize="small" />
+      </Typography>
+          All accounts (6) <KeyboardArrowDownTwoToneIcon fontSize="small"/> 
+          <br/>
+          <Typography sx={{paddingTop:1}} variant="h5" gutterBottom component="div">
+        $119,645.93
+        <Typography variant="caption" display="block" gutterBottom>
+        Investment+ Total Cash and Coins <InfoOutlinedIcon fontSize="small" />
+      
+      </Typography>
+      </Typography>
+           <br></br> 
+           <Grid container>
+      <Grid item xs>
+      <Typography variant="h5" gutterBottom component="div">
+      $10,000
+              </Typography>
+              <Typography variant="caption" display="block" gutterBottom>
+              Cash available to invest <InfoOutlinedIcon fontSize="small" />
+      </Typography> 
+      
+      </Grid>
+      <Grid item xs>
+      <Typography variant="h5" gutterBottom component="div">
+      T {balance}
+                    </Typography>
+                    <Typography variant="caption" display="block" gutterBottom>
+              Coins available to invest <InfoOutlinedIcon fontSize="small" />
+      </Typography>
+            </Grid>
+    </Grid>           
+    {/* <Typography variant="h5" gutterBottom component="div">
+           $10,000 {"     "} T {balance} 
+        </Typography> */}
+{/*         
+        <Typography variant="caption" gutterBottom component="div">
+           Cash available to invest <InfoOutlinedIcon fontSize="small" /> {"     "}
+        </Typography> */}
+            
+          <br/>
+          <Grid1 container>
+      <Grid1 item xs>
+      
+      <Button sx={{ ':hover': {
+      bgcolor: '#82C725', // theme.palette.primary.main
+      color: 'white',
+    },backgroundColor: "#82C725",borderRadius: 0,paddingTop:2,paddingBottom:2,paddingLeft:5,paddingRight:5}} variant="contained">Top Up  </Button>
+      </Grid1>
+      <Grid1 item xs>
+      <Button sx={{':hover': {
+      bgcolor: '#FFFEFF', // theme.palette.primary.main
+      color: 'black',
+    }, backgroundColor: "#FFFEFF",color:"black",borderRadius: 0,paddingTop:2,paddingBottom:2,paddingLeft:4,paddingRight:4}} variant="contained">Invest Now</Button>
+            </Grid1>
+    </Grid1>
+    <Typography sx={{paddingTop:2}} variant="overline" display="block" gutterBottom>
+        <u>Show Customer Reference Number</u>
+      </Typography>
+          {/* <Button sx={{ backgroundColor: "#82C725",borderRadius: 1}} variant="contained">Top Up  </Button>
+          <Button sx={{ backgroundColor: "#414956",color:'#414956',border:"none",outline:"none"}} variant="contained">Top Up</Button>
+          <Button sx={{ backgroundColor: "#FFFEFF",color:"black",borderRadius: 1,}} variant="contained">Invest Now</Button> */}
           </Typography>
-
           <img
-          // src="https://findlogovector.com/wp-content/uploads/2019/11/fidelity-international-logo-vector.png"
-          width="900"
-          height="300"
-          style={{ marginRight: "auto" }}
+           src="https://i.ibb.co/gF2MBFs/heDER.png" alt="heDER" 
+          width="1000"
+          height="400"
+          style={{ marginRight: "auto" ,paddingRight:18}}
         ></img>
         </Toolbar>
     </React.Fragment>

@@ -39,6 +39,7 @@ const Data = [
         price: 1330,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
+        description: "This is a description for Schroder US",
       },
       {
         name: "PM Stockage",
@@ -46,6 +47,7 @@ const Data = [
         price: 72.39,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
+        description: "This is a description for PM Stockage",
       },
     ],
   },

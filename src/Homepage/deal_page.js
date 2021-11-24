@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TableContainer from "@mui/material/TableContainer";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import TableHead from "@mui/material/TableHead";
+import KeyboardBackspaceSharpIcon from "@mui/icons-material/KeyboardBackspaceSharp";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -19,7 +20,6 @@ import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
 import Divider from "@mui/material/Divider";
 import SellSharpIcon from "@mui/icons-material/SellSharp";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -28,7 +28,6 @@ import MuiGrid from "@mui/material/Grid";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useLocation, Link } from "react-router-dom";
 import data from "./data";
-import Cart from "./cart";
 const Web3 = require("web3");
 const abi = [
   {
@@ -483,7 +482,9 @@ function ccyFormat(num) {
   return `${num.toFixed(2)}`;
 }
 
-export default function Deal(items) {
+export default function Deal() {
+  const location = useLocation();
+  const indexOfFund = location.state;
   const classes = useStyles();
   let [balance, setbalance] = React.useState(0);
 
@@ -523,6 +524,8 @@ export default function Deal(items) {
     setAnchorEl(null);
   };
   const funbun = (insert, index, indexOfFund) => {
+    console.log("Index ", index, " iof", indexOfFund);
+
     return (
       <>
         <Button
@@ -546,16 +549,18 @@ export default function Deal(items) {
           open={open}
           onClose={handleClose}
         >
-          <Link
+          {/* <Link
             style={{ textDecoration: "none" }}
-            to={`/dashboard/cart:id?${1}`}
-            state={{ index, indexOfFund }}
-          >
-            <MenuItem onClick={handleClose} disableRipple>
-              <MonetizationOnIcon />
-              Buy
-            </MenuItem>
-          </Link>
+            to={`/dashboard/cart/id/${index}/${indexOfFund}`}
+          > */}
+          <a href="`/dashboard/cart/id/${index}/${indexOfFund}`">
+            LinkedIn handle
+          </a>
+          <MenuItem onClick={handleClose} disableRipple>
+            <MonetizationOnIcon />
+            Buy
+          </MenuItem>
+          {/* </Link> */}
           <Divider sx={{ my: 0.5 }} />
           <MenuItem onClick={handleClose} disableRipple>
             <SellSharpIcon />
@@ -571,15 +576,24 @@ export default function Deal(items) {
     );
   };
 
-  const location = useLocation();
-  const indexOfFund = location.state;
-  //console.log(data[location.state]);
   let rows = data[indexOfFund]["stocks"]; // location.state = index data from funds.js
 
   return (
     <>
       <Headers />
+
       <Container className={classes.root}>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={{ pathname: "/dashboard" }}
+        >
+          <Typography variant="body2" gutterBottom>
+            <u>
+              <KeyboardBackspaceSharpIcon fontSize="small" />
+              Back to Summary
+            </u>
+          </Typography>
+        </Link>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="spanning table">
             <TableHead>
@@ -592,6 +606,14 @@ export default function Deal(items) {
                   <Typography variant="h4" gutterBottom component="div">
                     Investments
                   </Typography>
+                </TableCell>
+                <TableCell align="right" style={{ borderBottom: "none" }}>
+                  <Tooltip title="Custom View">
+                    <Typography variant="h7" gutterBottom component="div">
+                      Custom View{" "}
+                      <SettingsIcon fontSize="small" color="primary" />
+                    </Typography>
+                  </Tooltip>
                 </TableCell>
                 <TableCell align="right" style={{ borderBottom: "none" }}>
                   <Tooltip title="Custom View">
@@ -731,7 +753,3 @@ export default function Deal(items) {
     </>
   );
 }
-
-const goToCart = () => {
-  return <Cart />;
-};

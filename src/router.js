@@ -39,7 +39,7 @@ const AllRouterPath = () => {
         <Route exact path="/dashboard/funds">
           <Funds />
         </Route>
-        <Route exact path="/dashboard/cart/id?:index">
+        <Route exact path="/dashboard/cart/id/:id/:m">
           <Cart />
         </Route>
         <Route exact path="/dashboard/checkout">
@@ -58,6 +58,9 @@ const AllRouterPath = () => {
 
         <Route exact path="/dashboard/paymentpage">
           <PaymentPage />
+        </Route>
+        <Route path="*">
+          <h1>404</h1>
         </Route>
       </Switch>
     </Router>

@@ -18,7 +18,6 @@ import { styled } from "@mui/material/styles";
 import data from "./data";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-
 const Web3 = require("web3");
 
 const Div = styled("div")(({ theme }) => ({
@@ -421,19 +420,12 @@ const apiKey = "IG353536346StblC345";
 //-----------------------------------------------------------------------------------------------------------------//
 
 const Cart = () => {
-  // const location = useLocation();
-  // // const { index, indexOfFunds } = location.state;
-  // console.log("location state", location.statre);
+  const { id, m } = useParams();
+  console.log("uid", id, m);
 
-  const { uid } = useParams();
-  console.log("uid", uid);
-
-  const dat = [0, 0];
-  console.log("dat is ", dat);
-  //console.log(data[location.state]);
-  const rows = [data[dat[0]]["stocks"][0]];
-  // console.log("Cart items",cartItems.location.aboutProps);
-  //console.log("product props is", this.props.location.productdetailProps);
+  let rows = data[m];
+  let row = rows["stocks"][id];
+  // console.log("product props is", this.props.location.productdetailProps);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -623,19 +615,17 @@ const Cart = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="left">{row.description}</TableCell>
-                  </TableRow>
-                ))}
+                <TableRow
+                  key={row.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="right">{row.price}</TableCell>
+                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell align="left">{row.description}</TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </TableContainer>
