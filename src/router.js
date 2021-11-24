@@ -39,9 +39,6 @@ const AllRouterPath = () => {
         <Route exact path="/dashboard/funds">
           <Funds />
         </Route>
-        <Route exact path="/dashboard/cart/id/:id/:m">
-          <Cart />
-        </Route>
         <Route exact path="/dashboard/checkout/id/:id/:m">
           <Checkout />
         </Route>
