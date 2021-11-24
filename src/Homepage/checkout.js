@@ -517,7 +517,11 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 export default function Checkout() {
   const { id, m } = useParams();
   console.log("uid", id, m);
+  let rows = data[m];
+  let row = rows["stocks"][id];
+
   //*--------------------------------------------------------------------------------------------*
+
   let [openLoder, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -534,12 +538,12 @@ export default function Checkout() {
   let [showEtherScan, setShowEtherScan] = useState(false);
   const [disable, setDisable] = useState(false);
   let wallet = true;
-  let rows = data[m];
-  let row = rows["stocks"][id];
+
   let date = new Date().toLocaleString().split(",")[0];
   let time = new Date().toLocaleString().split(", ")[1];
   const classes = useStyles();
   const theme = createTheme();
+
   //*--------------------------------------------------------------------------------------------*
 
   useEffect(async () => {
@@ -575,14 +579,9 @@ export default function Checkout() {
     currency: "USDT",
     items: [
       {
-        description: "desc of fund 1",
-        name: "Fund1",
-        amount: 1,
-      },
-      {
-        description: "desc of fund 2",
-        name: "Fund2",
-        amount: 1,
+        description: row.description,
+        name: row.name,
+        amount: row.price,
       },
     ],
   };

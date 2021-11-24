@@ -65,6 +65,7 @@ const Data = [
         price: 1330,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
+        description: "This is a description for fund 2",
       },
       {
         name: "Small Cap Fund Direct Growth",
@@ -72,6 +73,7 @@ const Data = [
         price: 72.39,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
+        description: "This is a description for fund 2",
       },
     ],
   },
@@ -89,6 +91,7 @@ const Data = [
         price: 1330,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
+        description: "This is a description for fund 2",
       },
       {
         name: "Junior ISA - 2",
@@ -96,6 +99,7 @@ const Data = [
         price: 72.39,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
+        description: "This is a description for fund 2",
       },
     ],
   },
