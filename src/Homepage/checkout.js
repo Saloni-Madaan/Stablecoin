@@ -1,4 +1,6 @@
 import * as React from "react";
+import {Home, ArrowDropUp, Info } from "@material-ui/icons";
+import img1 from './images/Capture2.jpg';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -22,12 +24,76 @@ import CircularProgress, {
   circularProgressClasses,
 } from '@mui/material/CircularProgress';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import {
+  makeStyles, Paper,  TableContainer,
+  Table,
+  TableBody,
+  TableHead,
+  TableCell, TableRow
+} from "@material-ui/core";
+import TextField from '@mui/material/TextField';
 
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // import Image from "material-ui-image";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
+import { borderColor, color } from "@mui/system";
+
+const useStyles = makeStyles((theme) => ({
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    backgroundColor: '#414956'
+    
+  },
+  logoLg: {
+    display: "none",
+    flexGrow : 1,
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+  },
+  logoSm: {
+    display: "block",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+ 
+  Help:{
+    display: "flex",
+    alignItems: "center",
+  },
+
+  ArrowDownwardSharp:{
+    display: "flex",
+    alignItems: "center",
+
+  },
+
+  butto:{
+    borderWidth:3,
+    borderColor:'#000450',
+    // color : "#FFFFFF"
+
+  },
+  
+  icons: {
+    alignItems: "center",
+    display: (props) => (props.open ? "none" : "flex"),
+  },
+  badge: {
+    marginRight: theme.spacing(2),
+  },
+  links:{
+    contrastText: "white",
+    // marginCenter: theme.spacing(10),
+    alignItems: "center",
+
+  }
+}));
+
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 30,
   borderRadius: 5,
@@ -39,7 +105,9 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   //   backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
   // },
 }));
+const amount = "1,371.00";
 export default function Checkout() {
+  const classes = useStyles();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div>
@@ -239,6 +307,199 @@ export default function Checkout() {
         </Card>
         </Toolbar>
       </AppBar>
+
+      <br/>
+      <br/>
+      <br/>
+
+      <AppBar position="static">
+      <Toolbar
+          variant="dense"
+          sx={{
+            border:0,
+            paddingLeft: 4,
+		paddingRight: 4,
+            display: "flex",
+            //justifyContent: "space-between",
+            //alignSelf: 'flex-end',
+            backgroundColor: "white"
+          }}
+        >
+          <img
+          src= {img1} alt=""
+          width="300"
+          height="400"
+        ></img>
+       
+<Container> 
+<React.Fragment>
+  <Toolbar component="nav">
+
+          <Typography variant="h6" className={classes.logoLg} style={{ color: "black" }}>
+            Investment name <ArrowDropUp/>
+          </Typography>
+          <Typography variant="h6" className={classes.logoLg} style={{ color: "black" }}>
+            Latest buy price <Info/>
+          </Typography>
+          <Typography style={{ color: "black" }}>Invest By:</Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: 'fit-content',
+              border: (theme) => `1px solid ${theme.palette.divider}`,
+              // borderRadius: 1,
+              // bgcolor: '#414956',
+              // color: 'text.secondary',
+              '& svg': {
+                m: 1.5,
+              },
+              '& hr': {
+                mx: 0.5,
+              },
+            }}
+          >
+            <Button color="inherit" href=""
+              style={{ borderWidth: 1 }, { borderColor: 'rgb((255,255,255))' }, { color: "#FFFFFF" }, { backgroundColor: "#414956" }}>
+              Amount($)
+            </Button>
+
+            
+            <Button
+              style={{ color: "black" }, { backgroundColor: "#FFFFFF" }}>
+              % of lump sum
+            </Button>
+
+            <Divider orientation="vertical" flexItem />
+            <Button
+              style={{ borderWidth: 1 }, { color: "#000000" }, { backgroundColor: "#FFFFFF" }}>
+              Amount (USDT)
+            </Button>
+
+           
+
+
+
+
+          </Box> </Toolbar> 
+
+          <br></br>
+
+         
+            <Toolbar component="nav">
+
+            <TableContainer component={Paper}>
+        <Table>
+          <TableRow style={{backgroundColor: "#F7F7F7"}} >
+           <TableCell colSpan={5}> OEICs and Unit trusts (1)</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell><b style={{ color: "#006193" }}>TM Stonehage Fleming Opportunities Fund C <br></br> Acc</b></TableCell>
+            <TableCell> <b style={{fontSize:20}}> {amount}p </b></TableCell>
+            <TableCell>
+            
+            
+            
+      <TextField id="outlined-basic" label="$  0.00" variant="outlined" sx={{
+        '& > :not(style)': { m: 1, width: '15ch' },
+      }}/>
+     
+    
+            {/* <Divider orientation="vertical" flexItem /> */}
+
+           </TableCell>
+           <TableCell>
+            <Button 
+              style={ { backgroundColor: "#00008B" }}>
+              <Typography color="white">Buy</Typography>
+            </Button>
+            </TableCell>
+            <TableCell style={{fontSize:20}}>x</TableCell>
+
+           
+
+          </TableRow>
+
+          
+        </Table> </TableContainer>
+          </Toolbar>
+
+          <Toolbar component = "nav">
+
+          <Typography variant="h6" className={classes.logoLg} style={{ color: "black" }}>
+            
+          </Typography>
+
+          <Typography variant="h6" style={{ color: "black" }}>Total</Typography>
+
+          
+          
+          <div><TableContainer><Table><TableRow>
+          
+            <TableCell></TableCell>
+            <TableCell  style={{backgroundColor: "#B6CBE1"}}></TableCell>
+              <TableCell  style={{backgroundColor: "#B6CBE1"}}></TableCell>
+            <TableCell style={{backgroundColor: "#B6CBE1"}}>
+              <Typography color="black"> $ 0.00 </Typography> </TableCell>
+            <TableCell style={{backgroundColor: "#B6CBE1"}}>
+            <Button sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: 'fit-content',
+              border: (theme) => `1px solid ${theme.palette.divider}`,
+              
+              bgcolor: '#F7741E',
+              color: 'white',
+              '& svg': {
+                m: 1.5,
+              },
+              '& hr': {
+                mx: 0.5,
+              },
+            }}>
+              Buy(0)
+              </Button></TableCell>
+
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+
+          </TableRow></Table></TableContainer></div>
+
+         
+          
+          {/* <Card sx={{border: 2,backgroundColor: "#F7F7F7",display: 'block',borderRadius: 1,borderColor: 'primary.main',
+    width: '14vw',
+    height: '8vw'}}>
+      
+          <CardContent >
+            
+            <Typography sx={{flexGrow: 1,}} variant="h6" color="black" gutterBottom>$ 0.00</Typography>
+            </CardContent>
+        </Card> */}
+
+
+          </Toolbar>
+
+          <br></br>
+
+          </React.Fragment>
+
+
+          </Container>
+
+       
+
+        </Toolbar>
+      </AppBar>
+
+
+
+        
+
+
     </Box>
   );
 }
