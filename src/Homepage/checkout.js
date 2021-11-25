@@ -5,8 +5,11 @@ import data from "./data";
 import { Home, ArrowDropUp, Info } from "@material-ui/icons";
 import img1 from "./images/Capture2.jpg";
 import AppBar from "@mui/material/AppBar";
+import ArrowRightAltSharpIcon from '@mui/icons-material/ArrowRightAltSharp';
 import MuiGrid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import { useLocation, Link } from "react-router-dom";
+import KeyboardBackspaceSharpIcon from "@mui/icons-material/KeyboardBackspaceSharp";
 import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Accordion from "@mui/material/Accordion";
@@ -501,6 +504,14 @@ const Grid1 = styled(MuiGrid)(({ theme }) => ({
     margin: theme.spacing(0, 0),
   },
 }));
+const Grid2 = styled(MuiGrid)(({ theme }) => ({
+  width: "100%",
+  justifyContent: "right",
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 30,
   borderRadius: 5,
@@ -711,6 +722,17 @@ export default function Checkout() {
           backgroundPosition: "center",
         }}
       >
+        {/* <Link
+          style={{ textDecoration: "none" }}
+          to={{ pathname: "/dashboard" }}
+        >
+          <Typography variant="body2" gutterBottom>
+            <u>
+              <KeyboardBackspaceSharpIcon fontSize="small" />
+              Back to Summary
+            </u>
+          </Typography>
+        </Link> */}
         <Box
           sx={{
             //paddingTop:"4px",
@@ -722,6 +744,38 @@ export default function Checkout() {
             backgroundColor: "white",
           }}
         >
+          <Grid2 container>
+            <Grid2 item xs>
+          <Link
+          style={{ textDecoration: "none",alignItems:"left",alignText:"left",
+          //paddingRight:"1160px" 
+        }}
+          to={{ pathname: "/dashboard" }}
+        >
+          <Typography variant="body2" gutterBottom>
+            <u>
+              <KeyboardBackspaceSharpIcon fontSize="small" />
+              Back to Summary
+            </u>
+          </Typography>
+        </Link>
+        </Grid2>
+        <Grid2 item xs sx={{paddingLeft:"940px"}}>
+        <Link
+          style={{ textDecoration: "none",alignItems:"left",alignText:"left",
+          //paddingLeft:"1160px" 
+        }}
+          to={{ pathname: "/dashboard/transactions" }}
+        >
+          <Typography variant="body2" gutterBottom>
+            <u>
+              
+              See All Transactions<ArrowRightAltSharpIcon fontSize="small" />
+            </u>
+          </Typography>
+        </Link>
+        </Grid2>
+        </Grid2>
           <div>
             <Box
               sx={{
@@ -1198,7 +1252,7 @@ export default function Checkout() {
                   href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
                   target="_blank"
                 >
-                  Click here to see transaction details
+                  Click here to check out your transaction on EtherScan
                 </a>
               ) : (
                 <></>
