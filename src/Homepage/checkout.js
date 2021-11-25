@@ -1245,9 +1245,8 @@ export default function Checkout() {
                   </Toolbar>
 
                   <br></br>
-                </React.Fragment>
-              </Container>
-              {showEtherScan ? (
+                  <Toolbar>
+                  {showEtherScan ? (
                 <a
                   href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
                   target="_blank"
@@ -1257,8 +1256,13 @@ export default function Checkout() {
               ) : (
                 <></>
               )}
+                    </Toolbar>
+                </React.Fragment>
+              </Container>
+              
             </Toolbar>
           </AppBar>
+          
         </Box>
       </Grid>
       {openLoder ? (
