@@ -36,7 +36,7 @@ const Data = [
       {
         name: "Schroder US",
         label: 35,
-        price: 1330,
+        price: 130,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
         description: "This is a description for Schroder US",
@@ -44,7 +44,7 @@ const Data = [
       {
         name: "PM Stockage",
         label: 1371,
-        price: 72.39,
+        price: 722.39,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
         description: "This is a description for PM Stockage",
@@ -62,7 +62,7 @@ const Data = [
       {
         name: "New age fund",
         label: 35,
-        price: 1330,
+        price: 730,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
         description: "This is a description for fund 2",
@@ -70,7 +70,7 @@ const Data = [
       {
         name: "Small Cap Fund Direct Growth",
         label: 1371,
-        price: 72.39,
+        price: 12.39,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
         description: "This is a description for fund 2",
@@ -88,7 +88,7 @@ const Data = [
       {
         name: "Junior ISA - 1",
         label: 35,
-        price: 1330,
+        price: 630,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
         description: "This is a description for fund 2",
@@ -96,7 +96,7 @@ const Data = [
       {
         name: "Junior ISA - 2",
         label: 1371,
-        price: 72.39,
+        price: 45.39,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
         description: "This is a description for fund 2",
