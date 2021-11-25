@@ -55,8 +55,8 @@ const ExpandableTableRow = ({ children, expandComponent, ...otherProps }) => {
 const Transactions = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const [transactionData, setTransactionData] = useState([]);
   const userId = localStorage.getItem("_id");
+  let [reversedData, setReversedData] = useState([]);
   const handleClose = () => {
     setOpen(false);
   };
@@ -65,8 +65,9 @@ const Transactions = () => {
       .post("http://localhost:5001/getTransaction", { userId })
       .then((res) => {
         const data = res.data.data;
-        console.log("Data recived", data);
-        setTransactionData(data);
+        console.log("Data recived : ", data);
+        setReversedData(data.reverse());
+        console.log("Data reversed: ", reversedData);
         if (data !== null) {
           setOpen(true);
         }
@@ -81,13 +82,14 @@ const Transactions = () => {
         <h3> Transactions </h3>
       </div>
 
-      {transactionData ? (
+      {reversedData ? (
         <Container className={classes.root}>
           <TableContainer component={Paper}>
             <Table colSpan={4}>
               <TableHead>
                 <TableRow>
                   <TableCell />
+
                   <TableCell style={{ width: 50 }}>Link</TableCell>
                   {/* <TableCell>Items</TableCell> */}
                   <TableRow>
@@ -101,7 +103,7 @@ const Transactions = () => {
                 </TableRow>
               </TableHead>
               <TableBody justify="center">
-                {transactionData.map((curElem) => (
+                {reversedData.map((curElem) => (
                   <ExpandableTableRow
                     key={curElem.blockHash}
                     expandComponent={
