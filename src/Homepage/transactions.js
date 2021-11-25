@@ -6,7 +6,11 @@ import {
   TableBody,
   TableHead,
   TableCell,
+  Typography,
+
 } from "@material-ui/core";
+import { styled } from '@mui/material/styles';
+import  { tableCellClasses } from '@mui/material/TableCell';
 import Transaction from "./transactionApi.js";
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,7 +31,32 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(5),
     overflow: "auto",
   },
+  tableCell: {
+    padding: "0px 8px"
+  },
 }));
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+
 
 const ExpandableTableRow = ({ children, expandComponent, ...otherProps }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
@@ -85,42 +114,79 @@ const Transactions = () => {
       {reversedData ? (
         <Container className={classes.root}>
           <TableContainer component={Paper}>
-            <Table colSpan={4}>
+            <Table colSpan={4} >
               <TableHead>
-                <TableRow>
+                <StyledTableRow>
                   <TableCell />
 
-                  <TableCell style={{ width: 50 }}>Link</TableCell>
+                  <TableCell style={{ width: 50 }}>  </TableCell>
                   {/* <TableCell>Items</TableCell> */}
                   <TableRow>
-                    <TableCell>Description</TableCell>
-                    <TableCell>Amount</TableCell>
+                    <TableCell align="right">Description</TableCell>
+                    <TableCell align="center" >Amount</TableCell>
                   </TableRow>
-                  <TableCell>Paid Amount</TableCell>
-                  <TableCell>Currency</TableCell>
-                  <TableCell>State</TableCell>
-                  <TableCell>Date</TableCell>
-                </TableRow>
+                  <TableCell align="center">Paid Amount</TableCell>
+                  <TableCell align="center">Currency</TableCell>
+                  <TableCell align="center">State</TableCell>
+                  <TableCell >Date</TableCell>
+                </StyledTableRow>
               </TableHead>
               <TableBody justify="center">
                 {reversedData.map((curElem) => (
                   <ExpandableTableRow
                     key={curElem.blockHash}
                     expandComponent={
-                      <TableCell>
-                        Total Amount : {curElem.totalAmount} <br />
-                        Wallet Id: {curElem.wallet._id}
-                        <br />
-                        Wallet Key: {curElem.wallet.key}
-                        <br />
-                        Wallet Created: {curElem.wallet.created}
-                        <br />
-                        Expires: {curElem.expires}, <br /> Created:{" "}
-                        {curElem.created},<br />
-                        state: {curElem.state},<br />
-                        confirmBlock: {curElem.confirmBlock},<br />
-                        _id: {curElem._id},<br />
-                        _rev: {curElem._rev},<br />
+                      <TableCell colspan={7}>
+                        <Typography variant="h6" gutterBottom component="div">
+                          Further details
+                        </Typography>
+
+                        {/* ////////////////////////////////////////////// */}
+
+                        <Table  >
+                          <TableHead>
+                            <StyledTableRow>
+                              <TableCell>Total Amount</TableCell>
+                              <TableCell>Wallet Id</TableCell>
+                              {/* <TableCell align="right">Amount</TableCell> */}
+                              
+                              {/* <TableCell className={classes.tableCell} 
+  style={{ width: 100 }}>Wallet Key</TableCell> */}
+                              <TableCell >Wallet Created</TableCell>
+                              <TableCell>Expires</TableCell>
+                              <TableCell>Created</TableCell>
+                              {/* <TableCell>state</TableCell> */}
+                              <TableCell>confirmBlock</TableCell>
+                              <TableCell>_id</TableCell>
+                              <TableCell>_rev</TableCell>
+                            </StyledTableRow>
+                          </TableHead>
+                          <TableBody>
+                           
+                              <TableRow >
+                                <TableCell component="th" scope="row">{curElem.totalAmount}</TableCell>
+                                <TableCell>{curElem.wallet._id}</TableCell>
+                                {/* <TableCell className={classes.tableCell} 
+  style={{ width: 100 }}>  {curElem.wallet.key}  </TableCell> */}
+                                <TableCell>  {curElem.wallet.created} </TableCell>
+                                <TableCell> {curElem.expires} </TableCell>
+                                <TableCell> {curElem.created} </TableCell>
+                                {/* <TableCell> {curElem.state} </TableCell> */}
+                                <TableCell> {curElem.confirmBlock} </TableCell>
+                                <TableCell> {curElem._id} </TableCell>
+                                <TableCell> {curElem._rev} </TableCell>
+                                {/* <TableCell align="right">{historyRow.amount}</TableCell> */}
+                                
+                              </TableRow>
+                           
+                          </TableBody>
+                        </Table>
+
+                        {/* ////////////////////////////////////////////// */}
+
+
+
+                      
                       </TableCell>
                     }
                   >
@@ -129,21 +195,23 @@ const Transactions = () => {
                         href={`https://rinkeby.etherscan.io/tx/${curElem.blockHash}`}
                         target="_blank"
                       >
-                        {curElem.blockHash}
+                        {/* {curElem.blockHash} */}
+                        Etherscan Link
+                        {/* {curElem.confirmBlock} */}
                       </a>
                     </TableCell>
                     <TableCell>
                       {curElem.items.map((Elem) => (
                         <TableRow>
-                          <TableCell>{Elem.description}</TableCell>
-                          <TableCell>{Elem.amount}</TableCell>
+                          <TableCell align="left">{Elem.description}</TableCell>
+                          <TableCell align="left">{Elem.amount}</TableCell>
                         </TableRow>
                       ))}
                     </TableCell>
 
-                    <TableCell>{curElem.paidAmount}</TableCell>
-                    <TableCell>{curElem.currency}</TableCell>
-                    <TableCell>{curElem.state}</TableCell>
+                    <TableCell align="center">{curElem.paidAmount}</TableCell>
+                    <TableCell align="center">{curElem.currency}</TableCell>
+                    <TableCell align="center">{curElem.state}</TableCell>
                     <TableCell>{curElem.createdAt}</TableCell>
                   </ExpandableTableRow>
                 ))}
