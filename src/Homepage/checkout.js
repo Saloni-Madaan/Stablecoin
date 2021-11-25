@@ -1,4 +1,5 @@
 import React from "react";
+import Header1 from "./sasta_header";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import data from "./data";
@@ -699,7 +700,9 @@ export default function Checkout() {
   //*--------------------------------------------------------------------------------------------*
 
   return (
+    
     <ThemeProvider theme={theme}>
+      <Header1/>
       <Grid
         container
         component="main"
@@ -744,7 +747,7 @@ export default function Checkout() {
             backgroundColor: "white",
           }}
         >
-          <Grid2 container>
+          {/* <Grid2 container>
             <Grid2 item xs>
           <Link
           style={{ textDecoration: "none",alignItems:"left",alignText:"left",
@@ -775,7 +778,7 @@ export default function Checkout() {
           </Typography>
         </Link>
         </Grid2>
-        </Grid2>
+        </Grid2> */}
           <div>
             <Box
               sx={{
