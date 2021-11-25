@@ -662,10 +662,10 @@ const Header = () => {
             </Grid>
             <Grid item xs>
               <Typography variant="h5" gutterBottom component="div">
-                T {balance}
+                {balance}
               </Typography>
               <Typography variant="caption" display="block" gutterBottom>
-                Coins available to invest <InfoOutlinedIcon fontSize="small" />
+                USDT available to invest <InfoOutlinedIcon fontSize="small" />
               </Typography>
             </Grid>
           </Grid>
