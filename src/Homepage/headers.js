@@ -466,12 +466,12 @@ const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
 
 const sections = [
-  //{ title: "Profile", url: "/dashboard/portfolio" },
+  { title: "Profile", url: "/dashboard/portfolio" },
   { title: "Watchlist", url: "" },
   { title: "Documents & Messages", url: "" },
   { title: "Transaction History & Reports", url: "/dashboard/transactions" },
   { title: "Manage Investments", url: "" },
-  { title: "Summary", url: "/dashboard" },
+  { title: "Home", url: "/dashboard" },
 ];
 const Header = () => {
   let date = new Date().toLocaleString().split(",")[0];
