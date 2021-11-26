@@ -594,7 +594,7 @@ export default function Checkout() {
       {
         description: row.description,
         name: row.name,
-        amount: row.price,
+        amount: row.price*quantity,
       },
     ],
   };
@@ -625,7 +625,7 @@ export default function Checkout() {
             .then((invoiceData) => {
               console.log("Step 3: ");
               walletId = invoiceData.wallet.address;
-              amount = row.price;
+              amount = row.price*quantity;
               const tx = {
                 from: userWalletAddress,
                 to: contractInstance._address,
