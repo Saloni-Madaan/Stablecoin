@@ -545,6 +545,7 @@ export default function Checkout() {
   };
 
   let [balance, setbalance] = useState(0);
+  let [quantity, setquantity] = useState(1);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
   let [showEtherScan, setShowEtherScan] = useState(false);
@@ -1151,7 +1152,8 @@ export default function Checkout() {
                           </TableCell>
                           <TableCell>
                             <TextField
-                              id="outlined-basic"
+                            onChange={(e) => {setquantity(e.target.value)}}
+                              id="quant"
                               label="$  0.00"
                               variant="outlined"
                               sx={{
@@ -1197,7 +1199,8 @@ export default function Checkout() {
                             <TableCell style={{ backgroundColor: "#B6CBE1" }}>
                               <Typography color="black">
                                 {" "}
-                                $ {row.price}{" "}
+                                {console.log("quantity is",quantity)}
+                                $ {row.price*quantity}{" "}
                               </Typography>{" "}
                             </TableCell>
                             <TableCell style={{ backgroundColor: "#B6CBE1" }}>
