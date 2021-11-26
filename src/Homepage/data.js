@@ -47,7 +47,7 @@ const Data = [
         price: 722.39,
         quantity: "439/400",
         gl: ["809.9", "-64.81"],
-        description: "This is a description for PM Stockage",
+        description: "PM Stockage data",
       },
     ],
   },
