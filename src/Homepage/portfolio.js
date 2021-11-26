@@ -3,9 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
   Container,
   Paper,
-  Box,
-  Typography,
-  CssBaseline,
   TableContainer,
   Table,
   TableBody,
@@ -16,7 +13,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TableRow } from "@mui/material";
 import Headers from "./headers";
 import axios from "axios";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100vw",
@@ -33,7 +29,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5001/getTransaction", { userId })
+      .post("http://localhost:5001/getportfolioData", { userId })
       .then((res) => {
         const data = res.data.data;
         console.log("Data recived", data);
@@ -63,8 +59,8 @@ const Portfolio = () => {
             <TableBody>
               {portfolioData.map((curElem, index) => (
                 <TableRow>
-                  <TableCell>{curElem.description}</TableCell>
-                  <TableCell>USD</TableCell>
+                  <TableCell>{curElem.name}</TableCell>
+                  <TableCell>USDT</TableCell>
                   <TableCell>{curElem.amount}</TableCell>
                   <TableCell>
                     {Math.floor(
@@ -74,9 +70,7 @@ const Portfolio = () => {
                     )}
                   </TableCell>
                   {/* <TableCell>{curElem.date}</TableCell> */}
-                  <TableCell>
-                    This is a description for fund {index + 1}
-                  </TableCell>
+                  <TableCell>{curElem.description}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
