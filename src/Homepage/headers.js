@@ -477,7 +477,6 @@ const Header = () => {
   let date = new Date().toLocaleString().split(",")[0];
   let time = new Date().toLocaleString().split(", ")[1];
   let [balance, setbalance] = useState(0);
-
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
   React.useEffect(async () => {
