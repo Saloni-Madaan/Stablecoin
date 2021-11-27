@@ -49,6 +49,7 @@ const Portfolio = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Mutual Fund</TableCell>
+                <TableCell>Quantity</TableCell>
                 <TableCell>Currency</TableCell>
                 <TableCell>Current Investment</TableCell>
                 <TableCell>Return</TableCell>
@@ -60,16 +61,17 @@ const Portfolio = () => {
               {portfolioData.map((curElem, index) => (
                 <TableRow>
                   <TableCell>{curElem.name}</TableCell>
+                  <TableCell>{curElem.quantity}</TableCell>
                   <TableCell>USDT</TableCell>
                   <TableCell>{curElem.amount}</TableCell>
                   <TableCell>
                     {Math.floor(
                       parseInt(
-                        parseInt(curElem.amount) + parseInt(Math.random() * 5)
+                        parseInt(curElem.amount) +
+                          parseFloat(Math.random() * 100)
                       )
                     )}
                   </TableCell>
-                  {/* <TableCell>{curElem.date}</TableCell> */}
                   <TableCell>{curElem.description}</TableCell>
                 </TableRow>
               ))}
