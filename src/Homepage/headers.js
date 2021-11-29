@@ -624,13 +624,14 @@ const Header = () => {
         variant="dense"
         sx={{
           overflowX: "auto",
+          
         }}
       >
         <Typography
           variant="h6"
           className={classes.logoLg}
           style={({ font: "10" }, { color: "#FFFFFF" })}
-          sx={{ paddingLeft: "100px" }}
+          sx={{ paddingLeft: "700px" }}
         >
           <Typography variant="caption" display="block" gutterBottom>
             Prices and valuations updated at {time} IST on {date}{" "}
@@ -735,7 +736,7 @@ const Header = () => {
           alt="heDER"
           width="1000"
           height="400"
-          style={{ marginRight: "auto", paddingRight: 18 }}
+          style={{ marginRight: "650px", paddingRight: 18 }}
         ></img>
       </Toolbar>
     </React.Fragment>
