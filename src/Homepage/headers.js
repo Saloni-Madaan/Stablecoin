@@ -661,7 +661,7 @@ const Header = () => {
             </Grid>
             <Grid item xs>
               <Typography variant="h5" gutterBottom component="div">
-                {balance}
+              ₮ {Math.round(balance)}
               </Typography>
               <Typography variant="caption" display="block" gutterBottom>
                 USDT available to invest <InfoOutlinedIcon fontSize="small" />
