@@ -718,7 +718,7 @@ export default function Deal() {
                 <TableCell component="th" scope="row">
                   Total Coins
                 </TableCell>
-                <TableCell align="right">{balance}</TableCell>
+                <TableCell align="right">{Math.round(balance)}</TableCell>
                 {/* <TableCell align="center">{funbun("Manage")}</TableCell> */}
               </TableRow>
             </TableBody>
@@ -732,7 +732,7 @@ export default function Deal() {
             <br />
             Total Cash: <b>1400</b>
             <br />
-            Total Coins: <b>{balance}</b>
+            Total Coins: <b>₮{Math.round(balance)}</b>
           </Grid>
           <Divider orientation="vertical" flexItem>
             {"    "}
