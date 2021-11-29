@@ -587,7 +587,8 @@ export default function Checkout() {
       {
         description: row.description,
         name: row.name,
-        amount: row.price * quantity,
+        amount: row.price,
+        quantity: quantity,
       },
     ],
   };
@@ -1149,10 +1150,11 @@ export default function Checkout() {
                           <TableCell>
                             <TextField
                               onChange={(e) => {
-                                setquantity(e.target.value);
+                                setquantity(parseInt(e.target.value));
+                                console.log(typeof quantity);
                               }}
                               id="quant"
-                              label="$  0.00"
+                              label="1"
                               variant="outlined"
                               sx={{
                                 "& > :not(style)": { m: 1, width: "15ch" },
