@@ -1,11 +1,14 @@
 import React from "react";
 import Header1 from "./sasta_header";
+import "./checkout.css"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+//import LoadingButton from '@material-ui/lab/LoadingButton';
 import data from "./data";
 import { Home, ArrowDropUp, Info } from "@material-ui/icons";
 import img1 from "./images/Capture2.jpg";
 import AppBar from "@mui/material/AppBar";
+import PropTypes from 'prop-types';
 import ArrowRightAltSharpIcon from '@mui/icons-material/ArrowRightAltSharp';
 import MuiGrid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -56,12 +59,43 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // import Image from "material-ui-image";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
-import { borderColor, color } from "@mui/system";
+import { borderColor, color, style } from "@mui/system";
 {
   /* <img src="https://i.ibb.co/kDH7ZdB/isa.png" alt="isa" border="0"></img> */
 }
 //*--------------------------------------------------------------------------------------------*
 
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <CircularProgress variant="determinate" sx={{color:"red" }}{...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="caption" component="div" color="black">
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+CircularProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate variant.
+   * Value between 0 and 100.
+   * @default 0
+   */
+  value: PropTypes.number.isRequired,
+};
 const Web3 = require("web3");
 const abi = [
   {
@@ -505,14 +539,7 @@ const Grid1 = styled(MuiGrid)(({ theme }) => ({
     margin: theme.spacing(0, 0),
   },
 }));
-const Grid2 = styled(MuiGrid)(({ theme }) => ({
-  width: "100%",
-  justifyContent: "right",
-  ...theme.typography.body2,
-  '& [role="separator"]': {
-    margin: theme.spacing(0, 0),
-  },
-}));
+
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 30,
   borderRadius: 5,
@@ -536,7 +563,7 @@ export default function Checkout() {
 
   let [openLoder, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [progress, setProgress] = useState(0);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -545,6 +572,7 @@ export default function Checkout() {
   };
 
   let [balance, setbalance] = useState(0);
+  let [quantity, setquantity] = useState(1);
   let [paymentStatus, setPaymentStatus] = useState(false);
   let [paymentText, setPaymentText] = useState("Wallet Not Found !!");
   let [showEtherScan, setShowEtherScan] = useState(false);
@@ -594,6 +622,7 @@ export default function Checkout() {
         description: row.description,
         name: row.name,
         amount: row.price,
+        quantity: quantity,
       },
     ],
   };
@@ -614,6 +643,7 @@ export default function Checkout() {
           return invoiceId;
         })
         .then((invoiceId) => {
+          setProgress(0);
           axios
             .get(`/api/v1/invoice/${invoiceId}`)
             .then((response) => {
@@ -623,8 +653,9 @@ export default function Checkout() {
             })
             .then((invoiceData) => {
               console.log("Step 3: ");
+              setProgress(0);
               walletId = invoiceData.wallet.address;
-              amount = row.price;
+              amount = row.price * quantity;
               const tx = {
                 from: userWalletAddress,
                 to: contractInstance._address,
@@ -632,10 +663,11 @@ export default function Checkout() {
                   .transfer(walletId, web3.utils.toWei(amount.toString()))
                   .encodeABI(),
               };
-
+              setProgress(0);
               web3.eth
                 .sendTransaction(tx)
                 .then(async (res) => {
+                  setProgress(20);
                   await res;
                   blockHash = res.transactionHash;
                   console.log(
@@ -645,6 +677,7 @@ export default function Checkout() {
                   return res;
                 })
                 .then(() => {
+                  setProgress(50);
                   let transactionData = {
                     invoiceId: invoiceId,
                     userId: localStorage.getItem("_id"),
@@ -652,13 +685,16 @@ export default function Checkout() {
                     userWalletAddress: userWalletAddress,
                   };
                   console.log("USer id : ", localStorage.getItem("_id"));
+                  setProgress(70);
                   axios
                     .post("http://localhost:5001/transaction", transactionData)
                     .then((response) => {
+                      setProgress(80);
                       console.log(
                         "Step 5: check if payment successfull : ",
                         response.data
                       );
+                      setProgress(100);
                       setPaymentText("Payment Successfull");
                       setOpen(false);
                       setShowEtherScan(true);
@@ -673,9 +709,13 @@ export default function Checkout() {
                 .catch((err) => {
                   setPaymentText("Payment Failed");
                   console.log("Step 4 : error from metamask : ", err);
+                  setOpen(false);
                   setDisable(false);
                   return;
                 });
+            })
+            .catch((error) => {
+              console.log("Error decentrapay invoice : ", error);
             });
         })
         .catch((e) => {
@@ -700,9 +740,8 @@ export default function Checkout() {
   //*--------------------------------------------------------------------------------------------*
 
   return (
-    
     <ThemeProvider theme={theme}>
-      <Header1/>
+      <Header1 />
       <Grid
         container
         component="main"
@@ -884,7 +923,7 @@ export default function Checkout() {
                   color="black"
                   textAlign="left"
                 >
-                  T984.33
+                  ₮{Math.round(balance)}
                 </Typography>
                 <br />
                 <Button
@@ -1147,12 +1186,16 @@ export default function Checkout() {
                           </TableCell>
                           <TableCell>
                             {" "}
-                            <b style={{ fontSize: 20 }}> {row.price} USDT </b>
+                            <b style={{ fontSize: 20 }}>₮ {row.price}  </b>
                           </TableCell>
                           <TableCell>
                             <TextField
-                              id="outlined-basic"
-                              label="$  0.00"
+                              onChange={(e) => {
+                                setquantity(parseInt(e.target.value));
+                                console.log(typeof quantity);
+                              }}
+                              id="quant"
+                              label="₮  0.00"
                               variant="outlined"
                               sx={{
                                 "& > :not(style)": { m: 1, width: "15ch" },
@@ -1197,7 +1240,8 @@ export default function Checkout() {
                             <TableCell style={{ backgroundColor: "#B6CBE1" }}>
                               <Typography color="black">
                                 {" "}
-                                $ {row.price}{" "}
+                                {console.log("quantity is",quantity)}
+                                ₮ {row.price*quantity}{" "}
                               </Typography>{" "}
                             </TableCell>
                             <TableCell style={{ backgroundColor: "#B6CBE1" }}>
@@ -1206,6 +1250,8 @@ export default function Checkout() {
                                   setDisable(true);
                                   initPayButton();
                                 }}
+                                // loading={openLoder}
+                                // loadingPosition="end"
                                 sx={{
                                   display: "flex",
                                   alignItems: "center",
@@ -1249,23 +1295,21 @@ export default function Checkout() {
 
                   <br></br>
                   <Toolbar>
-                  {showEtherScan ? (
-                <a
-                  href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
-                  target="_blank"
-                >
-                  Click here to check out your transaction on EtherScan
-                </a>
-              ) : (
-                <></>
-              )}
-                    </Toolbar>
+                    {showEtherScan ? (
+                      <a
+                        href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+                        target="_blank"
+                      >
+                        Click here to check out your transaction on EtherScan
+                      </a>
+                    ) : (
+                      <></>
+                    )}
+                  </Toolbar>
                 </React.Fragment>
               </Container>
-              
             </Toolbar>
           </AppBar>
-          
         </Box>
       </Grid>
       {openLoder ? (
@@ -1275,7 +1319,80 @@ export default function Checkout() {
             open={openLoder}
             onClick={handleClose}
           >
-            <CircularProgress color="inherit" />
+
+{/*This is the Gear Animation
+ <div class="load">
+  <div class="gear one">
+    <svg id="blue" viewbox="0 0 100 100" fill="#94DDFF">
+      <path d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z"></path>
+    </svg>
+  </div>
+  <div class="gear two">
+    <svg id="pink" viewbox="0 0 100 100" fill="#FB8BB9">
+      <path d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z"></path>
+    </svg>
+  </div>
+  <div class="gear three">
+    <svg id="yellow" viewbox="0 0 100 100" fill="#FFCD5C">
+      <path d="M97.6,55.7V44.3l-13.6-2.9c-0.8-3.3-2.1-6.4-3.9-9.3l7.6-11.7l-8-8L67.9,20c-2.9-1.7-6-3.1-9.3-3.9L55.7,2.4H44.3l-2.9,13.6      c-3.3,0.8-6.4,2.1-9.3,3.9l-11.7-7.6l-8,8L20,32.1c-1.7,2.9-3.1,6-3.9,9.3L2.4,44.3v11.4l13.6,2.9c0.8,3.3,2.1,6.4,3.9,9.3      l-7.6,11.7l8,8L32.1,80c2.9,1.7,6,3.1,9.3,3.9l2.9,13.6h11.4l2.9-13.6c3.3-0.8,6.4-2.1,9.3-3.9l11.7,7.6l8-8L80,67.9      c1.7-2.9,3.1-6,3.9-9.3L97.6,55.7z M50,65.6c-8.7,0-15.6-7-15.6-15.6s7-15.6,15.6-15.6s15.6,7,15.6,15.6S58.7,65.6,50,65.6z"></path>
+    </svg>
+  </div>
+  <div class="lil-circle"></div>
+  <svg class="blur-circle">
+    <filter id="blur">
+      <fegaussianblur in="SourceGraphic" stddeviation="13"></fegaussianblur>
+    </filter>
+    <circle cx="70" cy="70" r="66" fill="transparent" stroke="white" stroke-width="40" filter="url(#blur)"></circle>
+  </svg>
+</div>
+<Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 170,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="h6" component="div" color="white">
+          Transacting
+        </Typography>
+      </Box> */}
+
+            {/* This is the loading pen animation */}
+            <div className='container'>
+  <div className='loader'>
+    <div className='loader--dot'></div>
+    <div className='loader--dot'></div>
+    <div className='loader--dot'></div>
+    <div className='loader--dot'></div>
+    <div className='loader--dot'></div>
+    <div className='loader--dot'></div>
+    <div className='loader--text'></div>
+  </div>
+</div>
+            {/* <img src="https://i.ibb.co/pZ8sq1w/image-processing20210902-12079-r8o8k9.gif" alt="image-processing20210902-12079-r8o8k9" border="0"></img> */}
+            {/* <CircularProgressWithLabel value={progress} /> */}
+            {/* <CircularProgress  />
+            <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="caption" component="div" color="black">
+          {`${Math.round(progress)}%`}
+        </Typography>
+      </Box> */}
           </Backdrop>
         </div>
       ) : (

@@ -523,55 +523,6 @@ export default function Deal() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const funbun = (insert, index) => {
-    console.log("Index ", index, " iof", indexOfFund);
-
-    return (
-      <>
-        <Button
-          id="demo-customized-button"
-          aria-controls="demo-customized-menu"
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          variant="contained"
-          disableElevation
-          onClick={handleClick}
-          endIcon={<KeyboardArrowDownIcon />}
-        >
-          {insert}
-        </Button>
-        <StyledMenu
-          id="demo-customized-menu"
-          MenuListProps={{
-            "aria-labelledby": "demo-customized-button",
-          }}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-        >
-          <Link
-            style={{ textDecoration: "none" }}
-            to={`/dashboard/cart/id/${index}/${indexOfFund}`}
-          >
-            <MenuItem onClick={handleClose} disableRipple>
-              <MonetizationOnIcon />
-              Buy
-            </MenuItem>
-          </Link>
-          <Divider sx={{ my: 0.5 }} />
-          <MenuItem onClick={handleClose} disableRipple>
-            <SellSharpIcon />
-            Sell
-          </MenuItem>
-          <Divider sx={{ my: 0.5 }} />
-          <MenuItem onClick={handleClose} disableRipple>
-            <SwapHorizIcon />
-            Switch
-          </MenuItem>
-        </StyledMenu>
-      </>
-    );
-  };
 
   let rows = data[indexOfFund]["stocks"]; // location.state = index data from funds.js
 
@@ -767,7 +718,7 @@ export default function Deal() {
                 <TableCell component="th" scope="row">
                   Total Coins
                 </TableCell>
-                <TableCell align="right">{balance}</TableCell>
+                <TableCell align="right">{Math.round(balance)}</TableCell>
                 {/* <TableCell align="center">{funbun("Manage")}</TableCell> */}
               </TableRow>
             </TableBody>
@@ -781,7 +732,7 @@ export default function Deal() {
             <br />
             Total Cash: <b>1400</b>
             <br />
-            Total Coins: <b>{balance}</b>
+            Total Coins: <b>₮{Math.round(balance)}</b>
           </Grid>
           <Divider orientation="vertical" flexItem>
             {"    "}

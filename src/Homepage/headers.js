@@ -458,7 +458,7 @@ const abi = [
   },
 ];
 
-//*--------------------------------------------------------------------------------------------*
+//*------------------------- -------------------------------------------------------------------*
 
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let userWalletAddress;
@@ -466,18 +466,17 @@ const web3 = new Web3(window.web3.currentProvider);
 const contractInstance = new web3.eth.Contract(abi, tokenAddress);
 
 const sections = [
-  //{ title: "Profile", url: "/dashboard/portfolio" },
+  { title: "Profile", url: "/dashboard/portfolio" },
   { title: "Watchlist", url: "" },
   { title: "Documents & Messages", url: "" },
   { title: "Transaction History & Reports", url: "/dashboard/transactions" },
   { title: "Manage Investments", url: "" },
-  { title: "Summary", url: "/dashboard" },
+  { title: "Home", url: "/dashboard" },
 ];
 const Header = () => {
   let date = new Date().toLocaleString().split(",")[0];
   let time = new Date().toLocaleString().split(", ")[1];
   let [balance, setbalance] = useState(0);
-
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
   React.useEffect(async () => {
@@ -663,7 +662,7 @@ const Header = () => {
             </Grid>
             <Grid item xs>
               <Typography variant="h5" gutterBottom component="div">
-                {balance}
+              ₮ {Math.round(balance)}
               </Typography>
               <Typography variant="caption" display="block" gutterBottom>
                 USDT available to invest <InfoOutlinedIcon fontSize="small" />
