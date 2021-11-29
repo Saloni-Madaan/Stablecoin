@@ -539,14 +539,7 @@ const Grid1 = styled(MuiGrid)(({ theme }) => ({
     margin: theme.spacing(0, 0),
   },
 }));
-const Grid2 = styled(MuiGrid)(({ theme }) => ({
-  width: "100%",
-  justifyContent: "right",
-  ...theme.typography.body2,
-  '& [role="separator"]': {
-    margin: theme.spacing(0, 0),
-  },
-}));
+
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 30,
   borderRadius: 5,
@@ -628,7 +621,8 @@ export default function Checkout() {
       {
         description: row.description,
         name: row.name,
-        amount: row.price*quantity,
+        amount: row.price,
+        quantity: quantity,
       },
     ],
   };
@@ -661,7 +655,7 @@ export default function Checkout() {
               console.log("Step 3: ");
               setProgress(0);
               walletId = invoiceData.wallet.address;
-              amount = row.price*quantity;
+              amount = row.price * quantity;
               const tx = {
                 from: userWalletAddress,
                 to: contractInstance._address,
@@ -715,9 +709,13 @@ export default function Checkout() {
                 .catch((err) => {
                   setPaymentText("Payment Failed");
                   console.log("Step 4 : error from metamask : ", err);
+                  setOpen(false);
                   setDisable(false);
                   return;
                 });
+            })
+            .catch((error) => {
+              console.log("Error decentrapay invoice : ", error);
             });
         })
         .catch((e) => {
@@ -742,9 +740,8 @@ export default function Checkout() {
   //*--------------------------------------------------------------------------------------------*
 
   return (
-    
     <ThemeProvider theme={theme}>
-      <Header1/>
+      <Header1 />
       <Grid
         container
         component="main"
@@ -1193,7 +1190,10 @@ export default function Checkout() {
                           </TableCell>
                           <TableCell>
                             <TextField
-                            onChange={(e) => {setquantity(e.target.value)}}
+                              onChange={(e) => {
+                                setquantity(parseInt(e.target.value));
+                                console.log(typeof quantity);
+                              }}
                               id="quant"
                               label="₮  0.00"
                               variant="outlined"
@@ -1295,23 +1295,21 @@ export default function Checkout() {
 
                   <br></br>
                   <Toolbar>
-                  {showEtherScan ? (
-                <a
-                  href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
-                  target="_blank"
-                >
-                  Click here to check out your transaction on EtherScan
-                </a>
-              ) : (
-                <></>
-              )}
-                    </Toolbar>
+                    {showEtherScan ? (
+                      <a
+                        href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+                        target="_blank"
+                      >
+                        Click here to check out your transaction on EtherScan
+                      </a>
+                    ) : (
+                      <></>
+                    )}
+                  </Toolbar>
                 </React.Fragment>
               </Container>
-              
             </Toolbar>
           </AppBar>
-          
         </Box>
       </Grid>
       {openLoder ? (
