@@ -138,13 +138,6 @@ const Funds = () => {
                         <br></br>
                         Investments + total coins
                       </TableCell>
-
-                      <TableCell>
-                        <b style={{ fontSize: 20 }}>{curElem.valueUDS}</b>
-                        <br></br>
-                        Investments + total cash 
-                      </TableCell>
-
                       <TableCell>
                         <b style={{ fontSize: 20 }}>{curElem.currency}</b>
                         <br></br>
@@ -152,6 +145,13 @@ const Funds = () => {
                         <br></br>
                         
                       </TableCell>
+                      <TableCell>
+                        <b style={{ fontSize: 20 }}>{curElem.valueUDS}</b>
+                        <br></br>
+                        Investments + total cash 
+                      </TableCell>
+
+                      
 
                       <TableCell>
                         <b style={{ fontSize: 20 }}>{curElem.currencyUSD}</b>
