@@ -55,11 +55,11 @@
     top: 200%;
     left: 0;
     right: 0;
-    width: 4rem;
+    width: 12rem;
     margin: auto;
   }
   .loader--text:after {
-    content: "Transacting";
+    content: "Transaction in progress";
     font-weight: bold;
     animation-name: loading-text;
     animation-duration: 3s;
@@ -82,17 +82,17 @@
   }
   @keyframes loading-text {
     0% {
-      content: "Transacting";
+      content: "Transaction in progress";
     }
     25% {
-      content: "Transacting.";
+      content: "Transaction in progress.";
     }
     50% {
-      content: "Transacting..";
+      content: "Transaction in progress..";
     }
-    75% {
-      content: "Transacting...";
-    }
+    /* 75% {
+      content: "Transaction in progress...";
+    } */
   }
 
 
