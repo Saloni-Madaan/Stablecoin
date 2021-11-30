@@ -1378,7 +1378,7 @@ export default function Checkout() {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose1} textAlign="center">
-          Transaction Confirmtion
+          Transaction Confirmed
         </BootstrapDialogTitle>
         <DialogContent dividers>
         <CheckCircleOutlinedIcon color="primary" sx={{ fontSize: 70 ,paddingLeft:28}}/>
