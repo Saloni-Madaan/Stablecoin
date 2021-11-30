@@ -555,17 +555,36 @@ export default function Deal() {
                     Investments
                   </Typography>
                 </TableCell>
-                <TableCell align="right" style={{ borderBottom: "none" }}>
+                
+                 <TableCell align="right" style={{ borderBottom: "none" }}>
                   <Tooltip title="Custom View">
-                    <Typography variant="h7" gutterBottom component="div">
-                      Custom View{" "}
-                      <SettingsIcon fontSize="small" color="primary" />
+                    <Typography variant="h7" gutterBottom component="div" color="white">
+                      Custom this is is is  {" "}
+                      
                     </Typography>
                   </Tooltip>
-                </TableCell>
+                </TableCell> 
                 <TableCell align="right" style={{ borderBottom: "none" }}>
                   <Tooltip title="Custom View">
-                    <Typography variant="h7" gutterBottom component="div">
+                    <Typography variant="h7" gutterBottom component="div" color="white">
+                      Custom this is is is  {" "}
+                      
+                    </Typography>
+                  </Tooltip>
+                </TableCell> 
+                {/* <TableCell align="right" style={{ borderBottom: "none" }}>
+                  <Tooltip title="Custom View">
+                    <Typography variant="caption" gutterBottom component="div" color="white">
+                      
+                      
+                    </Typography>
+                  </Tooltip>
+                </TableCell>  */}
+                <TableCell align="right" style={{ borderBottom: "none",  }}>
+                  <Tooltip title="Custom View" >
+                    <Typography variant="h7" gutterBottom component="div" 
+                    // sx={{paddingLeft:70}}
+                    >
                       Custom View{" "}
                       <SettingsIcon fontSize="small" color="primary" />
                     </Typography>
@@ -586,7 +605,11 @@ export default function Deal() {
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
-                  Value <InfoOutlinedIcon fontSize="small" color="primary" />
+                  Value (₮)<InfoOutlinedIcon fontSize="small" color="primary" />
+                  <HeightIcon fontSize="small" color="secondary" />
+                </TableCell>
+                <TableCell align="right">
+                  Value ($)<InfoOutlinedIcon fontSize="small" color="primary" />
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
 
@@ -614,6 +637,7 @@ export default function Deal() {
                         {ccyFormat(row.price)}
                       </TableCell>
                       <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell align="right">{row.quantityUSD}</TableCell>
                       <TableCell align="right">
                         {row.gl[0]}
                         <br />
