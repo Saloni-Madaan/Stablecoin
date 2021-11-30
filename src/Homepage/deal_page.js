@@ -586,7 +586,11 @@ export default function Deal() {
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
-                  Value <InfoOutlinedIcon fontSize="small" color="primary" />
+                  Value (₮)<InfoOutlinedIcon fontSize="small" color="primary" />
+                  <HeightIcon fontSize="small" color="secondary" />
+                </TableCell>
+                <TableCell align="right">
+                  Value ($)<InfoOutlinedIcon fontSize="small" color="primary" />
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
 
@@ -614,6 +618,7 @@ export default function Deal() {
                         {ccyFormat(row.price)}
                       </TableCell>
                       <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell align="right">{row.quantityUSD}</TableCell>
                       <TableCell align="right">
                         {row.gl[0]}
                         <br />
