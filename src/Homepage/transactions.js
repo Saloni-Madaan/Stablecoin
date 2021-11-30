@@ -121,7 +121,7 @@ const Transactions = () => {
 
                   <TableCell style={{ width: 50 }}>  </TableCell>
                   {/* <TableCell>Items</TableCell> */}
-                  <TableRow>
+                  <TableRow style={{ width: 50 }}>
                     <TableCell align="right">Description</TableCell>
                     <TableCell align="center" >Amount</TableCell>
                   </TableRow>
@@ -200,9 +200,9 @@ const Transactions = () => {
                         {/* {curElem.confirmBlock} */}
                       </a>
                     </TableCell>
-                    <TableCell>
+                    <TableCell style={{ width: 50 }}>
                       {curElem.items.map((Elem) => (
-                        <TableRow>
+                        <TableRow style={{ width: 50 }}>
                           <TableCell align="left">{Elem.description}</TableCell>
                           <TableCell align="left">{Elem.amount}</TableCell>
                         </TableRow>
