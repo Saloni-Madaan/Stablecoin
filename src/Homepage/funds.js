@@ -56,7 +56,7 @@ const Funds = () => {
                   borderRight: 0,
                   borderBottom: 0,
                   borderColor: "#232328",
-                  borderLeftWidth: "12px",
+                  borderLeftWidth: "10px",
                   borderBottomWidth: "20px",
                   borderBottomColor: "#F2F0F4",
                   borderStyle: "solid",
@@ -67,7 +67,11 @@ const Funds = () => {
                     View all investments{" "}
                   </h2>
                 </TableCell>
-                <TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                {/* <TableCell>
                   <b style={{ fontSize: 20, color: "white" }}>
                     Investments + total cash & coins
                   </b>
@@ -77,7 +81,7 @@ const Funds = () => {
                   <b style={{ fontSize: 20, color: "white" }}>
                     Investments + total cash & coins
                   </b>
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   <h3
                     style={{
@@ -120,7 +124,7 @@ const Funds = () => {
                   <TableCell>{curElem.value}</TableCell>
                   <TableCell>{curElem.currency}</TableCell>
                   <TableCell>{curElem.date}</TableCell> */}
-                      <TableCell style={{ marginLeft: 1000 }}>
+                      <TableCell >
                         <b>Fidelity Personal Investing accounts</b> <br></br>
                         <h2 style={({ font: "10" }, { color: "#146BAB" })}>
                           {" "}
@@ -132,13 +136,28 @@ const Funds = () => {
                       <TableCell>
                         <b style={{ fontSize: 20 }}>{curElem.value}</b>
                         <br></br>
-                        Investments + total cash & coins
+                        Investments + total coins
+                      </TableCell>
+
+                      <TableCell>
+                        <b style={{ fontSize: 20 }}>{curElem.valueUDS}</b>
+                        <br></br>
+                        Investments + total cash 
                       </TableCell>
 
                       <TableCell>
                         <b style={{ fontSize: 20 }}>{curElem.currency}</b>
                         <br></br>
                         Gain/loss
+                        <br></br>
+                        
+                      </TableCell>
+
+                      <TableCell>
+                        <b style={{ fontSize: 20 }}>{curElem.currencyUSD}</b>
+                        <br></br>
+                        Gain/loss
+                        <br></br>
                       </TableCell>
 
                       <TableCell>
