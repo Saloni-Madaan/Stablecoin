@@ -7,8 +7,11 @@ import { useParams } from "react-router";
 import data from "./data";
 import { Home, ArrowDropUp, Info } from "@material-ui/icons";
 import img1 from "./images/Capture2.jpg";
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AppBar from "@mui/material/AppBar";
+import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
 import PropTypes from 'prop-types';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import ArrowRightAltSharpIcon from '@mui/icons-material/ArrowRightAltSharp';
 import MuiGrid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -60,11 +63,62 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // import Image from "material-ui-image";
 import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSharp";
 import { borderColor, color, style } from "@mui/system";
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import CloseIcon from '@mui/icons-material/Close';
 {
   /* <img src="https://i.ibb.co/kDH7ZdB/isa.png" alt="isa" border="0"></img> */
 }
 //*--------------------------------------------------------------------------------------------*
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+const Grid3 = styled(MuiGrid)(({ theme }) => ({
+  width: "100%",
+  justifyContent: "left",
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
 
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}
+    
+    >
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
 function CircularProgressWithLabel(props) {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -560,7 +614,14 @@ export default function Checkout() {
   let row = rows["stocks"][id];
 
   //*--------------------------------------------------------------------------------------------*
+  const [open, setOpen1] =useState(false);
 
+  const handleClickOpen1 = () => {
+    setOpen1(true);
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
+  };
   let [openLoder, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -698,6 +759,7 @@ export default function Checkout() {
                       setPaymentText("Payment Successfull");
                       setOpen(false);
                       setShowEtherScan(true);
+                      handleClickOpen1();
                       setDisable(false);
                     })
                     .catch((error) => {
@@ -737,6 +799,7 @@ export default function Checkout() {
         return <>Payment Pending to be confirmed</>;
     }
   };
+ 
   //*--------------------------------------------------------------------------------------------*
 
   return (
@@ -1125,12 +1188,19 @@ export default function Checkout() {
                         href=""
                         style={
                           ({ borderWidth: 1 },
-                          { borderColor: "rgb((255,255,255))" },
-                          { color: "#FFFFFF" },
-                          { backgroundColor: "#414956" })
+                          { color: "#000000" },
+                          { backgroundColor: "#FFFFFF" })
+                          
                         }
                       >
-                        Amount($)
+                        <Typography
+                          variant="button"
+                          display="block"
+                          gutterBottom
+                          color="black"
+                        >
+                          Amount ($)
+                        </Typography>
                       </Button>
 
                       <Button
@@ -1150,20 +1220,17 @@ export default function Checkout() {
 
                       <Divider orientation="vertical" flexItem />
                       <Button
-                        style={
-                          ({ borderWidth: 1 },
-                          { color: "#000000" },
-                          { backgroundColor: "#FFFFFF" })
-                        }
+                      style={
+                        ({ borderWidth: 1 },
+                        { borderColor: "rgb((255,255,255))" },
+                        { color: "#FFFFFF" },
+                        { backgroundColor: "#414956" })
+                      }
+                        
                       >
-                        <Typography
-                          variant="button"
-                          display="block"
-                          gutterBottom
-                          color="black"
-                        >
-                          Amount (USDT)
-                        </Typography>
+                        
+                       <Typography color="white">   Amount (₮)</Typography>
+                    
                       </Button>
                     </Box>{" "}
                   </Toolbar>
@@ -1296,12 +1363,64 @@ export default function Checkout() {
                   <br></br>
                   <Toolbar>
                     {showEtherScan ? (
-                      <a
-                        href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+                      // <a
+                      //   href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
+                      //   target="_blank"
+                      // >
+                      //   Click here to check out your transaction on EtherScan
+                      // </a>
+                      
+                      <div>
+                        
+                        <BootstrapDialog
+        onClose={handleClose1}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose1} textAlign="center">
+          Transaction Confirmtion
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+        <CheckCircleOutlinedIcon color="primary" sx={{ fontSize: 70 ,paddingLeft:28}}/>
+          <Typography gutterBottom>
+            Your Payment has been recieved and your portfolio has been updated. 
+            </Typography>
+          
+          
+          <a
+                       href={`https://rinkeby.etherscan.io/tx/${blockHash}`}
                         target="_blank"
                       >
-                        Click here to check out your transaction on EtherScan
+                        <Typography gutterBottom justifyContent="center" sx={{paddingTop:2,paddingLeft:9}}>
+                        Click here to see your transaction on EtherScan
+                        </Typography>
                       </a>
+                      
+        </DialogContent>
+        <DialogActions>
+        <Grid3 container>
+            <Grid3 item xs>
+            <Link 
+            style={{ textDecoration: "none" }}
+          to={{ pathname: "/dashboard" }}>
+          <Button autoFocus startIcon={< HomeRoundedIcon fontSize="small" />}>
+            Back to Home
+          </Button>
+          </Link>
+          </Grid3>
+          <Grid3 item xs sx={{paddingLeft:23 }}>
+            <Link 
+            style={{ textDecoration: "none" }}
+          to={{ pathname: "/dashboard/portfolio" }}>
+          <Button autoFocus target="_blank" href="http://www.google.com/"  endIcon={< AccountBoxRoundedIcon />}>
+            Open portfolio
+          </Button>
+          </Link>
+          </Grid3>
+          </Grid3>
+        </DialogActions>
+      </BootstrapDialog>
+                        </div>
                     ) : (
                       <></>
                     )}
@@ -1364,6 +1483,7 @@ export default function Checkout() {
 
             {/* This is the loading pen animation */}
             <div className='container'>
+            
   <div className='loader'>
     <div className='loader--dot'></div>
     <div className='loader--dot'></div>
@@ -1371,8 +1491,25 @@ export default function Checkout() {
     <div className='loader--dot'></div>
     <div className='loader--dot'></div>
     <div className='loader--dot'></div>
+    <Box
+        sx={{
+          top: 35,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="caption" component="div" color="white">
+          Please wait for 30 seconds
+        </Typography>
+      </Box>
     <div className='loader--text'></div>
   </div>
+  
 </div>
             {/* <img src="https://i.ibb.co/pZ8sq1w/image-processing20210902-12079-r8o8k9.gif" alt="image-processing20210902-12079-r8o8k9" border="0"></img> */}
             {/* <CircularProgressWithLabel value={progress} /> */}
