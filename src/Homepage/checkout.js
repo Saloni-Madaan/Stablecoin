@@ -1408,12 +1408,12 @@ export default function Checkout() {
           </Button>
           </Link>
           </Grid3>
-          <Grid3 item xs sx={{paddingLeft:23 }}>
+          <Grid3 item xs sx={{paddingLeft:27 }}>
             <Link 
             style={{ textDecoration: "none" }}
           to={{ pathname: "/dashboard/portfolio" }}>
           <Button autoFocus target="_blank" href="http://www.google.com/"  endIcon={< AccountBoxRoundedIcon />}>
-            Open portfolio
+            portfolio
           </Button>
           </Link>
           </Grid3>
