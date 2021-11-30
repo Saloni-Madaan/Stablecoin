@@ -124,7 +124,7 @@ const RenderPortfolio = () => {
         data: [112, 67, 80, 98, 56, 45, 78, 89, 100],
       },
       {
-        name: "US Dollor",
+        name: "US Dollar",
         data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
       },
     ],
@@ -143,7 +143,7 @@ const RenderPortfolio = () => {
         curve: "straight",
       },
       title: {
-        text: "USDT Vs US$",
+        text: "₮ Vs $",
         align: "left",
       },
       grid: {
