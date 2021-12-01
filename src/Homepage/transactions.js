@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100vw",
     height: "100vh",
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: "white",
     paddingTop: theme.spacing(5),
     overflow: "auto",
   },
