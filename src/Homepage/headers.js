@@ -15,7 +15,14 @@ import { styled } from "@mui/material/styles";
 import MuiGrid from "@mui/material/Grid";
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
-  width: "60%",
+  width: "50%",
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
+const Grid5 = styled(MuiGrid)(({ theme }) => ({
+  width: "20%",
   ...theme.typography.body2,
   '& [role="separator"]': {
     margin: theme.spacing(0, 0),
@@ -457,6 +464,11 @@ const abi = [
     type: "function",
   },
 ];
+function funicon(){
+  return (
+    <Typography variant="h5" color="rgb(247, 207, 5)">₮</Typography>
+  )
+}
 
 //*------------------------- -------------------------------------------------------------------*
 
@@ -496,6 +508,10 @@ const Header = () => {
     console.log("balance USDT: ", balance);
     setbalance(balance);
   };
+  let indi=Math.round(balance).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).indexOf(".");
   return (
     <React.Fragment>
       <Toolbar
@@ -660,9 +676,16 @@ const Header = () => {
               </Typography>
             </Grid>
             <Grid item xs>
-              <Typography variant="h5" gutterBottom component="div">
-              ₮ {Math.round(balance)}
-              </Typography>
+              
+              <Grid5 container>
+            <Grid5 item xs>
+              {funicon()}
+              </Grid5>
+              <Grid5 item xs>
+              <Typography variant="h5" gutterBottom component="div"> {Intl.NumberFormat('en-US').format(Math.round(balance))} </Typography>
+              </Grid5>
+              </Grid5>
+             
               <Typography variant="caption" display="block" gutterBottom>
                 USDT available to invest <InfoOutlinedIcon fontSize="small" />
               </Typography>
