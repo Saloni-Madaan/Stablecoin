@@ -596,12 +596,12 @@ export default function Deal() {
                   Name <ArrowUpwardIcon fontSize="small" />
                 </TableCell>
                 <TableCell align="right">
-                  Latest Price{" "}
+                Quantity
                   <InfoOutlinedIcon fontSize="small" color="primary" />
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
-                  Quantity <InfoOutlinedIcon fontSize="small" color="primary" />
+                Latest Price{" "} <InfoOutlinedIcon fontSize="small" color="primary" />
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
@@ -632,7 +632,7 @@ export default function Deal() {
                           {row.name}
                         </Typography>
                       </TableCell>
-                      <TableCell align="right">{row.label} p</TableCell>
+                      <TableCell align="right">{row.label} </TableCell>
                       <TableCell align="right">
                         {ccyFormat(row.price)}
                       </TableCell>
@@ -742,7 +742,7 @@ export default function Deal() {
                 <TableCell component="th" scope="row">
                   Total Coins
                 </TableCell>
-                <TableCell align="right">{Math.round(balance)}</TableCell>
+                <TableCell align="right">₮{Intl.NumberFormat('en-US').format(Math.round(balance))}</TableCell>
                 {/* <TableCell align="center">{funbun("Manage")}</TableCell> */}
               </TableRow>
             </TableBody>
@@ -756,7 +756,7 @@ export default function Deal() {
             <br />
             Total Cash: <b>1400</b>
             <br />
-            Total Coins: <b>₮{Math.round(balance)}</b>
+            Total Coins: <b>₮{Intl.NumberFormat('en-US').format(Math.round(balance))}</b>
           </Grid>
           <Divider orientation="vertical" flexItem>
             {"    "}
