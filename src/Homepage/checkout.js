@@ -986,7 +986,7 @@ export default function Checkout() {
                   color="black"
                   textAlign="left"
                 >
-                  ₮{Math.round(balance)}
+                  ₮{Intl.NumberFormat('en-US').format(Math.round(balance))}
                 </Typography>
                 <br />
                 <Button
@@ -1247,7 +1247,7 @@ export default function Checkout() {
                         <TableRow>
                           <TableCell>
                             <b style={{ color: "#006193" }}>
-                              {row.name} <br></br> Acc
+                              {row.name} <br></br>
                               <TableCell component="th" scope="row"></TableCell>
                             </b>
                           </TableCell>
