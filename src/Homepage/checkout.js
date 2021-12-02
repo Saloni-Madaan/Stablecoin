@@ -986,7 +986,7 @@ export default function Checkout() {
                   color="black"
                   textAlign="left"
                 >
-                 <b style={{ fontSize: 16,color:'rgb(247, 207, 5)' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}
+                 <b style={{ fontSize: 16,color:'#DD9D26' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}
                 </Typography>
                 <br />
                 <Button
@@ -1253,7 +1253,7 @@ export default function Checkout() {
                           </TableCell>
                           <TableCell>
                             {" "}
-                            <b style={{ fontSize: 20,color:'rgb(247, 207, 5)' }}>₮</b><b style={{ fontSize: 20}}>{row.price}</b>
+                            <b style={{ fontSize: 20,color:'#DD9D26' }}>₮</b><b style={{ fontSize: 20}}>{" "+row.price}</b>
                           </TableCell>
                           <TableCell>
                             <TextField
