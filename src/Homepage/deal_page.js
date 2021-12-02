@@ -674,7 +674,7 @@ export default function Deal() {
                           >
                             <MenuItem onClick={handleClose} disableRipple>
                               <MonetizationOnIcon />
-                              Buy
+                              Buy More
                             </MenuItem>
                           </Link>
                           <Divider sx={{ my: 0.5 }} />
