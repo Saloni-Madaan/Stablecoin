@@ -986,7 +986,7 @@ export default function Checkout() {
                   color="black"
                   textAlign="left"
                 >
-                  ₮{Intl.NumberFormat('en-US').format(Math.round(balance))}
+                 <b style={{ fontSize: 16,color:'rgb(247, 207, 5)' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}
                 </Typography>
                 <br />
                 <Button
@@ -1229,7 +1229,7 @@ export default function Checkout() {
                         
                       >
                         
-                       <Typography color="white">   Amount (₮)</Typography>
+                       <Typography color="white">   Amount (<b style={{ fontSize: 18,color:'rgb(247, 207, 5)' }}>₮</b>)</Typography>
                     
                       </Button>
                     </Box>{" "}
@@ -1253,7 +1253,7 @@ export default function Checkout() {
                           </TableCell>
                           <TableCell>
                             {" "}
-                            <b style={{ fontSize: 20 }}>₮ {row.price}  </b>
+                            <b style={{ fontSize: 20,color:'rgb(247, 207, 5)' }}>₮</b><b style={{ fontSize: 20}}>{row.price}</b>
                           </TableCell>
                           <TableCell>
                             <TextField
@@ -1262,7 +1262,7 @@ export default function Checkout() {
                                 console.log(typeof quantity);
                               }}
                               id="quant"
-                              label="₮  0.00"
+                              label="0.00"
                               variant="outlined"
                               sx={{
                                 "& > :not(style)": { m: 1, width: "15ch" },
@@ -1308,7 +1308,7 @@ export default function Checkout() {
                               <Typography color="black">
                                 {" "}
                                 {console.log("quantity is",quantity)}
-                                ₮ {row.price*quantity}{" "}
+                                <b style={{ fontSize: 20,color:'#D2981D' }}>₮</b> {row.price*quantity}{" "}
                               </Typography>{" "}
                             </TableCell>
                             <TableCell style={{ backgroundColor: "#B6CBE1" }}>
