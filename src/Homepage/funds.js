@@ -151,14 +151,14 @@ const Funds = () => {
            
               </Grid5>
               <Grid5 item xs> */}
-              <b style={{fontSize:20}}> <b style={{ fontSize: 20,color:'rgb(247, 207, 5)' }}>₮</b>{curElem.value} </b>
+              <b style={{fontSize:20}}> <b style={{ fontSize: 20,color:'#DD9D26' }}>₮</b>{curElem.value} </b>
               {/* </Grid5>
               </Grid5> */}
                         <br></br>
                         Investments + total coins
                       </TableCell>
                       <TableCell>
-                        <b style={{ fontSize: 20 }}>{curElem.currency}</b>
+                        <b style={{ fontSize: 20 }}><b style={{ fontSize: 20,color:'#DD9D26' }}>₮</b>{curElem.currency}</b>
                         <br></br>
                         Gain/loss
                         <br></br>
