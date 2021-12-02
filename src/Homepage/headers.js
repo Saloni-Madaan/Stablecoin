@@ -13,7 +13,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiGrid from "@mui/material/Grid";
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 const Grid = styled(MuiGrid)(({ theme }) => ({
   width: "50%",
   ...theme.typography.body2,
@@ -528,7 +528,7 @@ const Header = () => {
           className={classes.ArrowDownwardSharp}
           style={{ color: "#FFFFFF" }}
         >
-          Personal investing <ArrowDownwardSharp />
+          Personal investing <KeyboardArrowDownIcon />
         </Typography>
         <Typography variant="h8" className={classes.logoSm}>
           FIL
