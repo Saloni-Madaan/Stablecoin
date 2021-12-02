@@ -616,7 +616,7 @@ export default function Deal() {
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
-                  Value (<b style={{ fontSize: 16,color:'rgb(247, 207, 5)' }}>₮</b>)<InfoOutlinedIcon fontSize="small" color="primary" />
+                  Value (<b style={{ fontSize: 16,color:'#DD9D26' }}>₮</b>)<InfoOutlinedIcon fontSize="small" color="primary" />
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
@@ -647,7 +647,7 @@ export default function Deal() {
                       <TableCell align="right">
                         {ccyFormat(row.price)}
                       </TableCell>
-                      <TableCell align="right"> <b style={{ fontSize: 16,color:'rgb(247, 207, 5)' }}>₮</b>{row.quantity}</TableCell>
+                      <TableCell align="right"> <b style={{ fontSize: 16,color:'#DD9D26' }}>₮</b>{row.quantity}</TableCell>
                       <TableCell align="right">{row.quantityUSD}</TableCell>
                       <TableCell align="right">
                         {row.gl[0]}
@@ -753,7 +753,7 @@ export default function Deal() {
                 <TableCell component="th" scope="row">
                   Total Coins
                 </TableCell>
-                <TableCell align="right"><b style={{ fontSize: 17,color:'rgb(247, 207, 5)' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}</TableCell>
+                <TableCell align="right"><b style={{ fontSize: 17,color:'#DD9D26' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}</TableCell>
                 {/* <TableCell align="center">{funbun("Manage")}</TableCell> */}
               </TableRow>
             </TableBody>
@@ -768,7 +768,7 @@ export default function Deal() {
             Total Cash: <b>1400</b>
             <br />
             
-            Total Coins: <b><b style={{ fontSize: 17,color:'rgb(247, 207, 5)' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}</b>
+            Total Coins: <b><b style={{ fontSize: 17,color:'#DD9D26' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}</b>
           </Grid>
           <Divider orientation="vertical" flexItem>
             {"    "}
