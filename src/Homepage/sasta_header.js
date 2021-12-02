@@ -13,7 +13,13 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiGrid from "@mui/material/Grid";
-
+const Grid5 = styled(MuiGrid)(({ theme }) => ({
+  width: "20%",
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
 const Grid = styled(MuiGrid)(({ theme }) => ({
   width: "60%",
   ...theme.typography.body2,
@@ -28,6 +34,11 @@ const Grid1 = styled(MuiGrid)(({ theme }) => ({
     margin: theme.spacing(0, 0),
   },
 }));
+function funicon(){
+  return (
+    <Typography variant="h5" color="rgb(247, 207, 5)">₮</Typography>
+  )
+}
 const Web3 = require("web3");
 const useStyles = makeStyles((theme) => ({
   toolbar: {
