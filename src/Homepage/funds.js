@@ -16,7 +16,15 @@ import {
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { TableRow } from "@mui/material";
-
+import { styled } from "@mui/material/styles";
+import MuiGrid from "@mui/material/Grid";
+const Grid5 = styled(MuiGrid)(({ theme }) => ({
+  width: "20%",
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
 const useStyles = makeStyles((theme) => ({
   root: {
     // width: "100vw",
@@ -40,7 +48,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "0px",
   },
 }));
-
+function funicon(){
+  return (
+    <Typography variant="h5" color="rgb(247, 207, 5)">₮</Typography>
+  )
+}
 const Funds = () => {
   const classes = useStyles();
 
@@ -134,7 +146,14 @@ const Funds = () => {
                       </TableCell>
 
                       <TableCell>
-                        <b style={{ fontSize: 20 }}>{curElem.value}</b>
+                      {/* <Grid5 container> */}
+            {/* <Grid5 item xs>
+           
+              </Grid5>
+              <Grid5 item xs> */}
+              <b style={{fontSize:20}}> <b style={{ fontSize: 20,color:'rgb(247, 207, 5)' }}>₮</b>{curElem.value} </b>
+              {/* </Grid5>
+              </Grid5> */}
                         <br></br>
                         Investments + total coins
                       </TableCell>
