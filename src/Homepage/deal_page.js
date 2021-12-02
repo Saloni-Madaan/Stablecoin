@@ -407,7 +407,18 @@ const abi = [
     type: "function",
   },
 ];
-
+const Grid5 = styled(MuiGrid)(({ theme }) => ({
+  width: "20%",
+  ...theme.typography.body2,
+  '& [role="separator"]': {
+    margin: theme.spacing(0, 0),
+  },
+}));
+function funicon(){
+  return (
+    <Typography variant="h5" color="rgb(247, 207, 5)">₮</Typography>
+  )
+}
 const tokenAddress = "0xA6363f2718E5Aae3fDB057d93106C5EC7B57FcFe";
 let userWalletAddress;
 const web3 = new Web3(window.web3.currentProvider);
@@ -605,7 +616,7 @@ export default function Deal() {
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
-                  Value (₮)<InfoOutlinedIcon fontSize="small" color="primary" />
+                  Value (<b style={{ fontSize: 16,color:'rgb(247, 207, 5)' }}>₮</b>)<InfoOutlinedIcon fontSize="small" color="primary" />
                   <HeightIcon fontSize="small" color="secondary" />
                 </TableCell>
                 <TableCell align="right">
@@ -636,7 +647,7 @@ export default function Deal() {
                       <TableCell align="right">
                         {ccyFormat(row.price)}
                       </TableCell>
-                      <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell align="right"> <b style={{ fontSize: 16,color:'rgb(247, 207, 5)' }}>₮</b>{row.quantity}</TableCell>
                       <TableCell align="right">{row.quantityUSD}</TableCell>
                       <TableCell align="right">
                         {row.gl[0]}
@@ -742,7 +753,7 @@ export default function Deal() {
                 <TableCell component="th" scope="row">
                   Total Coins
                 </TableCell>
-                <TableCell align="right">₮{Intl.NumberFormat('en-US').format(Math.round(balance))}</TableCell>
+                <TableCell align="right"><b style={{ fontSize: 17,color:'rgb(247, 207, 5)' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}</TableCell>
                 {/* <TableCell align="center">{funbun("Manage")}</TableCell> */}
               </TableRow>
             </TableBody>
@@ -756,7 +767,8 @@ export default function Deal() {
             <br />
             Total Cash: <b>1400</b>
             <br />
-            Total Coins: <b>₮{Intl.NumberFormat('en-US').format(Math.round(balance))}</b>
+            
+            Total Coins: <b><b style={{ fontSize: 17,color:'rgb(247, 207, 5)' }}>₮</b>{Intl.NumberFormat('en-US').format(Math.round(balance))}</b>
           </Grid>
           <Divider orientation="vertical" flexItem>
             {"    "}
