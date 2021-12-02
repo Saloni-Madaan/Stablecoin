@@ -117,15 +117,20 @@ const Portfolio = () => {
 };
 
 const RenderPortfolio = () => {
+  const currentTime = new Date().toLocaleTimeString();
   const a = {
     series: [
       {
         name: "USDT",
-        data: [112, 67, 80, 98, 56, 45, 78, 89, 100],
+        data: [
+          1.21, 1.1311, 1.1321, 1.1111, 0.95, 1.184, 0.936, 1.171132, 0.91,
+          1.1246, 1.21, 1.1311, 1.1321, 1.1111, 0.95, 1.184, 0.936, 1.171132,
+          0.91, 1.1246,
+        ],
       },
       {
         name: "US Dollar",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+        data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       },
     ],
     options: {
@@ -154,15 +159,27 @@ const RenderPortfolio = () => {
       },
       xaxis: {
         categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
+          currentTime,
+          currentTime + 2,
+          currentTime + 4,
+          currentTime + 6,
+          currentTime + 8,
+          currentTime + 10,
+          currentTime + 12,
+          currentTime + 14,
+          currentTime + 16,
+          currentTime + 18,
+          currentTime + 20,
+          currentTime + 22,
+          currentTime + 24,
+          currentTime + 26,
+          currentTime + 28,
+          currentTime + 30,
+          currentTime + 32,
+          currentTime + 34,
+          currentTime + 36,
+          currentTime + 38,
+          currentTime + 40,
         ],
       },
     },
